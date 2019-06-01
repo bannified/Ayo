@@ -1,0 +1,3 @@
+[submodule "Ayo/vendor/spdlog"]
+	path = Ayo/vendor/spdlog
+	url = https://github.com/gabime/spdlog
