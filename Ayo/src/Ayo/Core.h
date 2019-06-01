@@ -9,5 +9,5 @@
 		#define AYO_API __declspec(dllimport)
 	#endif
 #else
-#error Hazel only supports windows!
+#error Ayo only supports windows!
 #endif
