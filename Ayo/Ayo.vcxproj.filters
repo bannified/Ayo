@@ -4,6 +4,9 @@
     <Filter Include="Ayo">
       <UniqueIdentifier>{6ED7870B-DAE0-877C-635C-9E7CCF64937C}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Ayo\Events">
+      <UniqueIdentifier>{921B2F87-7ED3-70D4-E7DA-4930D3B10BC5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Ayo.h" />
@@ -16,6 +19,9 @@
     <ClInclude Include="src\Ayo\EntryPoint.h">
       <Filter>Ayo</Filter>
     </ClInclude>
+    <ClInclude Include="src\Ayo\Events\Event.h">
+      <Filter>Ayo\Events</Filter>
+    </ClInclude>
     <ClInclude Include="src\Ayo\Log.h">
       <Filter>Ayo</Filter>
     </ClInclude>
@@ -23,6 +29,9 @@
   <ItemGroup>
     <ClCompile Include="src\Ayo\Application.cpp">
       <Filter>Ayo</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Ayo\Events\Event.cpp">
+      <Filter>Ayo\Events</Filter>
     </ClCompile>
     <ClCompile Include="src\Ayo\Log.cpp">
       <Filter>Ayo</Filter>
