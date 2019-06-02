@@ -3,13 +3,14 @@
 #include "Ayo/Core.h"
 
 #include <string>
+#include <functional>
 
 namespace Ayo {
 
 	enum class EventType
 	{
 		KeyPressedEvent, KeyReleasedEvent,
-		MouseButtonPress, MouseButtonRelease, MouseWheelScroll, MouseMove,
+		MouseButtonPressed, MouseButtonReleased, MouseWheelScrolled, MouseMoved,
 		AppTick, AppUpdate, AppRender, AppWindowResize, AppWindowClose, AppWindowMinimize,
 	};
 
@@ -23,21 +24,61 @@ namespace Ayo {
 		EventCategoryKeyboard = SINGLE_BIT(4)
 	};
 
+#define EVENT_CLASS_TYPE(eventType) static EventType GetStaticType() { return EventType::##eventType; } \
+										virtual EventType GetEventType() const override { return GetStaticType(); } \
+										virtual const char* GetName() const override { return #eventType; } \
+
+#define EVENT_CLASS_CATEGORY(eventCategory) virtual int GetCategoryFlags() const { return eventCategory; }
+
 	class AYO_API Event
 	{
 	public:
 		bool b_Handled = false;
 
+		/* Event Type */
 		virtual EventType GetEventType() const = 0;
 		virtual const char* GetName() const = 0;
-		virtual int GetCategoryFlags() const = 0;
+		virtual std::string ToString() const
+		{
+			return GetName();
+		};
 
-		virtual std::string ToString() const { return GetName(); };
+		/* Event Category */
+		virtual int GetCategoryFlags() const = 0;		
 
 		inline bool IsInCategory(EventCategory category)
 		{
 			return GetCategoryFlags() & category;
 		}
 	};
+
+	class EventDispatcher
+	{
+		template<typename T>
+		using EventFunction = std::function(bool(T&)); // function returning bool.
+
+	public:
+		EventDispatcher(Event& event)
+			: m_Event(event) {}
+
+		template<typename T>
+		bool Dispatch(EventFunction<T> function)
+		{
+			if (m_Event.GetEventType() == T::GetStaticType())
+			{
+				m_Event.b_Handled = function(*(T*)&m_Event); // Converting Event& to T&
+				return true;
+			}
+			return false;
+		}
+
+	private:
+		Event& m_Event;
+	};
+
+	inline std::ostream& operator<<(std::ostream& os, const Event& e)
+	{
+		return os << e.ToString();
+	}
 }
 

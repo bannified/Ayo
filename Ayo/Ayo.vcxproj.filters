@@ -25,6 +25,8 @@
     <ClInclude Include="src\Ayo\Log.h">
       <Filter>Ayo</Filter>
     </ClInclude>
+    <ClInclude Include="src\Ayo\Events\MouseEvent.h" />
+    <ClInclude Include="src\Ayo\Events\KeyEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Ayo\Application.cpp">
