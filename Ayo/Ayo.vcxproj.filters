@@ -19,14 +19,22 @@
     <ClInclude Include="src\Ayo\EntryPoint.h">
       <Filter>Ayo</Filter>
     </ClInclude>
+    <ClInclude Include="src\Ayo\Events\ApplicationEvent.h">
+      <Filter>Ayo\Events</Filter>
+    </ClInclude>
     <ClInclude Include="src\Ayo\Events\Event.h">
+      <Filter>Ayo\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Ayo\Events\KeyEvent.h">
+      <Filter>Ayo\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Ayo\Events\MouseEvent.h">
       <Filter>Ayo\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\Ayo\Log.h">
       <Filter>Ayo</Filter>
     </ClInclude>
-    <ClInclude Include="src\Ayo\Events\MouseEvent.h" />
-    <ClInclude Include="src\Ayo\Events\KeyEvent.h" />
+    <ClInclude Include="src\ayopch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Ayo\Application.cpp">
@@ -38,5 +46,6 @@
     <ClCompile Include="src\Ayo\Log.cpp">
       <Filter>Ayo</Filter>
     </ClCompile>
+    <ClCompile Include="src\ayopch.cpp" />
   </ItemGroup>
 </Project>

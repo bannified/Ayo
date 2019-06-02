@@ -76,7 +76,8 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>ayopch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>AYO_PLATFORM_WINDOWS;AYO_BUILD_DLL;AYO_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>src;vendor\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -96,7 +97,8 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>ayopch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>AYO_PLATFORM_WINDOWS;AYO_BUILD_DLL;AYO_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>src;vendor\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -116,7 +118,8 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>ayopch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>AYO_PLATFORM_WINDOWS;AYO_BUILD_DLL;AYO_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>src;vendor\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -139,15 +142,20 @@
     <ClInclude Include="src\Ayo\Application.h" />
     <ClInclude Include="src\Ayo\Core.h" />
     <ClInclude Include="src\Ayo\EntryPoint.h" />
+    <ClInclude Include="src\Ayo\Events\ApplicationEvent.h" />
     <ClInclude Include="src\Ayo\Events\Event.h" />
     <ClInclude Include="src\Ayo\Events\KeyEvent.h" />
     <ClInclude Include="src\Ayo\Events\MouseEvent.h" />
     <ClInclude Include="src\Ayo\Log.h" />
+    <ClInclude Include="src\ayopch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Ayo\Application.cpp" />
     <ClCompile Include="src\Ayo\Events\Event.cpp" />
     <ClCompile Include="src\Ayo\Log.cpp" />
+    <ClCompile Include="src\ayopch.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

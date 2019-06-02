@@ -2,9 +2,6 @@
 
 #include "Event.h"
 
-#include <string>
-#include <sstream>
-
 namespace Ayo {
 
 	class AYO_API MouseMovedEvent : public Event

@@ -18,6 +18,9 @@ project "Ayo"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
+	pchheader "ayopch.h"
+	pchsource "Ayo/src/ayopch.cpp"
+
 	files
 	{
 		"%{prj.name}/src/**.h", -- every .h file

@@ -1,3 +1,5 @@
+#include "ayopch.h"
+
 #include "Application.h"
 
 namespace Ayo {

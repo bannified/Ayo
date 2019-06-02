@@ -2,9 +2,6 @@
 
 #include "Event.h"
 
-#include <string>
-#include <sstream>
-
 namespace Ayo 
 {
 	class KeyEvent : public Event
