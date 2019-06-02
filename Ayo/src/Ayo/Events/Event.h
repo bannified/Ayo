@@ -55,18 +55,18 @@ namespace Ayo {
 	class EventDispatcher
 	{
 		template<typename T>
-		using EventFunction = std::function(bool(T&)); // function returning bool.
+		using EventFunction = std::function<bool(T&)>; // function returning bool.
 
 	public:
 		EventDispatcher(Event& event)
 			: m_Event(event) {}
 
 		template<typename T>
-		bool Dispatch(EventFunction<T> function)
+		bool Dispatch(EventFunction<T> func)
 		{
 			if (m_Event.GetEventType() == T::GetStaticType())
 			{
-				m_Event.b_Handled = function(*(T*)&m_Event); // Converting Event& to T&
+				m_Event.b_Handled = func(*(T*)&m_Event); // Converting Event& to T&
 				return true;
 			}
 			return false;
