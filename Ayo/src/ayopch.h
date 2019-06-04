@@ -24,6 +24,9 @@
 
 #include <algorithm>
 
+// Self
+#include "Ayo/Log.h"
+
 #ifdef AYO_PLATFORM_WINDOWS 
 	#include <Windows.h>
 

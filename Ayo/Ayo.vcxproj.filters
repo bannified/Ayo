@@ -34,6 +34,9 @@
     <ClInclude Include="src\Ayo\Log.h">
       <Filter>Ayo</Filter>
     </ClInclude>
+    <ClInclude Include="src\Ayo\Window.h">
+      <Filter>Ayo</Filter>
+    </ClInclude>
     <ClInclude Include="src\ayopch.h" />
   </ItemGroup>
   <ItemGroup>

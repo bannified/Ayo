@@ -1,5 +1,7 @@
 #pragma once
 
+#include "ayopch.h"
+
 #include "Ayo/Core.h"
 
 namespace Ayo {

@@ -10,6 +10,12 @@ workspace "Ayo"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}" -- Debug-Windows-x64
 
+-- Include directories relative to root folder (where solution is)
+IncludeDir = {}
+IncludeDir["glfw"] = "Ayo/vendor/glfw/include"
+
+include "Ayo/vendor/glfw" -- includes the premake5 file in glfw. kind of copy pasting it in here.
+
 project "Ayo"
 	location "Ayo" -- Relative path of project 
 	kind "SharedLib" -- .dll file
@@ -31,6 +37,12 @@ project "Ayo"
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
+		"%{IncludeDir.glfw}"
+	}
+
+	links {
+		"GLFW",
+		"opengl32.lib"
 	}
 
 	filter "system:windows" -- everything under this filter only apply to windows
@@ -50,7 +62,11 @@ project "Ayo"
 		}
 
 	filter "configurations:Debug" -- just in Debug.
-		defines "AYO_DEBUG"
+		defines 
+		{
+			"AYO_DEBUG",
+			"AYO_ENABLE_ASSERTS"
+		}
 		symbols "On"
 
 	filter "configurations:Release"

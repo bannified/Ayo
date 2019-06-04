@@ -11,5 +11,14 @@
 #error Ayo only supports windows!
 #endif
 
+// Asserts
+#ifdef AYO_ENABLE_ASSERTS
+	#define AYO_ASSERT(x, ...) { if ((!x)) { AYO_ERROR("Assertion failed: {0}", __VA_ARGS__); __debugbreak(); } } //TODO: Change to a better assert.
+	#define AYO_CORE_ASSERT(x, ...) { if ((!x)) { AYO_CORE_ERROR("Assertion failed: {0}", __VA_ARGS__); __debugbreak(); } }
+#else 
+	#define AYO_ASSERT(x, ...)
+	#define AYO_CORE_ASSERT(x, ...)
+#endif
+
 // General macros
 #define SINGLE_BIT(x) 1 << x
