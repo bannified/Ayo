@@ -1,6 +1,8 @@
 #include "ayopch.h"
 #include "WindowsWindow.h"
 
+#include "glad/glad.h"
+
 namespace Ayo {
 
 	static bool isGLFWInitialized = false;
@@ -68,6 +70,11 @@ namespace Ayo {
 
 		m_Window = glfwCreateWindow(properties.Width, properties.Height, properties.Title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(m_Window);
+
+		// glad
+		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		AYO_CORE_ASSERT(status, "Failed to initialize Glad!");
+
 		glfwSetWindowUserPointer(m_Window, &m_WindowData);
 		SetVSync(true);
 

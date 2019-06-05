@@ -13,8 +13,10 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}" -- Debug-Windows
 -- Include directories relative to root folder (where solution is)
 IncludeDir = {}
 IncludeDir["glfw"] = "Ayo/vendor/glfw/include"
+IncludeDir["glad"] = "Ayo/vendor/glad/include"
 
 include "Ayo/vendor/glfw" -- includes the premake5 file in glfw. kind of copy pasting it in here.
+include "Ayo/vendor/glad"
 
 project "Ayo"
 	location "Ayo" -- Relative path of project 
@@ -37,11 +39,13 @@ project "Ayo"
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
-		"%{IncludeDir.glfw}"
+		"%{IncludeDir.glfw}",
+		"%{IncludeDir.glad}"
 	}
 
 	links {
 		"GLFW",
+		"Glad",
 		"opengl32.lib"
 	}
 
@@ -53,6 +57,7 @@ project "Ayo"
 		{
 			"AYO_PLATFORM_WINDOWS",
 			"AYO_BUILD_DLL",
+			"GLFW_INCLUDE_NONE"
 		}
 
 		postbuildcommands
