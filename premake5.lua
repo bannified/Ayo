@@ -47,7 +47,6 @@ project "Ayo"
 
 	filter "system:windows" -- everything under this filter only apply to windows
 		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines 
@@ -68,14 +67,20 @@ project "Ayo"
 			"AYO_ENABLE_ASSERTS"
 		}
 		symbols "On"
+		runtime "Debug"
+		staticruntime "off"
 
 	filter "configurations:Release"
 		defines "AYO_RELEASE"
 		symbols "On"
+		runtime "Release"
+		staticruntime "off"
 
 	filter "configurations:Dist"
 		defines "AYO_DIST"
 		symbols "On"
+		runtime "Release"
+		staticruntime "off"
 
 	-- filter { "system:windows", "configurations:Release"} -- for multiple filters.
 
