@@ -29,14 +29,50 @@ namespace Ayo {
 
 		AYO_CORE_TRACE("{0}", e);
 
+		// From top of the stack.
+		for (auto rit = m_LayerStack.rbegin(); rit != m_LayerStack.rend(); ++rit) {
+			(*rit)->OnEvent(e);
+
+			if (e.b_Handled)
+			{
+				break; // stop propagating further once handled.
+			}
+		}
+
+		
 	}
 
 	void Application::Run()
 	{
 		while (m_Running) 
 		{
+			// from the bottom of the stack.
+			for (Layer* layer : m_LayerStack) {
+				layer->OnUpdate();
+			}
+
 			m_Window->OnUpdate();
 		}
+	}
+
+	void Application::PushLayer(Layer* layer)
+	{
+		m_LayerStack.PushLayer(layer);
+	}
+
+	void Application::PushOverlay(Layer* overlay)
+	{
+		m_LayerStack.PushOverlay(overlay);
+	}
+
+	void Application::RemoveLayer(Layer* layer)
+	{
+		m_LayerStack.RemoveLayer(layer);
+	}
+
+	void Application::RemoveOverlay(Layer* overlay)
+	{
+		m_LayerStack.RemoveOverlay(overlay);
 	}
 
 	bool Application::OnWindowClose(AppWindowCloseEvent& e)
@@ -44,5 +80,7 @@ namespace Ayo {
 		m_Running = false;
 		return true;
 	}
+
+	
 
 }

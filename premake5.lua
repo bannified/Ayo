@@ -112,7 +112,7 @@ project "Sandbox"
 
 	filter "system:windows" -- everything under this filter only apply to windows
 		cppdialect "C++17"
-		staticruntime "On"
+		staticruntime "Off"
 		systemversion "latest"
 
 		defines 
@@ -123,12 +123,18 @@ project "Sandbox"
 	filter "configurations:Debug" -- just in Debug.
 		defines "AYO_DEBUG"
 		symbols "On"
+		runtime "Debug"
+		staticruntime "off"
 
 	filter "configurations:Release"
 		defines "AYO_RELEASE"
 		symbols "On"
+		runtime "Release"
+		staticruntime "off"
 
 	filter "configurations:Dist"
 		defines "AYO_DIST"
 		symbols "On"
+		runtime "Release"
+		staticruntime "off"
 

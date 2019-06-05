@@ -149,6 +149,8 @@
     <ClInclude Include="src\Ayo\Events\Event.h" />
     <ClInclude Include="src\Ayo\Events\KeyEvent.h" />
     <ClInclude Include="src\Ayo\Events\MouseEvent.h" />
+    <ClInclude Include="src\Ayo\Layer.h" />
+    <ClInclude Include="src\Ayo\LayerStack.h" />
     <ClInclude Include="src\Ayo\Log.h" />
     <ClInclude Include="src\Ayo\Window.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
@@ -157,6 +159,8 @@
   <ItemGroup>
     <ClCompile Include="src\Ayo\Application.cpp" />
     <ClCompile Include="src\Ayo\Events\Event.cpp" />
+    <ClCompile Include="src\Ayo\Layer.cpp" />
+    <ClCompile Include="src\Ayo\LayerStack.cpp" />
     <ClCompile Include="src\Ayo\Log.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\ayopch.cpp">

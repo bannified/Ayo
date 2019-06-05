@@ -37,6 +37,12 @@
     <ClInclude Include="src\Ayo\Events\MouseEvent.h">
       <Filter>Ayo\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Ayo\Layer.h">
+      <Filter>Ayo</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Ayo\LayerStack.h">
+      <Filter>Ayo</Filter>
+    </ClInclude>
     <ClInclude Include="src\Ayo\Log.h">
       <Filter>Ayo</Filter>
     </ClInclude>
@@ -54,6 +60,12 @@
     </ClCompile>
     <ClCompile Include="src\Ayo\Events\Event.cpp">
       <Filter>Ayo\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Ayo\Layer.cpp">
+      <Filter>Ayo</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Ayo\LayerStack.cpp">
+      <Filter>Ayo</Filter>
     </ClCompile>
     <ClCompile Include="src\Ayo\Log.cpp">
       <Filter>Ayo</Filter>
