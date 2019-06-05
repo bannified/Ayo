@@ -64,6 +64,12 @@ namespace Ayo {
 		glfwMakeContextCurrent(m_Window);
 		glfwSetWindowUserPointer(m_Window, &m_WindowData);
 		SetVSync(true);
+
+		// Setting GLFW callbacks.
+		glfwSetWindowSizeCallback(m_Window);
+		
+		WindowData* data = (WindowData*)*glfwGetWindowUserPointer(m_Window);
+
 	}
 
 	void Ayo::WindowsWindow::Shutdown()
