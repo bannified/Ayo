@@ -5,6 +5,11 @@ namespace Ayo {
 
 	static bool isGLFWInitialized = false;
 
+	static void GLFWErrorCallback(int error, const char* description)
+	{
+		AYO_CORE_ERROR("GLFW Error {0}: {1}", error, description);
+	};
+
 	Window* Window::Create(const WindowProperties& properties)
 	{
 		return new WindowsWindow(properties);
@@ -57,6 +62,7 @@ namespace Ayo {
 			int success = glfwInit();
 			AYO_ASSERT(success, "Could not initialize GLFW");
 
+			glfwSetErrorCallback(GLFWErrorCallback);
 			isGLFWInitialized = true;
 		}
 
@@ -66,9 +72,99 @@ namespace Ayo {
 		SetVSync(true);
 
 		// Setting GLFW callbacks.
-		glfwSetWindowSizeCallback(m_Window);
+
+		/* --- Window Callbacks --- */
+		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
+		{
+			WindowData* data = (WindowData*)glfwGetWindowUserPointer(window);
+			data->Width = width;
+			data->Height = height;
+			
+			AppWindowResizeEvent e(width, height);
+			data->EventCallback(e);
+		});
+
+		glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window)
+		{
+			WindowData* data = (WindowData*)glfwGetWindowUserPointer(window);
+			
+			AppWindowCloseEvent e;
+			data->EventCallback(e);
+		});
+		/* ------------------------- */
 		
-		WindowData* data = (WindowData*)*glfwGetWindowUserPointer(m_Window);
+		/* --- Mouse Callbacks --- */
+
+		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int button, int action, int mods)
+		{
+			WindowData* data = (WindowData*)glfwGetWindowUserPointer(window);
+
+			// TODO: Add in mods to MouseButton Events.
+			switch (action) {
+				case GLFW_PRESS:
+				{
+					MouseButtonPressedEvent e(button);
+					data->EventCallback(e);
+					break;
+				}
+				case GLFW_RELEASE:
+				{
+					MouseButtonReleasedEvent e(button);
+					data->EventCallback(e);
+					break;
+				}					
+			}
+
+		});
+
+		glfwSetCursorPosCallback(m_Window, [](GLFWwindow* window, double x, double y)
+		{
+			WindowData* data = (WindowData*)glfwGetWindowUserPointer(window);
+
+			MouseMovedEvent e((float)x, (float)y);
+			data->EventCallback(e);
+		});
+
+		glfwSetScrollCallback(m_Window, [](GLFWwindow* window, double xOffset, double yOffset)
+		{
+			WindowData* data = (WindowData*)glfwGetWindowUserPointer(window);
+
+			MouseScrolledEvent e(xOffset, yOffset);
+			data->EventCallback(e);
+		});
+
+		/* ----------------------- */
+
+		/* --- Keyboard Callbacks --- */
+
+		glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
+		{
+			WindowData* data = (WindowData*)glfwGetWindowUserPointer(window);
+
+			// TODO: Add in mods to Key Events.
+			switch (action) {
+				case GLFW_PRESS:
+				{
+					KeyPressedEvent e(key, 0);
+					data->EventCallback(e);
+					break;
+				}
+				case GLFW_RELEASE:
+				{
+					KeyReleasedEvent e(key);
+					data->EventCallback(e);
+					break;
+				}
+				case GLFW_REPEAT:
+				{
+					KeyPressedEvent e(key, 1); //TODO: Extract key repeat count.
+					data->EventCallback(e);
+					break;
+				}
+			}
+		});
+
+		/* -------------------------- */
 
 	}
 

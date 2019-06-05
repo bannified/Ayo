@@ -5,6 +5,9 @@
 #include "Ayo/Core.h"
 #include "Ayo/Window.h"
 #include "Ayo/Events/Event.h"
+#include "Ayo/Events/ApplicationEvent.h"
+#include "Ayo/Events/KeyEvent.h"
+#include "Ayo/Events/MouseEvent.h"
 
 #include "GLFW/glfw3.h"
 
