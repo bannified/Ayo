@@ -16,6 +16,13 @@ namespace Ayo {
 		EVENT_CLASS_TYPE(MouseMoved)
 		EVENT_CLASS_CATEGORY(EventCategoryInput | EventCategoryMouse)
 
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "MouseButtonPressedEvent: (" << m_X << ", " << m_Y << ")";
+			return ss.str();
+		}
+
 	private:
 		float m_X;
 		float m_Y;
@@ -32,6 +39,13 @@ namespace Ayo {
 
 		EVENT_CLASS_TYPE(MouseWheelScrolled)
 		EVENT_CLASS_CATEGORY(EventCategoryInput | EventCategoryMouse)
+
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "MouseButtonPressedEvent: Offsets - (" << m_XOffset << ", " << m_YOffset << ")";
+			return ss.str();
+		}
 
 	private:
 		float m_XOffset;
