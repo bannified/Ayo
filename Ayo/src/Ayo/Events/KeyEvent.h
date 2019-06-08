@@ -33,7 +33,7 @@ namespace Ayo
 
 		inline int GetRepeatCount() { return m_RepeatCount; }
 
-		EVENT_CLASS_TYPE(KeyPressedEvent)
+		EVENT_CLASS_TYPE(KeyPressed)
 
 	private:
 		int m_RepeatCount;
@@ -52,6 +52,24 @@ namespace Ayo
 			return ss.str();
 		}
 
-		EVENT_CLASS_TYPE(KeyReleasedEvent)
+		EVENT_CLASS_TYPE(KeyReleased)
+	};
+
+	class KeyTypedEvent : public KeyEvent
+	{
+	public:
+		KeyTypedEvent(int keycode)
+			: KeyEvent(keycode)
+		{
+		}
+
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "KeyReleasedEvent: " << m_KeyCode;
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(KeyTyped)
 	};
 }

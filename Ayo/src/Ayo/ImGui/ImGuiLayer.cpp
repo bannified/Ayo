@@ -142,7 +142,7 @@ namespace Ayo {
 
 		AYO_INFO("ImGuiLayer: {0}", e);
 
-
+		/* ------ Mouse -------*/
 		dispatcher.Dispatch<MouseButtonPressedEvent>([](MouseButtonPressedEvent& e) -> bool
 		{
 			ImGuiIO& io = ImGui::GetIO();
@@ -194,7 +194,9 @@ namespace Ayo {
 
 			return io.WantCaptureMouse;
 		});
+		/* -------------------- */
 
+		/* ------ Keys -------*/
 		dispatcher.Dispatch<KeyPressedEvent>([](KeyPressedEvent& e) -> bool
 		{
 			ImGuiIO& io = ImGui::GetIO();
@@ -202,11 +204,6 @@ namespace Ayo {
 			int keycode = e.GetKeyCode();
 
 			io.KeysDown[keycode] = true;
-			
-			if (io.WantTextInput) 
-			{
-				io.AddInputCharacter(keycode);
-			}
 
 			io.KeyCtrl = io.KeysDown[GLFW_KEY_LEFT_CONTROL] || io.KeysDown[GLFW_KEY_RIGHT_CONTROL];
 			io.KeyCtrl = io.KeysDown[GLFW_KEY_LEFT_ALT] || io.KeysDown[GLFW_KEY_RIGHT_ALT];
@@ -232,6 +229,28 @@ namespace Ayo {
 			return io.WantCaptureKeyboard;
 		});
 
+		dispatcher.Dispatch<KeyTypedEvent>([](KeyTypedEvent& e) -> bool
+		{
+			ImGuiIO& io = ImGui::GetIO();
+
+			int keycode = e.GetKeyCode();
+
+			if (keycode > 0 && keycode < 0x10000) 
+			{
+				io.AddInputCharacter((unsigned short)keycode);
+			}
+
+			io.KeyCtrl = io.KeysDown[GLFW_KEY_LEFT_CONTROL] || io.KeysDown[GLFW_KEY_RIGHT_CONTROL];
+			io.KeyCtrl = io.KeysDown[GLFW_KEY_LEFT_ALT] || io.KeysDown[GLFW_KEY_RIGHT_ALT];
+			io.KeyCtrl = io.KeysDown[GLFW_KEY_LEFT_SHIFT] || io.KeysDown[GLFW_KEY_RIGHT_SHIFT];
+			io.KeyCtrl = io.KeysDown[GLFW_KEY_LEFT_SUPER] || io.KeysDown[GLFW_KEY_RIGHT_SUPER];
+
+			return io.WantCaptureKeyboard;
+		});
+		/* -------------------- */
+
+		/* ------ App -------*/
+
 		dispatcher.Dispatch<AppWindowResizeEvent>([](AppWindowResizeEvent& e) -> bool
 		{
 			ImGuiIO& io = ImGui::GetIO();
@@ -242,5 +261,7 @@ namespace Ayo {
 
 			return false;
 		});
+
+		/* -------------------- */
 	}
 }
