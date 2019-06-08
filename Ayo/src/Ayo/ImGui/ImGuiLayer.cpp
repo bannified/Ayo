@@ -175,8 +175,8 @@ namespace Ayo {
 		{
 			ImGuiIO& io = ImGui::GetIO();
 
-			io.MouseWheel = e.GetYOffset();
-			io.MouseWheelH = e.GetXOffset();
+			io.MouseWheel += e.GetYOffset();
+			io.MouseWheelH += e.GetXOffset();
 
 			return io.WantCaptureMouse;
 		});
