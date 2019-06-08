@@ -19,6 +19,7 @@ namespace Ayo {
 	void LayerStack::PushLayer(Layer* layer)
 	{
 		m_TopLayerPos = m_Layers.emplace(m_TopLayerPos, layer);
+		layer->OnAttach();
 	}
 
 	void LayerStack::RemoveLayer(Layer* layer)
@@ -29,11 +30,14 @@ namespace Ayo {
 			m_Layers.erase(toRemove);
 			--m_TopLayerPos;
 		}
+
+		layer->OnDetach();
 	}
 
 	void LayerStack::PushOverlay(Layer* overlay)
 	{
 		m_Layers.emplace_back(overlay);
+		overlay->OnAttach();
 	}
 
 	void LayerStack::RemoveOverlay(Layer* overlay)
@@ -43,6 +47,7 @@ namespace Ayo {
 		if (toRemove != m_Layers.end()) { // valid overlay is found within vector
 			m_Layers.erase(toRemove);
 		}
-	}
 
+		overlay->OnDetach();
+	}
 }
