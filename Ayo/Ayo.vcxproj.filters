@@ -7,6 +7,9 @@
     <Filter Include="Ayo\Events">
       <UniqueIdentifier>{921B2F87-7ED3-70D4-E7DA-4930D3B10BC5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Ayo\ImGui">
+      <UniqueIdentifier>{18A75B04-8411-107B-CD4F-C12039F9EDCF}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Platform">
       <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
     </Filter>
@@ -40,6 +43,9 @@
     <ClInclude Include="src\Ayo\Events\MouseEvent.h">
       <Filter>Ayo\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Ayo\ImGui\ImGuiLayer.h">
+      <Filter>Ayo\ImGui</Filter>
+    </ClInclude>
     <ClInclude Include="src\Ayo\Layer.h">
       <Filter>Ayo</Filter>
     </ClInclude>
@@ -59,7 +65,6 @@
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\ayopch.h" />
-    <ClInclude Include="src\Ayo\ImGui\ImGuiLayer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Ayo\Application.cpp">
@@ -67,6 +72,9 @@
     </ClCompile>
     <ClCompile Include="src\Ayo\Events\Event.cpp">
       <Filter>Ayo\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Ayo\ImGui\ImGuiLayer.cpp">
+      <Filter>Ayo\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="src\Ayo\Layer.cpp">
       <Filter>Ayo</Filter>
@@ -84,6 +92,5 @@
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\ayopch.cpp" />
-    <ClCompile Include="src\Ayo\ImGui\ImGuiLayer.cpp" />
   </ItemGroup>
 </Project>
