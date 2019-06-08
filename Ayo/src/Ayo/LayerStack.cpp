@@ -8,7 +8,6 @@ namespace Ayo {
 		m_TopLayerPos = m_Layers.begin();
 	}
 
-
 	LayerStack::~LayerStack()
 	{
 		// free layers in memory.

@@ -24,6 +24,8 @@ namespace Ayo {
 		inline unsigned int GetWidth() const override { return m_WindowData.Width; };
 		inline unsigned int GetHeight() const override { return m_WindowData.Height; };
 		
+		inline GLFWwindow* GetGLFWWindow() { return m_Window; }
+
 		void SetVSync(bool enabled) override;
 		bool IsVSync() const override;
 
