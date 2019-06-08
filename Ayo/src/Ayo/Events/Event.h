@@ -8,7 +8,7 @@ namespace Ayo {
 
 	enum class EventType
 	{
-		KeyPressedEvent, KeyReleasedEvent,
+		KeyPressed, KeyReleased, KeyTyped,
 		MouseButtonPressed, MouseButtonReleased, MouseWheelScrolled, MouseMoved,
 		AppTick, AppUpdate, AppRender, AppWindowResize, AppWindowClose, AppWindowMinimize,
 	};

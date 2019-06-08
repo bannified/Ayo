@@ -14,9 +14,11 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}" -- Debug-Windows
 IncludeDir = {}
 IncludeDir["glfw"] = "Ayo/vendor/glfw/include"
 IncludeDir["glad"] = "Ayo/vendor/glad/include"
+IncludeDir["imgui"] = "Ayo/vendor/ImGui"
 
 include "Ayo/vendor/glfw" -- includes the premake5 file in glfw. kind of copy pasting it in here.
 include "Ayo/vendor/glad"
+include "Ayo/vendor/ImGui"
 
 project "Ayo"
 	location "Ayo" -- Relative path of project 
@@ -40,13 +42,15 @@ project "Ayo"
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
 		"%{IncludeDir.glfw}",
-		"%{IncludeDir.glad}"
+		"%{IncludeDir.glad}",
+		"%{IncludeDir.imgui}"
 	}
 
 	links {
 		"GLFW",
 		"Glad",
-		"opengl32.lib"
+		"opengl32.lib",
+		"ImGui"
 	}
 
 	filter "system:windows" -- everything under this filter only apply to windows

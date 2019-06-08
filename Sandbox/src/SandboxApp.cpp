@@ -10,7 +10,7 @@ public:
 
 	void OnUpdate() override
 	{
-		AYO_INFO("ExampleLayer::Update");
+		//AYO_INFO("ExampleLayer::Update");
 	}
 
 	void OnEvent(Ayo::Event& e) override
@@ -25,6 +25,7 @@ class Sandbox : public Ayo::Application
 		Sandbox()
 		{
 			PushLayer(new ExampleLayer());
+			PushOverlay(new Ayo::ImGuiLayer());
 		}
 
 		~Sandbox()

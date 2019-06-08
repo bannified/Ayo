@@ -142,7 +142,7 @@ namespace Ayo {
 
 		/* ----------------------- */
 
-		/* --- Keyboard Callbacks --- */
+		/* --- Key Callbacks --- */
 
 		glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
 		{
@@ -169,6 +169,14 @@ namespace Ayo {
 					break;
 				}
 			}
+		});
+
+		glfwSetCharCallback(m_Window, [](GLFWwindow* window, unsigned int keycode)
+		{
+			WindowData* data = (WindowData*)glfwGetWindowUserPointer(window);
+			KeyTypedEvent e(keycode);
+
+			data->EventCallback(e);
 		});
 
 		/* -------------------------- */
