@@ -4,6 +4,7 @@
 #include "imgui.h"
 #include "Platform/OpenGL/imgui_impl_opengl3.h"
 #include "GLFW/glfw3.h"
+#include "glad/glad.h"
 
 #include "Ayo/Window.h"
 #include "Platform/Windows/WindowsWindow.h"
@@ -90,7 +91,7 @@ namespace Ayo {
 
 	void ImGuiLayer::OnUpdate()
 	{
-		glfwPollEvents();
+		//glfwPollEvents();
 
 		ImGuiIO& io = ImGui::GetIO();
 
@@ -119,7 +120,19 @@ namespace Ayo {
 
 		// Rendering
 		ImGui::Render();
+
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+		int display_w, display_h;
+
+		glfwGetFramebufferSize(g_Window, &display_w, &display_h);
+
+		glViewport(0, 0, display_w, display_h);
+		glClearColor(0, 0, 1, 1);
+		glClear(GL_COLOR_BUFFER_BIT);
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+		//glfwSwapBuffers(g_Window);
 	}
 
 	void ImGuiLayer::OnEvent(Event& e)
@@ -136,7 +149,7 @@ namespace Ayo {
 
 			io.MouseDown[button] = true;
 
-			return io.MouseClicked[button];
+			return io.WantCaptureMouse;
 		});
 
 		dispatcher.Dispatch<MouseButtonReleasedEvent>([](MouseButtonReleasedEvent& e) -> bool
@@ -146,7 +159,7 @@ namespace Ayo {
 
 			io.MouseDown[button] = false;
 
-			return io.MouseReleased[button];
+			return io.WantCaptureMouse;
 		});
 
 		dispatcher.Dispatch<MouseMovedEvent>([](MouseMovedEvent& e) -> bool
@@ -155,7 +168,7 @@ namespace Ayo {
 
 			io.MousePos = ImVec2(e.GetMouseX(), e.GetMouseY());
 
-			return false;
+			return io.WantCaptureMouse;
 		});
 
 		dispatcher.Dispatch<MouseScrolledEvent>([](MouseScrolledEvent& e) -> bool
@@ -165,7 +178,34 @@ namespace Ayo {
 			io.MouseWheel = e.GetYOffset();
 			io.MouseWheelH = e.GetXOffset();
 
-			return false;
+			return io.WantCaptureMouse;
+		});
+
+		dispatcher.Dispatch<KeyPressedEvent>([](KeyPressedEvent& e) -> bool
+		{
+			ImGuiIO& io = ImGui::GetIO();
+
+			int keycode = e.GetKeyCode();
+
+			io.KeysDown[keycode] = true;
+			
+			if (io.WantTextInput) 
+			{
+				io.AddInputCharacter(keycode);
+			}
+
+			return io.WantCaptureKeyboard;
+		});
+
+		dispatcher.Dispatch<KeyReleasedEvent>([](KeyReleasedEvent& e) -> bool
+		{
+			ImGuiIO& io = ImGui::GetIO();
+
+			int keycode = e.GetKeyCode();
+
+			io.KeysDown[keycode] = false;
+
+			return io.WantCaptureKeyboard;
 		});
 	}
 }

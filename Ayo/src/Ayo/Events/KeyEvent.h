@@ -6,6 +6,9 @@ namespace Ayo
 {
 	class KeyEvent : public Event
 	{
+	public:
+		inline int GetKeyCode() { return m_KeyCode; }
+
 	protected:
 		KeyEvent(int keycode)
 			: m_KeyCode(keycode) {}
@@ -27,6 +30,8 @@ namespace Ayo
 			ss << "KeyPressedEvent: " << m_KeyCode << ", RepeatCount: " << m_RepeatCount;
 			return ss.str();
 		}
+
+		inline int GetRepeatCount() { return m_RepeatCount; }
 
 		EVENT_CLASS_TYPE(KeyPressedEvent)
 
