@@ -23,6 +23,9 @@ namespace Ayo {
 		void RemoveLayer(Layer* layer);
 		void RemoveOverlay(Layer* overlay);
 
+		inline static Application& Get() { return *s_Instance; }
+		inline Window& GetWindow() { return *m_Window; }
+
 	private:
 		bool OnWindowClose(AppWindowCloseEvent& e);
 
@@ -32,6 +35,8 @@ namespace Ayo {
 		void OnEvent(Event& e);
 
 		LayerStack m_LayerStack;
+
+		static Application* s_Instance;
 	};
 
 	// To be defined in CLIENT
