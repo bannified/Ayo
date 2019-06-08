@@ -20,10 +20,6 @@ namespace Ayo {
 		//void OnDisable();
 		float m_Time = 0;
 
-		void ImGui_ImplGlfw_NewFrame();
-		static void ImGui_ImplGlfw_UpdateMousePosAndButtons();
-		static void ImGui_ImplGlfw_UpdateMouseCursor();
-
 	};
 }
 

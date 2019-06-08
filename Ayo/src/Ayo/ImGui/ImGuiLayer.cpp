@@ -3,11 +3,12 @@
 
 #include "imgui.h"
 #include "Platform/OpenGL/imgui_impl_opengl3.h"
-#include "GLFW/glfw3.h"
-#include "glad/glad.h"
+#include <GLFW/glfw3.h>
+#include <glad/glad.h>
 
 #include "Ayo/Window.h"
 #include "Platform/Windows/WindowsWindow.h"
+#include "Ayo/Events/ApplicationEvent.h"
 
 #include "Ayo/Application.h"
 
@@ -206,6 +207,17 @@ namespace Ayo {
 			io.KeysDown[keycode] = false;
 
 			return io.WantCaptureKeyboard;
+		});
+
+		dispatcher.Dispatch<AppWindowResizeEvent>([](AppWindowResizeEvent& e) -> bool
+		{
+			ImGuiIO& io = ImGui::GetIO();
+
+			io.DisplaySize = ImVec2(e.Get_XSize(), e.Get_YSize());
+			io.DisplayFramebufferScale = ImVec2(1.0f, 1.0f);
+			glViewport(0, 0, e.Get_XSize(), e.Get_YSize());
+
+			return false;
 		});
 	}
 }
