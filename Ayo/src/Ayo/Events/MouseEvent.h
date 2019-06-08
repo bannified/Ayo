@@ -19,7 +19,7 @@ namespace Ayo {
 		std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "MouseButtonPressedEvent: (" << m_X << ", " << m_Y << ")";
+			ss << "MouseMovedEvent: (" << m_X << ", " << m_Y << ")";
 			return ss.str();
 		}
 

@@ -4,3 +4,6 @@
 [submodule "Ayo/vendor/glfw"]
 	path = Ayo/vendor/glfw
 	url = https://github.com/bannified/glfw
+[submodule "Ayo/vendor/ImGui"]
+	path = Ayo/vendor/ImGui
+	url = https://github.com/bannified/imgui
