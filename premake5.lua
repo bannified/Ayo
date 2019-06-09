@@ -17,6 +17,7 @@ IncludeDir = {}
 IncludeDir["glfw"] = "Ayo/vendor/glfw/include"
 IncludeDir["glad"] = "Ayo/vendor/glad/include"
 IncludeDir["imgui"] = "Ayo/vendor/ImGui"
+IncludeDir["glm"] = "Ayo/vendor/glm"
 
 include "Ayo/vendor/glfw" -- includes the premake5 file in glfw. kind of copy pasting it in here.
 include "Ayo/vendor/glad"
@@ -36,7 +37,9 @@ project "Ayo"
 	files
 	{
 		"%{prj.name}/src/**.h", -- every .h file
-		"%{prj.name}/src/**.cpp" -- every .cpp file
+		"%{prj.name}/src/**.cpp", -- every .cpp file
+		"%{prj.name}/vendor/glm/glm/**.hpp",
+		"%{prj.name}/vendor/glm/glm/**.inl",
 	}
 
 	includedirs
@@ -45,7 +48,8 @@ project "Ayo"
 		"%{prj.name}/vendor/spdlog/include",
 		"%{IncludeDir.glfw}",
 		"%{IncludeDir.glad}",
-		"%{IncludeDir.imgui}"
+		"%{IncludeDir.imgui}",
+		"%{IncludeDir.glm}"
 	}
 
 	links {
@@ -113,7 +117,8 @@ project "Sandbox"
 	includedirs
 	{
 		"Ayo/vendor/spdlog/include",
-		"Ayo/src"
+		"Ayo/src",
+		"%{IncludeDir.glm}"
 	}
 
 	links 

@@ -7,3 +7,6 @@
 [submodule "Ayo/vendor/ImGui"]
 	path = Ayo/vendor/ImGui
 	url = https://github.com/bannified/imgui
+[submodule "Ayo/vendor/glm"]
+	path = Ayo/vendor/glm
+	url = https://github.com/g-truc/glm
