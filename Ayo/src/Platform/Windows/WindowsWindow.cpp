@@ -2,6 +2,7 @@
 #include "WindowsWindow.h"
 
 #include "glad/glad.h"
+#include "WindowsInput.h"
 
 namespace Ayo {
 

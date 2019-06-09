@@ -150,6 +150,7 @@
     <ClInclude Include="src\Ayo\Events\KeyEvent.h" />
     <ClInclude Include="src\Ayo\Events\MouseEvent.h" />
     <ClInclude Include="src\Ayo\ImGui\ImGuiLayer.h" />
+    <ClInclude Include="src\Ayo\Input.h" />
     <ClInclude Include="src\Ayo\Layer.h" />
     <ClInclude Include="src\Ayo\LayerStack.h" />
     <ClInclude Include="src\Ayo\Log.h" />
@@ -157,6 +158,7 @@
     <ClInclude Include="src\Platform\OpenGL\imgui_impl_opengl3.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\ayopch.h" />
+    <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Ayo\Application.cpp" />
@@ -170,6 +172,7 @@
     <ClCompile Include="src\ayopch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="vendor\glfw\GLFW.vcxproj">
