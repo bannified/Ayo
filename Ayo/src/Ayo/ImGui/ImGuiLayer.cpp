@@ -78,8 +78,8 @@ namespace Ayo {
 		io.KeyMap[ImGuiKey_Z] = GLFW_KEY_Z;
 
 		// Installing callbacks
-		Ayo::Window& parentWindow = (Application::Get().GetWindow());
-		GLFWwindow* window = ((WindowsWindow&)(parentWindow)).GetGLFWWindow();
+		GLFWwindow* window = (GLFWwindow*)(Application::Get().GetWindow().GetNativeWindow());
+
 		g_Window = window;
 
 		ImGui_ImplOpenGL3_Init("#version 410");
