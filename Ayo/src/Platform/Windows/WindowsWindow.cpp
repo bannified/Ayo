@@ -2,6 +2,7 @@
 #include "WindowsWindow.h"
 
 #include "glad/glad.h"
+#include "WindowsInput.h"
 
 namespace Ayo {
 
@@ -106,7 +107,7 @@ namespace Ayo {
 		{
 			WindowData* data = (WindowData*)glfwGetWindowUserPointer(window);
 
-			// TODO: Add in mods to MouseButton Events.
+			// TODO: Add in mods to int Events.
 			switch (action) {
 				case GLFW_PRESS:
 				{

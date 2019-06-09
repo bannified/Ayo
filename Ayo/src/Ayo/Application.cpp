@@ -2,9 +2,11 @@
 
 #include "Application.h"
 
+#include "Ayo/Input.h"
+
 namespace Ayo {
 
-	Application* Application::s_Instance = nullptr; // singleton
+	Application* Application::s_Instance = nullptr;
 
 	Application::Application()
 	{
@@ -38,9 +40,7 @@ namespace Ayo {
 			{
 				break; // stop propagating further once handled.
 			}
-		}
-
-		
+		}		
 	}
 
 	void Application::Run()

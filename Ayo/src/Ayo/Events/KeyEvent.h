@@ -4,7 +4,7 @@
 
 namespace Ayo 
 {
-	class KeyEvent : public Event
+	class AYO_API KeyEvent : public Event
 	{
 	public:
 		inline int GetKeyCode() { return m_KeyCode; }
@@ -18,7 +18,7 @@ namespace Ayo
 		int m_KeyCode;
 	};
 
-	class KeyPressedEvent : public KeyEvent
+	class AYO_API KeyPressedEvent : public KeyEvent
 	{
 	public:
 		KeyPressedEvent(int keycode, int repeatCount)
@@ -39,7 +39,7 @@ namespace Ayo
 		int m_RepeatCount;
 	};
 
-	class KeyReleasedEvent : public KeyEvent
+	class AYO_API KeyReleasedEvent : public KeyEvent
 	{
 	public:
 		KeyReleasedEvent(int keycode)
@@ -55,7 +55,7 @@ namespace Ayo
 		EVENT_CLASS_TYPE(KeyReleased)
 	};
 
-	class KeyTypedEvent : public KeyEvent
+	class AYO_API KeyTypedEvent : public KeyEvent
 	{
 	public:
 		KeyTypedEvent(int keycode)
@@ -66,7 +66,7 @@ namespace Ayo
 		std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "KeyReleasedEvent: " << m_KeyCode;
+			ss << "KeyTypedEvent: " << m_KeyCode;
 			return ss.str();
 		}
 
