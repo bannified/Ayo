@@ -15,7 +15,7 @@ namespace Ayo {
 		return state == GLFW_PRESS || state == GLFW_REPEAT;
 	}
 
-	bool WindowsInput::IsMouseButtonPressed_Implementation(MouseButton button)
+	bool WindowsInput::IsMouseButtonPressed_Implementation(int button)
 	{
 		GLFWwindow* window = (GLFWwindow*)(Ayo::Application::Get().GetWindow().GetNativeWindow());
 

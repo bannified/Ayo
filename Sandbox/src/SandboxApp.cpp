@@ -15,7 +15,7 @@ public:
 
 	void OnEvent(Ayo::Event& e) override
 	{
-		AYO_TRACE("{0}", e);
+		//AYO_TRACE("{0}", e);
 	}
 };
 

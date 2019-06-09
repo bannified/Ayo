@@ -140,7 +140,7 @@ namespace Ayo {
 	{
 		EventDispatcher dispatcher(e);
 
-		AYO_INFO("ImGuiLayer: {0}", e);
+		//AYO_INFO("ImGuiLayer: {0}", e);
 
 		/* ------ Mouse -------*/
 		dispatcher.Dispatch<MouseButtonPressedEvent>([](MouseButtonPressedEvent& e) -> bool

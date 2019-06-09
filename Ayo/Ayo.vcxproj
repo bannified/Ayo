@@ -154,6 +154,8 @@
     <ClInclude Include="src\Ayo\Layer.h" />
     <ClInclude Include="src\Ayo\LayerStack.h" />
     <ClInclude Include="src\Ayo\Log.h" />
+    <ClInclude Include="src\Ayo\Macros\Keycodes.h" />
+    <ClInclude Include="src\Ayo\Macros\MouseButtonCodes.h" />
     <ClInclude Include="src\Ayo\Window.h" />
     <ClInclude Include="src\Platform\OpenGL\imgui_impl_opengl3.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
