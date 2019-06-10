@@ -7,6 +7,8 @@
 #include "Ayo/Layer.h"
 #include "Ayo/LayerStack.h"
 
+#include "Ayo/ImGui/ImGuiLayer.h"
+
 namespace Ayo {
 
 	class AYO_API Application
@@ -30,6 +32,7 @@ namespace Ayo {
 		bool OnWindowClose(AppWindowCloseEvent& e);
 
 		std::unique_ptr<Window> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 
 		void OnEvent(Event& e);

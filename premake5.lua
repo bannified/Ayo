@@ -118,6 +118,7 @@ project "Sandbox"
 	{
 		"Ayo/vendor/spdlog/include",
 		"Ayo/src",
+		"Ayo/vendor",
 		"%{IncludeDir.glm}"
 	}
 

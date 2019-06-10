@@ -26,7 +26,7 @@ namespace Ayo {
 
 	private:
 		layers m_Layers;
-		layers::iterator m_TopLayerPos;
+		unsigned int m_TopLayerIndex;
 
 	};
 

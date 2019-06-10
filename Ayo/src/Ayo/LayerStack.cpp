@@ -5,7 +5,7 @@ namespace Ayo {
 
 	LayerStack::LayerStack()
 	{
-		m_TopLayerPos = m_Layers.begin();
+		m_TopLayerIndex = 0;
 	}
 
 	LayerStack::~LayerStack()
@@ -17,7 +17,8 @@ namespace Ayo {
 
 	void LayerStack::PushLayer(Layer* layer)
 	{
-		m_TopLayerPos = m_Layers.emplace(m_TopLayerPos, layer);
+		m_Layers.emplace(m_Layers.begin() + m_TopLayerIndex, layer);
+		++m_TopLayerIndex;
 		layer->OnAttach();
 	}
 
@@ -27,7 +28,7 @@ namespace Ayo {
 
 		if (toRemove != m_Layers.end()) { // valid layer is found within vector
 			m_Layers.erase(toRemove);
-			--m_TopLayerPos;
+			--m_TopLayerIndex;
 		}
 
 		layer->OnDetach();

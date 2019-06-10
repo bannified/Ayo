@@ -15,6 +15,9 @@ namespace Ayo {
 		virtual void OnUpdate()	{};
 		virtual void OnEvent(Event& e) {};
 
+		/* this dynamic method is meant to be defined by client */
+		virtual void OnImGuiDraw() {};
+
 		virtual void OnEnable() {};
 		virtual void OnDisable() {};
 

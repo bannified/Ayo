@@ -9,15 +9,13 @@ namespace Ayo {
 		ImGuiLayer();
 		~ImGuiLayer();
 
-	private:
-		void OnAttach();
-		void OnDetach();
+		virtual void OnAttach() override;
+		virtual void OnDetach() override;
 
-		void OnUpdate();
-		void OnEvent(Event& e);
-
-		//void OnEnable();
-		//void OnDisable();
+		void Begin();
+		void End();
+		virtual void OnImGuiDraw() override; 
+	private:	
 		float m_Time = 0;
 
 	};

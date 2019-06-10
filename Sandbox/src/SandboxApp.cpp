@@ -1,5 +1,7 @@
 #include <Ayo.h>
 
+#include "ImGui/imgui.h"
+
 class ExampleLayer : public Ayo::Layer
 {
 public:
@@ -17,6 +19,13 @@ public:
 	{
 		//AYO_TRACE("{0}", e);
 	}
+
+	virtual void OnImGuiDraw() override
+	{
+		ImGui::Begin("Test");
+		ImGui::Text("Hello world");
+		ImGui::End();
+	}
 };
 
 class Sandbox : public Ayo::Application
@@ -25,7 +34,6 @@ class Sandbox : public Ayo::Application
 		Sandbox()
 		{
 			PushLayer(new ExampleLayer());
-			PushOverlay(new Ayo::ImGuiLayer());
 		}
 
 		~Sandbox()

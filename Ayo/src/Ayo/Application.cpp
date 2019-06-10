@@ -4,6 +4,8 @@
 
 #include "Ayo/Input.h"
 
+#include <glad/glad.h>
+
 namespace Ayo {
 
 	Application* Application::s_Instance = nullptr;
@@ -18,6 +20,9 @@ namespace Ayo {
 		// This functor-like object can be called, and get forwarded to this Application object's OnEvent method, where the events are handled.
 		auto functor = BIND_EVENT_FUNCTION(Application::OnEvent); 
 		m_Window->SetEventCallback(functor);
+
+		m_ImGuiLayer = new ImGuiLayer();
+		PushOverlay(m_ImGuiLayer);
 	}
 
 
@@ -47,10 +52,20 @@ namespace Ayo {
 	{
 		while (m_Running) 
 		{
+			glClearColor(0.0f, 0.0f, 1.0f, 1);
+			glClear(GL_COLOR_BUFFER_BIT);
+
 			// from the bottom of the stack.
 			for (Layer* layer : m_LayerStack) {
 				layer->OnUpdate();
 			}
+			
+			/* Draw ImGui */
+			m_ImGuiLayer->Begin();
+			for (Layer* layer : m_LayerStack) {
+				layer->OnImGuiDraw();
+			}
+			m_ImGuiLayer->End();
 
 			m_Window->OnUpdate();
 		}
