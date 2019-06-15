@@ -24,21 +24,8 @@
 
 #include <algorithm>
 
+#include <cstdlib>
+#include <cstring>
+
 // Self
 #include "Ayo/Log.h"
-
-#ifdef AYO_PLATFORM_WINDOWS 
-	#include <Windows.h>
-
-	#ifdef _WIN32
-	// networking
-	#else
-	/* Assuming POSIX */
-	// networking
-	#include <sys/types.h>
-	#include <sys/socket.h>
-	#include <arpa/inet.h>
-	#include <netdb.h>
-	#include <unistd.h>
-	#endif
-#endif

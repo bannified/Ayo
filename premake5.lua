@@ -25,8 +25,10 @@ include "Ayo/vendor/ImGui"
 
 project "Ayo"
 	location "Ayo" -- Relative path of project 
-	kind "SharedLib" -- .dll file
+	kind "StaticLib" -- SharedLib for .dll file, StaticLib for .lib
 	language "C++"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -52,6 +54,11 @@ project "Ayo"
 		"%{IncludeDir.glm}"
 	}
 
+	defines 
+	{
+		"_CRT_SECURE_NO_WARNINGS"
+	}
+
 	links {
 		"GLFW",
 		"Glad",
@@ -66,14 +73,19 @@ project "Ayo"
 		defines 
 		{
 			"AYO_PLATFORM_WINDOWS",
-			"AYO_BUILD_DLL",
-			"GLFW_INCLUDE_NONE"
+			"GLFW_INCLUDE_NONE",
+			
+			-- For dynamic linking...
+			--"AYO_BUILD_DLL",
+			--"AYO_DYNAMIC_LINK"
 		}
 
+		--[[ for using Ayo as a .dll
 		postbuildcommands
 		{
 			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
 		}
+		--]]
 
 	filter "configurations:Debug" -- just in Debug.
 		defines 
@@ -81,21 +93,18 @@ project "Ayo"
 			"AYO_DEBUG",
 			"AYO_ENABLE_ASSERTS"
 		}
-		symbols "On"
+		symbols "on"
 		runtime "Debug"
-		staticruntime "off"
 
 	filter "configurations:Release"
 		defines "AYO_RELEASE"
-		symbols "On"
 		runtime "Release"
-		staticruntime "off"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "AYO_DIST"
-		symbols "On"
 		runtime "Release"
-		staticruntime "off"
+		optimize "on"
 
 	-- filter { "system:windows", "configurations:Release"} -- for multiple filters.
 
@@ -104,6 +113,8 @@ project "Sandbox"
 	kind "ConsoleApp"
 
 	language "C++"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -128,8 +139,6 @@ project "Sandbox"
 	}
 
 	filter "system:windows" -- everything under this filter only apply to windows
-		cppdialect "C++17"
-		staticruntime "Off"
 		systemversion "latest"
 
 		defines 
@@ -139,19 +148,15 @@ project "Sandbox"
 
 	filter "configurations:Debug" -- just in Debug.
 		defines "AYO_DEBUG"
-		symbols "On"
+		symbols "on"
 		runtime "Debug"
-		staticruntime "off"
 
 	filter "configurations:Release"
 		defines "AYO_RELEASE"
-		symbols "On"
 		runtime "Release"
-		staticruntime "off"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "AYO_DIST"
-		symbols "On"
 		runtime "Release"
-		staticruntime "off"
-
+		optimize "on"

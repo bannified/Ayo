@@ -1199,9 +1199,6 @@
     <ClCompile Include="src\Ayo\Application.cpp">
       <Filter>src\Ayo</Filter>
     </ClCompile>
-    <ClCompile Include="src\Ayo\Events\Event.cpp">
-      <Filter>src\Ayo\Events</Filter>
-    </ClCompile>
     <ClCompile Include="src\Ayo\ImGui\ImGuiBuild.cpp">
       <Filter>src\Ayo\ImGui</Filter>
     </ClCompile>

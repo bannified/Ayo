@@ -1,8 +1,8 @@
 #include "ayopch.h"
-#include "WindowsWindow.h"
 
-#include "glad/glad.h"
+#include "WindowsWindow.h"
 #include "WindowsInput.h"
+#include "glad/glad.h"
 
 namespace Ayo {
 
@@ -137,7 +137,7 @@ namespace Ayo {
 		{
 			WindowData* data = (WindowData*)glfwGetWindowUserPointer(window);
 
-			MouseScrolledEvent e(xOffset, yOffset);
+			MouseScrolledEvent e((float)xOffset, (float)yOffset);
 			data->EventCallback(e);
 		});
 
