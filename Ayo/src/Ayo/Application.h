@@ -8,6 +8,7 @@
 #include "Ayo/LayerStack.h"
 
 #include "Ayo/ImGui/ImGuiLayer.h"
+#include "Ayo/Renderer/Shader.h"
 
 namespace Ayo {
 
@@ -42,6 +43,9 @@ namespace Ayo {
 		static Application* s_Instance;
 
 		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+
+		// temporary, as example.
+		std::unique_ptr<Shader> m_Shader;
 	};
 
 	// To be defined in CLIENT
