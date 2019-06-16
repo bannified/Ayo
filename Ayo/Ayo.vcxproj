@@ -140,6 +140,8 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="src\Ayo\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Ayo.h" />
     <ClInclude Include="src\Ayo\Application.h" />
     <ClInclude Include="src\Ayo\Core.h" />
@@ -525,6 +527,8 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="src\Ayo\Renderer\GraphicsContext.cpp" />
     <ClCompile Include="src\Ayo\Application.cpp" />
     <ClCompile Include="src\Ayo\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Ayo\ImGui\ImGuiLayer.cpp" />

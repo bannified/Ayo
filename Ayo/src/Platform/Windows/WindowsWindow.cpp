@@ -2,7 +2,7 @@
 
 #include "WindowsWindow.h"
 #include "WindowsInput.h"
-#include "glad/glad.h"
+#include "Platform/OpenGL/OpenGLContext.h"
 
 namespace Ayo {
 
@@ -31,7 +31,7 @@ namespace Ayo {
 	void WindowsWindow::OnUpdate()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(m_Window);
+		m_Context->SwapBuffer();
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)
@@ -70,12 +70,10 @@ namespace Ayo {
 		}
 
 		m_Window = glfwCreateWindow(properties.Width, properties.Height, properties.Title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(m_Window);
-
-		// glad
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		AYO_CORE_ASSERT(status, "Failed to initialize Glad!");
-
+		
+		m_Context = new OpenGLContext(m_Window);
+		m_Context->Init();
+		
 		glfwSetWindowUserPointer(m_Window, &m_WindowData);
 		SetVSync(true);
 
@@ -186,11 +184,7 @@ namespace Ayo {
 
 	void Ayo::WindowsWindow::Shutdown()
 	{
-		if (m_Window)
-		{
-			glfwDestroyWindow(m_Window);
-		} else {
-			AYO_CORE_WARN("No Window to destroy upon Window shutting down.");
-		}
+		m_Context->Shutdown();
+		delete m_Context;
 	}
 }

@@ -8,6 +8,7 @@
 #include "Ayo/Events/ApplicationEvent.h"
 #include "Ayo/Events/KeyEvent.h"
 #include "Ayo/Events/MouseEvent.h"
+#include "Ayo/Renderer/GraphicsContext.h"
 
 #include "GLFW/glfw3.h"
 
@@ -23,6 +24,7 @@ namespace Ayo {
 
 		inline unsigned int GetWidth() const override { return m_WindowData.Width; };
 		inline unsigned int GetHeight() const override { return m_WindowData.Height; };
+		inline std::string GetTitle() const override { return m_WindowData.Title; };
 
 		void SetVSync(bool enabled) override;
 		bool IsVSync() const override;
@@ -50,6 +52,8 @@ namespace Ayo {
 		WindowData m_WindowData;
 
 		GLFWwindow* m_Window;
+
+		GraphicsContext* m_Context;
 
 		void Init(const WindowProperties& properties);
 
