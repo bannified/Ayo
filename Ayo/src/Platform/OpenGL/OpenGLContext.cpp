@@ -20,6 +20,9 @@ namespace Ayo {
 		// glad
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		AYO_CORE_ASSERT(status, "Failed to initialize Glad!");
+
+		// checking GPU driver
+		AYO_INFO("GPU info: {0}, {1}, {2}", glGetString(GL_VENDOR), glGetString(GL_RENDERER), glGetString(GL_VERSION));
 	}
 
 	void OpenGLContext::SwapBuffer()
