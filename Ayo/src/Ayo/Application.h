@@ -12,6 +12,9 @@
 
 namespace Ayo {
 
+	class VertexBuffer;
+	class IndexBuffer;
+
 	class AYO_API Application
 	{
 	public:
@@ -42,7 +45,10 @@ namespace Ayo {
 
 		static Application* s_Instance;
 
-		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+		// buffers
+		unsigned int m_VertexArray;
+		std::unique_ptr<VertexBuffer> m_VertexBuffer;
+		std::unique_ptr<IndexBuffer> m_IndexBuffer;
 
 		// temporary, as example.
 		std::unique_ptr<Shader> m_Shader;

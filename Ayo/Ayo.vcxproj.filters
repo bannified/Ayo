@@ -1197,6 +1197,9 @@
     <ClInclude Include="src\Ayo\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Ayo\Renderer\Shader.h" />
+    <ClInclude Include="src\Ayo\Renderer\Buffer.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
+    <ClInclude Include="src\Ayo\Renderer\Renderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Ayo\Application.cpp">
@@ -1229,5 +1232,8 @@
     <ClCompile Include="src\Ayo\Renderer\GraphicsContext.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Ayo\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Ayo\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
+    <ClCompile Include="src\Ayo\Renderer\Renderer.cpp" />
   </ItemGroup>
 </Project>
