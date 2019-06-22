@@ -44,7 +44,7 @@ namespace Ayo {
 			0.0f, 0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
 		};
 
-		vertexBufferTriangle.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
+		vertexBufferTriangle = VertexBuffer::Create(vertices, sizeof(vertices));
 
 		/* Layout */
 		BufferLayout layout = {
@@ -56,7 +56,7 @@ namespace Ayo {
 
 		/* Indices */
 		unsigned int indices[3] = { 0, 1, 2 };
-		indexBufferTriangle.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		indexBufferTriangle = IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
 
 		/* Final Binding to VertexArray */
 		m_VertexArrayTriangle->AddVertexBuffer(vertexBufferTriangle);
@@ -73,7 +73,7 @@ namespace Ayo {
 			0.75f, 0.75f, 0.0f,
 			-0.75f, 0.75f, 0.0f,
 		};
-		vertexBufferRect.reset(VertexBuffer::Create(rectVertices, sizeof(rectVertices)));
+		vertexBufferRect = VertexBuffer::Create(rectVertices, sizeof(rectVertices));
 
 		vertexBufferRect->SetLayout(
 			{ {ShaderDataType::Float3, "a_Position" } }
@@ -83,7 +83,7 @@ namespace Ayo {
 			0, 1, 3,
 			3, 1, 2
 		};
-		indexBufferRect.reset(IndexBuffer::Create(rectIndices, sizeof(rectIndices) / sizeof(uint32_t)));
+		indexBufferRect = IndexBuffer::Create(rectIndices, sizeof(rectIndices) / sizeof(uint32_t));
 
 		m_VertexArraySquare = VertexArray::Create();
 		m_VertexArraySquare->AddVertexBuffer(vertexBufferRect);
