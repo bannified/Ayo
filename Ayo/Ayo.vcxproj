@@ -140,6 +140,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Ayo\Renderer\VertexArray.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Ayo\Renderer\Renderer.h" />
     <ClInclude Include="src\Ayo\Renderer\Buffer.h" />
@@ -162,6 +163,7 @@
     <ClInclude Include="src\Ayo\Macros\Keycodes.h" />
     <ClInclude Include="src\Ayo\Macros\MouseButtonCodes.h" />
     <ClInclude Include="src\Ayo\Window.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\ayopch.h" />
@@ -531,6 +533,7 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Ayo\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Ayo\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Ayo\Renderer\Buffer.cpp" />
@@ -543,6 +546,7 @@
     <ClCompile Include="src\Ayo\Layer.cpp" />
     <ClCompile Include="src\Ayo\LayerStack.cpp" />
     <ClCompile Include="src\Ayo\Log.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\ayopch.cpp">

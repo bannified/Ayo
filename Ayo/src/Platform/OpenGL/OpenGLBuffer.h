@@ -13,8 +13,12 @@ namespace Ayo {
 		void Bind() const override;
 		void Unbind() const override;
 
+		virtual void SetLayout(const BufferLayout& layout) override { m_Layout = layout;	};
+		virtual const BufferLayout& GetLayout() const override { return m_Layout; };
+
 	private:
 		uint32_t m_Buffer;
+		BufferLayout m_Layout;
 	};
 	
 	class OpenGLIndexBuffer : public IndexBuffer 
@@ -28,13 +32,11 @@ namespace Ayo {
 
 		inline uint32_t GetCount() const override { return m_Count; }
 
-		inline void SetLayout(const BufferLayout& layout) override { m_Layout = layout; };
-		const BufferLayout& GetLayout() const override { return m_Layout; };
+		
 
 	private:
 		uint32_t m_Buffer;
 		uint32_t m_Count;
-		BufferLayout m_Layout;
 	};
 
 

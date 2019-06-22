@@ -8,29 +8,11 @@
 
 #include "Ayo/Renderer/Buffer.h"
 
+#include "Platform/OpenGL/OpenGLVertexArray.h"
+
 namespace Ayo {
 
 	Application* Application::s_Instance = nullptr;
-
-	static GLenum ShaderDataTypeToGLenum(ShaderDataType type)
-	{
-		switch (type) {
-			case ShaderDataType::Float:		return GL_FLOAT;
-			case ShaderDataType::Float2:	return GL_FLOAT;
-			case ShaderDataType::Float3:	return GL_FLOAT;
-			case ShaderDataType::Float4:	return GL_FLOAT;
-			case ShaderDataType::Int:		return GL_INT;
-			case ShaderDataType::Int2:		return GL_INT;
-			case ShaderDataType::Int3:		return GL_INT;
-			case ShaderDataType::Int4:		return GL_INT;
-			case ShaderDataType::Mat3:		return GL_FLOAT;
-			case ShaderDataType::Mat4:		return GL_FLOAT;
-			case ShaderDataType::Bool:		return GL_BOOL;
-		}
-
-		AYO_CORE_ASSERT(false, "Invalid or unknown ShaderDataType.");
-		return 0;
-	}
 
 	Application::Application()
 	{
@@ -49,8 +31,8 @@ namespace Ayo {
 		// example: setting up drawing a triangle
 
 		// setup vertice arrays
-		glGenVertexArrays(1, &m_VertexArray);
-		glBindVertexArray(m_VertexArray);
+		m_VertexArray = VertexArray::Create();
+		m_VertexArray->Bind();
 
 		/*float vertices[3 * 3] =
 		{
@@ -68,27 +50,23 @@ namespace Ayo {
 
 		m_VertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
 		m_VertexBuffer->Bind();
+		
+		{
+			BufferLayout layout = {
+				{ ShaderDataType::Float3, "a_Position" },
+				{ ShaderDataType::Float4, "a_Color"}
+			};
 
-		BufferLayout layout = {
-			{ ShaderDataType::Float3, "a_Position" },
-			{ ShaderDataType::Float4, "a_Color"}
-		};
-
-		int index = 0;
-		for (const BufferElement& e : layout) {
-			glEnableVertexAttribArray(index);
-			glVertexAttribPointer(index, 
-								  e.GetComponentCount(), 
-								  ShaderDataTypeToGLenum(e.Type), 
-								  e.Normalized ? GL_TRUE : GL_FALSE, 
-								  layout.GetStride(), 
-								  (const void*)e.Offset);
-			++index;
+			m_VertexBuffer->SetLayout(layout);
 		}
+
+		m_VertexArray->AddVertexBuffer(m_VertexBuffer);
 
 		unsigned int indices[3] = { 0, 1, 2 };
 		m_IndexBuffer.reset(IndexBuffer::Create(indices, 3));
 		m_IndexBuffer->Bind();
+
+		m_VertexArray->SetIndexBuffer(m_IndexBuffer);
 		
 		std::string vertexSource = R"(
 			#version 330 core
@@ -157,7 +135,7 @@ namespace Ayo {
 
 			m_Shader->Bind();
 			// drawing a triangle
-			glBindVertexArray(m_VertexArray);
+			glBindVertexArray(m_VertexArray->GetVertexArray());
 			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
 
 			//

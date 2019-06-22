@@ -10,6 +10,8 @@
 #include "Ayo/ImGui/ImGuiLayer.h"
 #include "Ayo/Renderer/Shader.h"
 
+#include "Ayo/Renderer/VertexArray.h"
+
 namespace Ayo {
 
 	class VertexBuffer;
@@ -46,9 +48,9 @@ namespace Ayo {
 		static Application* s_Instance;
 
 		// buffers
-		unsigned int m_VertexArray;
-		std::unique_ptr<VertexBuffer> m_VertexBuffer;
-		std::unique_ptr<IndexBuffer> m_IndexBuffer;
+		std::shared_ptr<VertexArray> m_VertexArray;
+		std::shared_ptr<VertexBuffer> m_VertexBuffer;
+		std::shared_ptr<IndexBuffer> m_IndexBuffer;
 
 		// temporary, as example.
 		std::unique_ptr<Shader> m_Shader;
