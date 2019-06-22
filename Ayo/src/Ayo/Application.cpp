@@ -28,19 +28,15 @@ namespace Ayo {
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
 
-		// example: setting up drawing a triangle
+		// example: setting up drawing a triangle and a square
 
-		// setup vertice arrays
-		m_VertexArray = VertexArray::Create();
-		m_VertexArray->Bind();
+		// Setup buffers
+		std::shared_ptr<VertexBuffer> vertexBufferTriangle;
+		std::shared_ptr<IndexBuffer> indexBufferTriangle;
 
-		/*float vertices[3 * 3] =
-		{
-			-0.5f, -0.5f, 0.0f,
-			0.5f, -0.5f, 0.0f,
-			0.0f, 0.5f, 0.0f
-		};*/
+		m_VertexArrayTriangle = VertexArray::Create();
 
+		/* Vertices */
 		float vertices[3 * 7] =
 		{
 			-0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
@@ -48,26 +44,52 @@ namespace Ayo {
 			0.0f, 0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
 		};
 
-		m_VertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
-		m_VertexBuffer->Bind();
-		
-		{
-			BufferLayout layout = {
-				{ ShaderDataType::Float3, "a_Position" },
-				{ ShaderDataType::Float4, "a_Color"}
-			};
+		vertexBufferTriangle.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
 
-			m_VertexBuffer->SetLayout(layout);
-		}
+		/* Layout */
+		BufferLayout layout = {
+			{ ShaderDataType::Float3, "a_Position" },
+			{ ShaderDataType::Float4, "a_Color"}
+		};
 
-		m_VertexArray->AddVertexBuffer(m_VertexBuffer);
+		vertexBufferTriangle->SetLayout(layout);
 
+		/* Indices */
 		unsigned int indices[3] = { 0, 1, 2 };
-		m_IndexBuffer.reset(IndexBuffer::Create(indices, 3));
-		m_IndexBuffer->Bind();
+		indexBufferTriangle.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 
-		m_VertexArray->SetIndexBuffer(m_IndexBuffer);
-		
+		/* Final Binding to VertexArray */
+		m_VertexArrayTriangle->AddVertexBuffer(vertexBufferTriangle);
+		m_VertexArrayTriangle->SetIndexBuffer(indexBufferTriangle);
+
+		/* Setup Vertex Array of a Rectangle */
+		std::shared_ptr<VertexBuffer> vertexBufferRect;
+		std::shared_ptr<IndexBuffer> indexBufferRect;
+
+		float rectVertices[4 * 3] =
+		{
+			-0.75f, -0.75f, 0.0f,
+			0.75f, -0.75f, 0.0f,
+			0.75f, 0.75f, 0.0f,
+			-0.75f, 0.75f, 0.0f,
+		};
+		vertexBufferRect.reset(VertexBuffer::Create(rectVertices, sizeof(rectVertices)));
+
+		vertexBufferRect->SetLayout(
+			{ {ShaderDataType::Float3, "a_Position" } }
+		);
+
+		uint32_t rectIndices[2 * 3] = {
+			0, 1, 3,
+			3, 1, 2
+		};
+		indexBufferRect.reset(IndexBuffer::Create(rectIndices, sizeof(rectIndices) / sizeof(uint32_t)));
+
+		m_VertexArraySquare = VertexArray::Create();
+		m_VertexArraySquare->AddVertexBuffer(vertexBufferRect);
+		m_VertexArraySquare->SetIndexBuffer(indexBufferRect);
+
+		/* Shaders */
 		std::string vertexSource = R"(
 			#version 330 core
 
@@ -100,6 +122,36 @@ namespace Ayo {
 
 		// shader
 		m_Shader.reset(new Shader(vertexSource, fragmentSource));
+
+		/* Shaders */
+		std::string vertexSourceFlat = R"(
+			#version 330 core
+
+			layout(location = 0) in vec3 a_Position;
+
+			out vec3 v_Position;
+
+			void main() {
+				v_Position = a_Position;
+				gl_Position = vec4(a_Position, 1.0);
+			}
+		)";
+
+		std::string fragmentSourceFlat = R"(
+			#version 330 core
+			
+			layout(location = 0) out vec4 color;
+
+			in vec3 v_Position;
+
+			void main() {
+				color = vec4(0.7, 0.3, 0.2, 1.0);
+			}
+		)";
+
+		// shader
+		m_FlatShader.reset(new Shader(vertexSourceFlat, fragmentSourceFlat));
+
 	}
 
 
@@ -132,13 +184,13 @@ namespace Ayo {
 			glClearColor(0.0f, 0.0f, 1.0f, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
 
+			m_FlatShader->Bind();
+			m_VertexArraySquare->Bind();
+			glDrawElements(GL_TRIANGLES, m_VertexArraySquare->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 			m_Shader->Bind();
-			// drawing a triangle
-			glBindVertexArray(m_VertexArray->GetVertexArray());
-			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
-
-			//
+			m_VertexArrayTriangle->Bind();
+			glDrawElements(GL_TRIANGLES, m_VertexArrayTriangle->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 			// from the bottom of the stack.
 			for (Layer* layer : m_LayerStack) {

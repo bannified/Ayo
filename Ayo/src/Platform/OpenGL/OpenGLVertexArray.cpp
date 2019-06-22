@@ -75,6 +75,9 @@ namespace Ayo {
 
 	void OpenGLVertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuffer)
 	{
+		glBindVertexArray(m_VertexArray);
+		indexBuffer->Bind();
+
 		m_IndexBuffer = indexBuffer;
 	}
 

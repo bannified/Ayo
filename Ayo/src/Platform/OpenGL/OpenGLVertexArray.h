@@ -21,6 +21,8 @@ namespace Ayo {
 
 		virtual inline uint32_t GetVertexArray() const override { return m_VertexArray; }
 
+		virtual inline const std::shared_ptr<IndexBuffer>& GetIndexBuffer() const override { return m_IndexBuffer; }
+
 	private:
 		uint32_t m_VertexArray;
 
