@@ -1,20 +1,19 @@
 #pragma once
 
-namespace Ayo {
+#include "Ayo/Renderer/RenderCommand.h"
+#include "Ayo/Renderer/RendererAPI.h"
+#include "Ayo/Renderer/VertexArray.h"
 
-	enum class RendererAPI
-	{
-		NONE = 0, // headless, server. no rendering required.
-		OpenGL = 1,
-	};
+namespace Ayo {
 
 	class Renderer
 	{
 	public:
-		inline static RendererAPI GetCurrentAPI() { return s_CurrentAPI; }
+		static void BeginScene();
+		static void Submit(const std::shared_ptr<VertexArray> vertexArray);
+		static void EndScene();
 
-	private:
-		static RendererAPI s_CurrentAPI;
+		inline static RendererAPI::API GetAPI() { return RendererAPI::GetCurrentAPI(); }
 	};
 
 }

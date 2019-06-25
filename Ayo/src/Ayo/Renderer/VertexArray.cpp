@@ -13,12 +13,12 @@ namespace Ayo {
 
 	std::shared_ptr<VertexArray> VertexArray::Create()
 	{
-		switch (Renderer::GetCurrentAPI()) {
-			case RendererAPI::OpenGL:
+		switch (RendererAPI::GetCurrentAPI()) {
+			case RendererAPI::API::OpenGL:
 			{
 				return std::make_shared<OpenGLVertexArray>();
 			}
-			case RendererAPI::NONE:
+			case RendererAPI::API::NONE:
 			{
 				AYO_CORE_ASSERT(false, "No RendererAPI selected in Renderer.h!");
 				return nullptr;

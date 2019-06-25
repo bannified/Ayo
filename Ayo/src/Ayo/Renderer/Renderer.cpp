@@ -3,6 +3,19 @@
 
 namespace Ayo {
 
-	RendererAPI Renderer::s_CurrentAPI = RendererAPI::OpenGL;
+	void Renderer::BeginScene()
+	{
+		// TODO
+	}
+
+	void Renderer::Submit(const std::shared_ptr<VertexArray> vertexArray)
+	{
+		RenderCommand::DrawIndexed(vertexArray);
+	}
+
+	void Renderer::EndScene()
+	{
+		//TODO
+	}
 
 }

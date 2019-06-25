@@ -7,8 +7,8 @@
 #include <glad/glad.h>
 
 #include "Ayo/Renderer/Buffer.h"
-
-#include "Platform/OpenGL/OpenGLVertexArray.h"
+#include "Ayo/Renderer/RenderCommand.h"
+#include "Ayo/Renderer/Renderer.h"
 
 namespace Ayo {
 
@@ -174,23 +174,26 @@ namespace Ayo {
 			{
 				break; // stop propagating further once handled.
 			}
-		}		
+		}
 	}
 
 	void Application::Run()
 	{
-		while (m_Running) 
-		{
-			glClearColor(0.0f, 0.0f, 1.0f, 1);
-			glClear(GL_COLOR_BUFFER_BIT);
+		while (m_Running) {
+			RenderCommand::SetClearColor({ 0.95f, 0.0625f, 0.93f, 1.0f });
+			RenderCommand::Clear();
+
+			Renderer::BeginScene();
 
 			m_FlatShader->Bind();
 			m_VertexArraySquare->Bind();
-			glDrawElements(GL_TRIANGLES, m_VertexArraySquare->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			Renderer::Submit(m_VertexArraySquare);
 
 			m_Shader->Bind();
 			m_VertexArrayTriangle->Bind();
-			glDrawElements(GL_TRIANGLES, m_VertexArrayTriangle->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			Renderer::Submit(m_VertexArrayTriangle);
+
+			Renderer::EndScene();
 
 			// from the bottom of the stack.
 			for (Layer* layer : m_LayerStack) {

@@ -1202,6 +1202,9 @@
     <ClInclude Include="src\Ayo\Renderer\Renderer.h" />
     <ClInclude Include="src\Ayo\Renderer\VertexArray.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
+    <ClInclude Include="src\Ayo\Renderer\RendererAPI.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
+    <ClInclude Include="src\Ayo\Renderer\RenderCommand.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Ayo\Application.cpp">
@@ -1239,5 +1242,8 @@
     <ClCompile Include="src\Ayo\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Ayo\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
+    <ClCompile Include="src\Ayo\Renderer\RendererAPI.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
+    <ClCompile Include="src\Ayo\Renderer\RenderCommand.cpp" />
   </ItemGroup>
 </Project>

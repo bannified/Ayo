@@ -8,12 +8,12 @@ namespace Ayo {
 
 	std::shared_ptr<VertexBuffer> VertexBuffer::Create(float* vertices, uint32_t size)
 	{
-		switch (Renderer::GetCurrentAPI()) {
-			case RendererAPI::OpenGL:
+		switch (RendererAPI::GetCurrentAPI()) {
+			case RendererAPI::API::OpenGL:
 			{
 				return std::make_shared<OpenGLVertexBuffer>(vertices, size);
 			}
-			case RendererAPI::NONE:
+			case RendererAPI::API::NONE:
 			{
 				AYO_CORE_ASSERT(false, "No RendererAPI selected in Renderer.h!");
 				return nullptr;
@@ -26,12 +26,12 @@ namespace Ayo {
 
 	std::shared_ptr<IndexBuffer> IndexBuffer::Create(uint32_t* indices, uint32_t count)
 	{
-		switch (Renderer::GetCurrentAPI()) {
-			case RendererAPI::OpenGL:
+		switch (RendererAPI::GetCurrentAPI()) {
+			case RendererAPI::API::OpenGL:
 			{
 				return std::make_shared<OpenGLIndexBuffer>(indices, count);
 			}
-			case RendererAPI::NONE:
+			case RendererAPI::API::NONE:
 			{
 				AYO_CORE_ASSERT(false, "No RendererAPI selected in Renderer.h!");
 				return nullptr;
