@@ -1,5 +1,4 @@
 #pragma once
-#include "ayopch.h"
 
 namespace Ayo {
 

@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Core.h"
 #include "Ayo/Events/Event.h"
 #include "Ayo/Events/ApplicationEvent.h"
 #include "Window.h"

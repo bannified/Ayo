@@ -1,9 +1,6 @@
 #pragma once
 
-#include "Ayo/Core.h"
 #include "Ayo/Renderer/VertexArray.h"
-#include <memory>
-#include <vector>
 
 namespace Ayo {
 	

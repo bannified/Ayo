@@ -1,7 +1,5 @@
 #pragma once
 
-#include "ayopch.h"
-
 namespace Ayo {
 
 	class AYO_API Shader

@@ -28,4 +28,5 @@
 #include <cstring>
 
 // Self
+#include "Ayo/Core.h"
 #include "Ayo/Log.h"

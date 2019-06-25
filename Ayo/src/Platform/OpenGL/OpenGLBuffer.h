@@ -1,5 +1,4 @@
 #pragma once
-#include "ayopch.h"
 #include "Ayo/Renderer/Buffer.h"
 
 namespace Ayo {

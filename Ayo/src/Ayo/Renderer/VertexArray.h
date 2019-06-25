@@ -1,8 +1,6 @@
 #pragma once
 
-#include "Ayo/Core.h"
 #include "Ayo/Renderer/Buffer.h"
-#include <memory>
 
 namespace Ayo {
 
