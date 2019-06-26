@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Core.h"
 #include "Ayo/Events/Event.h"
 #include "Ayo/Events/ApplicationEvent.h"
 #include "Window.h"
@@ -10,7 +9,12 @@
 #include "Ayo/ImGui/ImGuiLayer.h"
 #include "Ayo/Renderer/Shader.h"
 
+#include "Ayo/Renderer/VertexArray.h"
+
 namespace Ayo {
+
+	class VertexBuffer;
+	class IndexBuffer;
 
 	class AYO_API Application
 	{
@@ -42,10 +46,13 @@ namespace Ayo {
 
 		static Application* s_Instance;
 
-		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+		// buffers
+		std::shared_ptr<VertexArray> m_VertexArrayTriangle;
+		std::shared_ptr<VertexArray> m_VertexArraySquare;
 
 		// temporary, as example.
 		std::unique_ptr<Shader> m_Shader;
+		std::unique_ptr<Shader> m_FlatShader;
 	};
 
 	// To be defined in CLIENT

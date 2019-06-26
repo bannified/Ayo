@@ -1,8 +1,5 @@
 #pragma once
 
-#include "ayopch.h"
-
-#include "Ayo/Core.h"
 #include "Ayo/Window.h"
 #include "Ayo/Events/Event.h"
 #include "Ayo/Events/ApplicationEvent.h"

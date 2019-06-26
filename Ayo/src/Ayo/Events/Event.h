@@ -2,8 +2,6 @@
 
 #include "ayopch.h"
 
-#include "Ayo/Core.h"
-
 namespace Ayo {
 
 	enum class EventType
