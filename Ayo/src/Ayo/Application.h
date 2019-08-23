@@ -11,6 +11,8 @@
 
 #include "Ayo/Renderer/VertexArray.h"
 
+#include "Ayo/Renderer/Camera.h"
+
 namespace Ayo {
 
 	class VertexBuffer;
@@ -53,6 +55,8 @@ namespace Ayo {
 		// temporary, as example.
 		std::unique_ptr<Shader> m_Shader;
 		std::unique_ptr<Shader> m_FlatShader;
+
+		std::shared_ptr<Camera> m_Camera;
 	};
 
 	// To be defined in CLIENT

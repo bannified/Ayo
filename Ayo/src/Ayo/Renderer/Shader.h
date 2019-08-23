@@ -9,6 +9,8 @@ namespace Ayo {
 
 		~Shader();
 
+		inline uint32_t GetId() { return m_RendererID; }
+
 		void Bind() const;
 		void Unbind() const;
 

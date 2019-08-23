@@ -9,6 +9,10 @@
 #include "Ayo/Renderer/Buffer.h"
 #include "Ayo/Renderer/RenderCommand.h"
 #include "Ayo/Renderer/Renderer.h"
+#include "Ayo/Renderer/Camera.h"
+
+#include "glm/glm.hpp"
+#include "glm/gtc/type_ptr.hpp"
 
 namespace Ayo {
 
@@ -29,6 +33,11 @@ namespace Ayo {
 		PushOverlay(m_ImGuiLayer);
 
 		// example: setting up drawing a triangle and a square
+
+		// Setup Camera
+		m_Camera = std::make_shared<Camera>();
+		m_Camera->SetProjectionMatrix(glm::perspective(glm::radians(45.0f), 16.0f / 9.0f, 0.1f, 100.0f));
+		m_Camera->SetViewMatrix(glm::identity<glm::mat4>());
 
 		// Setup buffers
 		std::shared_ptr<VertexBuffer> vertexBufferTriangle;
@@ -90,11 +99,14 @@ namespace Ayo {
 		m_VertexArraySquare->SetIndexBuffer(indexBufferRect);
 
 		/* Shaders */
+		// todo: remember to add in model matrix
 		std::string vertexSource = R"(
 			#version 330 core
 
 			layout(location = 0) in vec3 a_Position;
 			layout(location = 1) in vec4 a_Color;
+
+			uniform mat4 u_ViewProjectionMatrix;
 
 			out vec3 v_Position;
 			out vec4 v_Color;
@@ -102,7 +114,7 @@ namespace Ayo {
 			void main() {
 				v_Position = a_Position;
 				v_Color = a_Color;
-				gl_Position = vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjectionMatrix * vec4(a_Position, 1.0);
 			}
 		)";
 
@@ -129,11 +141,13 @@ namespace Ayo {
 
 			layout(location = 0) in vec3 a_Position;
 
+			uniform mat4 u_ViewProjectionMatrix;
+
 			out vec3 v_Position;
 
 			void main() {
 				v_Position = a_Position;
-				gl_Position = vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjectionMatrix * vec4(a_Position, 1.0);
 			}
 		)";
 
@@ -151,7 +165,6 @@ namespace Ayo {
 
 		// shader
 		m_FlatShader.reset(new Shader(vertexSourceFlat, fragmentSourceFlat));
-
 	}
 
 
@@ -179,17 +192,26 @@ namespace Ayo {
 
 	void Application::Run()
 	{
+		m_Camera->SetViewMatrix(glm::translate(m_Camera->GetViewMatrix(), glm::vec3(0.0f, 0.0f, -3.0f)));
 		while (m_Running) {
 			RenderCommand::SetClearColor({ 0.95f, 0.0625f, 0.93f, 1.0f });
 			RenderCommand::Clear();
 
 			Renderer::BeginScene();
+			
+			int viewProjectionMatrixUniformLocation;
 
 			m_FlatShader->Bind();
+			viewProjectionMatrixUniformLocation = glGetUniformLocation(m_FlatShader->GetId(), "u_ViewProjectionMatrix");
+			glUniformMatrix4fv(viewProjectionMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(m_Camera->GetViewProjectionMatrix()));
+
 			m_VertexArraySquare->Bind();
 			Renderer::Submit(m_VertexArraySquare);
 
 			m_Shader->Bind();
+			viewProjectionMatrixUniformLocation = glGetUniformLocation(m_Shader->GetId(), "u_ViewProjectionMatrix");
+			glUniformMatrix4fv(viewProjectionMatrixUniformLocation, 1, GL_FALSE, glm::value_ptr(m_Camera->GetViewProjectionMatrix()));
+
 			m_VertexArrayTriangle->Bind();
 			Renderer::Submit(m_VertexArrayTriangle);
 
