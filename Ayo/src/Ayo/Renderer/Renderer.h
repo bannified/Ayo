@@ -6,7 +6,7 @@
 
 namespace Ayo {
 
-	class Renderer
+	class AYO_API Renderer
 	{
 	public:
 		static void BeginScene();

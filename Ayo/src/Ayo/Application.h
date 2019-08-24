@@ -48,15 +48,6 @@ namespace Ayo {
 
 		static Application* s_Instance;
 
-		// buffers
-		std::shared_ptr<VertexArray> m_VertexArrayTriangle;
-		std::shared_ptr<VertexArray> m_VertexArraySquare;
-
-		// temporary, as example.
-		std::unique_ptr<Shader> m_Shader;
-		std::unique_ptr<Shader> m_FlatShader;
-
-		std::shared_ptr<Camera> m_Camera;
 	};
 
 	// To be defined in CLIENT

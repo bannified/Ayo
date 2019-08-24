@@ -1206,6 +1206,7 @@
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
     <ClInclude Include="src\Ayo\Renderer\RenderCommand.h" />
     <ClInclude Include="src\Ayo\Renderer\Camera.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Ayo\Application.cpp">
@@ -1247,5 +1248,6 @@
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
     <ClCompile Include="src\Ayo\Renderer\RenderCommand.cpp" />
     <ClCompile Include="src\Ayo\Renderer\Camera.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
   </ItemGroup>
 </Project>

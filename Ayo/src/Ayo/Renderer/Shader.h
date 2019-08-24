@@ -2,20 +2,17 @@
 
 namespace Ayo {
 
-	class AYO_API Shader
+	class Shader
 	{
 	public:
-		Shader(const std::string vertexSource, const std::string fragmentSource);
+		Shader();
 
 		~Shader();
 
-		inline uint32_t GetId() { return m_RendererID; }
+		virtual void Bind() const = 0;
+		virtual void Unbind() const = 0;
 
-		void Bind() const;
-		void Unbind() const;
-
-	private:
-		uint32_t m_RendererID;
+		static std::shared_ptr<Shader> Create(const std::string vertexSource, const std::string fragmentSource);
 	};
 
 }

@@ -8,7 +8,7 @@
 
 namespace Ayo {
 
-	class RenderCommand
+	class AYO_API RenderCommand
 	{
 	public:
 

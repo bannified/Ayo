@@ -2,17 +2,179 @@
 
 #include "ImGui/imgui.h"
 
+#include "Platform/OpenGL/OpenGLShader.h" // todo: remove/refactor
+
 class ExampleLayer : public Ayo::Layer
 {
 public:
 	ExampleLayer()
 		: Layer("Example")
 	{
+		SetupExampleScene();
+	}
+
+	void SetupExampleScene()
+	{
+		// example: setting up drawing a triangle and a square
+
+		// Setup Camera
+		m_Camera = std::make_shared<Ayo::Camera>();
+		m_Camera->SetProjectionMatrix(glm::perspective(glm::radians(45.0f), 16.0f / 9.0f, 0.1f, 100.0f));
+		m_Camera->SetViewMatrix(glm::identity<glm::mat4>());
+
+		// Setup buffers
+		std::shared_ptr<Ayo::VertexBuffer> vertexBufferTriangle;
+		std::shared_ptr<Ayo::IndexBuffer> indexBufferTriangle;
+
+		m_VertexArrayTriangle = Ayo::VertexArray::Create();
+
+		/* Vertices */
+		float vertices[3 * 7] =
+		{
+			-0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+			0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+			0.0f, 0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
+		};
+
+		vertexBufferTriangle = Ayo::VertexBuffer::Create(vertices, sizeof(vertices));
+
+		/* Layout */
+		Ayo::BufferLayout layout = {
+			{ Ayo::ShaderDataType::Float3, "a_Position" },
+			{ Ayo::ShaderDataType::Float4, "a_Color"}
+		};
+
+		vertexBufferTriangle->SetLayout(layout);
+
+		/* Indices */
+		unsigned int indices[3] = { 0, 1, 2 };
+		indexBufferTriangle = Ayo::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
+
+		/* Final Binding to VertexArray */
+		m_VertexArrayTriangle->AddVertexBuffer(vertexBufferTriangle);
+		m_VertexArrayTriangle->SetIndexBuffer(indexBufferTriangle);
+
+		/* Setup Vertex Array of a Rectangle */
+		std::shared_ptr<Ayo::VertexBuffer> vertexBufferRect;
+		std::shared_ptr<Ayo::IndexBuffer> indexBufferRect;
+
+		float rectVertices[4 * 3] =
+		{
+			-0.75f, -0.75f, 0.0f,
+			0.75f, -0.75f, 0.0f,
+			0.75f, 0.75f, 0.0f,
+			-0.75f, 0.75f, 0.0f,
+		};
+		vertexBufferRect = Ayo::VertexBuffer::Create(rectVertices, sizeof(rectVertices));
+
+		vertexBufferRect->SetLayout(
+			{ {Ayo::ShaderDataType::Float3, "a_Position" } }
+		);
+
+		uint32_t rectIndices[2 * 3] = {
+			0, 1, 3,
+			3, 1, 2
+		};
+		indexBufferRect = Ayo::IndexBuffer::Create(rectIndices, sizeof(rectIndices) / sizeof(uint32_t));
+
+		m_VertexArraySquare = Ayo::VertexArray::Create();
+		m_VertexArraySquare->AddVertexBuffer(vertexBufferRect);
+		m_VertexArraySquare->SetIndexBuffer(indexBufferRect);
+
+		/* Shaders */
+		// todo: remember to add in model matrix
+		std::string vertexSource = R"(
+			#version 330 core
+
+			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec4 a_Color;
+
+			uniform mat4 u_ViewProjectionMatrix;
+
+			out vec3 v_Position;
+			out vec4 v_Color;
+
+			void main() {
+				v_Position = a_Position;
+				v_Color = a_Color;
+				gl_Position = u_ViewProjectionMatrix * vec4(a_Position, 1.0);
+			}
+		)";
+
+		std::string fragmentSource = R"(
+			#version 330 core
+			
+			layout(location = 0) out vec4 color;
+
+			in vec3 v_Position;
+			in vec4 v_Color;
+
+			void main() {
+				color = vec4(v_Position * 0.5 + 0.5, 1.0);
+				color = v_Color;
+			}
+		)";
+
+		// shader
+		m_Shader = Ayo::Shader::Create(vertexSource, fragmentSource);
+
+		/* Shaders */
+		std::string vertexSourceFlat = R"(
+			#version 330 core
+
+			layout(location = 0) in vec3 a_Position;
+
+			uniform mat4 u_ViewProjectionMatrix;
+
+			out vec3 v_Position;
+
+			void main() {
+				v_Position = a_Position;
+				gl_Position = u_ViewProjectionMatrix * vec4(a_Position, 1.0);
+			}
+		)";
+
+		std::string fragmentSourceFlat = R"(
+			#version 330 core
+			
+			layout(location = 0) out vec4 color;
+
+			in vec3 v_Position;
+
+			void main() {
+				color = vec4(0.7, 0.3, 0.2, 1.0);
+			}
+		)";
+
+		// shader
+		m_FlatShader = Ayo::Shader::Create(vertexSourceFlat, fragmentSourceFlat);
+
+		m_Camera->SetViewMatrix(glm::translate(m_Camera->GetViewMatrix(), glm::vec3(0.0f, 0.0f, -3.0f)));
 	}
 
 	void OnUpdate() override
 	{
 		//AYO_INFO("ExampleLayer::Update");
+
+		Ayo::RenderCommand::SetClearColor({ 0.95f, 0.0625f, 0.93f, 1.0f });
+		Ayo::RenderCommand::Clear();
+
+		Ayo::Renderer::BeginScene();
+
+		m_FlatShader->Bind();
+		std::dynamic_pointer_cast<Ayo::OpenGLShader>(m_FlatShader)->UpdateMat4Uniform("u_ViewProjectionMatrix", m_Camera->GetViewProjectionMatrix());
+
+		m_VertexArraySquare->Bind();
+		Ayo::Renderer::Submit(m_VertexArraySquare);
+
+		m_Shader->Bind();
+		std::dynamic_pointer_cast<Ayo::OpenGLShader>(m_Shader)->UpdateMat4Uniform("u_ViewProjectionMatrix", m_Camera->GetViewProjectionMatrix());
+
+		m_VertexArrayTriangle->Bind();
+		Ayo::Renderer::Submit(m_VertexArrayTriangle);
+
+		Ayo::Renderer::EndScene();
+
 	}
 
 	void OnEvent(Ayo::Event& e) override
@@ -26,6 +188,18 @@ public:
 		ImGui::Text("Hello world");
 		ImGui::End();
 	}
+
+private:
+
+	// buffers
+	std::shared_ptr<Ayo::VertexArray> m_VertexArrayTriangle;
+	std::shared_ptr<Ayo::VertexArray> m_VertexArraySquare;
+
+	// temporary, as example.
+	std::shared_ptr<Ayo::Shader> m_Shader;
+	std::shared_ptr<Ayo::Shader> m_FlatShader;
+
+	std::shared_ptr<Ayo::Camera> m_Camera;
 };
 
 class Sandbox : public Ayo::Application
