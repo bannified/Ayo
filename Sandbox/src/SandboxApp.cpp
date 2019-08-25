@@ -149,12 +149,33 @@ public:
 		// shader
 		m_FlatShader = Ayo::Shader::Create(vertexSourceFlat, fragmentSourceFlat);
 
-		m_Camera->SetViewMatrix(glm::translate(m_Camera->GetViewMatrix(), glm::vec3(0.0f, 0.0f, -3.0f)));
+		m_Camera->SetPosition(glm::vec3(0.0f, 0.0f, 3.0f));
 	}
 
 	void OnUpdate() override
 	{
 		//AYO_INFO("ExampleLayer::Update");
+
+		if (Ayo::Input::IsKeyPressed(AYO_KEY_LEFT)) {
+			m_Camera->SetPosition(glm::vec3(m_Camera->GetPosition().x - speed, m_Camera->GetPosition().y, m_Camera->GetPosition().z));
+		}
+		else if (Ayo::Input::IsKeyPressed(AYO_KEY_RIGHT)) {
+			m_Camera->SetPosition(glm::vec3(m_Camera->GetPosition().x + speed, m_Camera->GetPosition().y, m_Camera->GetPosition().z));
+		}
+
+		if (Ayo::Input::IsKeyPressed(AYO_KEY_UP)) {
+			m_Camera->SetPosition(glm::vec3(m_Camera->GetPosition().x, m_Camera->GetPosition().y, m_Camera->GetPosition().z - speed));
+		}
+		else if (Ayo::Input::IsKeyPressed(AYO_KEY_DOWN)) {
+			m_Camera->SetPosition(glm::vec3(m_Camera->GetPosition().x, m_Camera->GetPosition().y, m_Camera->GetPosition().z + speed));
+		}
+
+		if (Ayo::Input::IsKeyPressed(AYO_KEY_Q)) {
+			m_Camera->Rotate(rotSpeed, m_Camera->GetForwardVector());
+		}
+		else if (Ayo::Input::IsKeyPressed(AYO_KEY_E)) {
+			m_Camera->Rotate(-rotSpeed, m_Camera->GetForwardVector());
+		}
 
 		Ayo::RenderCommand::SetClearColor({ 0.95f, 0.0625f, 0.93f, 1.0f });
 		Ayo::RenderCommand::Clear();
@@ -200,6 +221,9 @@ private:
 	std::shared_ptr<Ayo::Shader> m_FlatShader;
 
 	std::shared_ptr<Ayo::Camera> m_Camera;
+
+	float speed = 0.01f;
+	float rotSpeed = 0.1f;
 };
 
 class Sandbox : public Ayo::Application
