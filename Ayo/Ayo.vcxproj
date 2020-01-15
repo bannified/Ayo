@@ -140,19 +140,6 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\Ayo\Math\Quaternion.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h" />
-    <ClInclude Include="src\Ayo\Renderer\Camera.h" />
-    <ClInclude Include="src\Ayo\Renderer\RenderCommand.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
-    <ClInclude Include="src\Ayo\Renderer\RendererAPI.h" />
-    <ClInclude Include="src\Ayo\Renderer\VertexArray.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
-    <ClInclude Include="src\Ayo\Renderer\Renderer.h" />
-    <ClInclude Include="src\Ayo\Renderer\Buffer.h" />
-    <ClInclude Include="src\Ayo\Renderer\Shader.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
-    <ClInclude Include="src\Ayo\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Ayo.h" />
     <ClInclude Include="src\Ayo\Application.h" />
     <ClInclude Include="src\Ayo\Core.h" />
@@ -168,7 +155,19 @@
     <ClInclude Include="src\Ayo\Log.h" />
     <ClInclude Include="src\Ayo\Macros\Keycodes.h" />
     <ClInclude Include="src\Ayo\Macros\MouseButtonCodes.h" />
+    <ClInclude Include="src\Ayo\Renderer\Buffer.h" />
+    <ClInclude Include="src\Ayo\Renderer\Camera.h" />
+    <ClInclude Include="src\Ayo\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\Ayo\Renderer\RenderCommand.h" />
+    <ClInclude Include="src\Ayo\Renderer\Renderer.h" />
+    <ClInclude Include="src\Ayo\Renderer\RendererAPI.h" />
+    <ClInclude Include="src\Ayo\Renderer\Shader.h" />
+    <ClInclude Include="src\Ayo\Renderer\VertexArray.h" />
     <ClInclude Include="src\Ayo\Window.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
@@ -539,25 +538,24 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Ayo\Math\Quaternion.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
-    <ClCompile Include="src\Ayo\Renderer\Camera.cpp" />
-    <ClCompile Include="src\Ayo\Renderer\RenderCommand.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
-    <ClCompile Include="src\Ayo\Renderer\RendererAPI.cpp" />
-    <ClCompile Include="src\Ayo\Renderer\VertexArray.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
-    <ClCompile Include="src\Ayo\Renderer\Renderer.cpp" />
-    <ClCompile Include="src\Ayo\Renderer\Buffer.cpp" />
-    <ClCompile Include="src\Ayo\Renderer\Shader.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
-    <ClCompile Include="src\Ayo\Renderer\GraphicsContext.cpp" />
     <ClCompile Include="src\Ayo\Application.cpp" />
     <ClCompile Include="src\Ayo\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Ayo\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Ayo\Layer.cpp" />
     <ClCompile Include="src\Ayo\LayerStack.cpp" />
     <ClCompile Include="src\Ayo\Log.cpp" />
+    <ClCompile Include="src\Ayo\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Ayo\Renderer\Camera.cpp" />
+    <ClCompile Include="src\Ayo\Renderer\GraphicsContext.cpp" />
+    <ClCompile Include="src\Ayo\Renderer\RenderCommand.cpp" />
+    <ClCompile Include="src\Ayo\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Ayo\Renderer\RendererAPI.cpp" />
+    <ClCompile Include="src\Ayo\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Ayo\Renderer\VertexArray.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />

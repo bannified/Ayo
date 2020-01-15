@@ -22,6 +22,8 @@ namespace Ayo {
 		virtual void Clear() = 0;
 		virtual void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray) = 0;
 
+        virtual void SetWireframeMode(bool isWireframe) = 0;
+
 	private:
 		static API s_CurrentAPI;
 	};

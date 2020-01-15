@@ -16,8 +16,14 @@
     <Filter Include="src\Ayo\Macros">
       <UniqueIdentifier>{59F261CF-45C0-55D5-2E54-C6FB1AC1313A}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Ayo\Renderer">
+      <UniqueIdentifier>{4BFD7F19-37F6-9E6B-6028-84F04C807E77}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Platform">
       <UniqueIdentifier>{21CA02E5-0D2D-9289-B6B2-CA3FA2F45D0C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Platform\OpenGL">
+      <UniqueIdentifier>{35A49437-A105-7245-2A73-B8F796D3A804}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Platform\Windows">
       <UniqueIdentifier>{5B054582-4794-CE4B-F0B2-E246DC20DFF1}</UniqueIdentifier>
@@ -90,8 +96,47 @@
     <ClInclude Include="src\Ayo\Macros\MouseButtonCodes.h">
       <Filter>src\Ayo\Macros</Filter>
     </ClInclude>
+    <ClInclude Include="src\Ayo\Renderer\Buffer.h">
+      <Filter>src\Ayo\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Ayo\Renderer\Camera.h">
+      <Filter>src\Ayo\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Ayo\Renderer\GraphicsContext.h">
+      <Filter>src\Ayo\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Ayo\Renderer\RenderCommand.h">
+      <Filter>src\Ayo\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Ayo\Renderer\Renderer.h">
+      <Filter>src\Ayo\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Ayo\Renderer\RendererAPI.h">
+      <Filter>src\Ayo\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Ayo\Renderer\Shader.h">
+      <Filter>src\Ayo\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Ayo\Renderer\VertexArray.h">
+      <Filter>src\Ayo\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Ayo\Window.h">
       <Filter>src\Ayo</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h">
+      <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsInput.h">
       <Filter>src\Platform\Windows</Filter>
@@ -1194,20 +1239,6 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
-    <ClInclude Include="src\Ayo\Renderer\GraphicsContext.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
-    <ClInclude Include="src\Ayo\Renderer\Shader.h" />
-    <ClInclude Include="src\Ayo\Renderer\Buffer.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
-    <ClInclude Include="src\Ayo\Renderer\Renderer.h" />
-    <ClInclude Include="src\Ayo\Renderer\VertexArray.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
-    <ClInclude Include="src\Ayo\Renderer\RendererAPI.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
-    <ClInclude Include="src\Ayo\Renderer\RenderCommand.h" />
-    <ClInclude Include="src\Ayo\Renderer\Camera.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h" />
-    <ClInclude Include="src\Ayo\Math\Quaternion.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Ayo\Application.cpp">
@@ -1228,6 +1259,45 @@
     <ClCompile Include="src\Ayo\Log.cpp">
       <Filter>src\Ayo</Filter>
     </ClCompile>
+    <ClCompile Include="src\Ayo\Renderer\Buffer.cpp">
+      <Filter>src\Ayo\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Ayo\Renderer\Camera.cpp">
+      <Filter>src\Ayo\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Ayo\Renderer\GraphicsContext.cpp">
+      <Filter>src\Ayo\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Ayo\Renderer\RenderCommand.cpp">
+      <Filter>src\Ayo\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Ayo\Renderer\Renderer.cpp">
+      <Filter>src\Ayo\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Ayo\Renderer\RendererAPI.cpp">
+      <Filter>src\Ayo\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Ayo\Renderer\Shader.cpp">
+      <Filter>src\Ayo\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Ayo\Renderer\VertexArray.cpp">
+      <Filter>src\Ayo\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
       <Filter>src\Platform\Windows</Filter>
     </ClCompile>
@@ -1237,19 +1307,5 @@
     <ClCompile Include="src\ayopch.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Ayo\Renderer\GraphicsContext.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
-    <ClCompile Include="src\Ayo\Renderer\Shader.cpp" />
-    <ClCompile Include="src\Ayo\Renderer\Buffer.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
-    <ClCompile Include="src\Ayo\Renderer\Renderer.cpp" />
-    <ClCompile Include="src\Ayo\Renderer\VertexArray.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
-    <ClCompile Include="src\Ayo\Renderer\RendererAPI.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
-    <ClCompile Include="src\Ayo\Renderer\RenderCommand.cpp" />
-    <ClCompile Include="src\Ayo\Renderer\Camera.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
-    <ClCompile Include="src\Ayo\Math\Quaternion.cpp" />
   </ItemGroup>
 </Project>

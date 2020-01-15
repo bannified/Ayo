@@ -20,4 +20,9 @@ namespace Ayo {
 		s_RendererAPI->DrawIndexed(vertexArray);
 	}
 
+    void RenderCommand::SetWireframeMode(bool isWireframeMode)
+    {
+        s_RendererAPI->SetWireframeMode(isWireframeMode);
+    }
+
 }

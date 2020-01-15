@@ -163,6 +163,11 @@ public:
 			m_Camera->SetPosition(glm::vec3(m_Camera->GetPosition().x + speed, m_Camera->GetPosition().y, m_Camera->GetPosition().z));
 		}
 
+        if (Ayo::Input::IsKeyPressed(AYO_KEY_W)) {
+            m_WireframeMode = !m_WireframeMode;
+            Ayo::RenderCommand::SetWireframeMode(m_WireframeMode);
+        }
+
 		if (Ayo::Input::IsKeyPressed(AYO_KEY_UP)) {
 			m_Camera->SetPosition(glm::vec3(m_Camera->GetPosition().x, m_Camera->GetPosition().y, m_Camera->GetPosition().z - speed));
 		}
@@ -224,6 +229,8 @@ private:
 
 	float speed = 0.01f;
 	float rotSpeed = 0.1f;
+
+    bool m_WireframeMode = false;
 };
 
 class Sandbox : public Ayo::Application
