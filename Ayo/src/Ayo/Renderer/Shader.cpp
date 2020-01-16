@@ -32,5 +32,19 @@ namespace Ayo {
 		return nullptr;
 	}
 
+    std::shared_ptr<Shader> Shader::CreateFromPath(const std::string vertexPath, const std::string fragmentPath)
+    {
+        switch (RendererAPI::GetCurrentAPI()) {
+            case RendererAPI::API::OpenGL:
+                return OpenGLShader::CreateFromPath(vertexPath, fragmentPath);
+            case RendererAPI::API::NONE:
+                AYO_CORE_ASSERT(false, "No RendererAPI selected in Renderer.h!");
+                return nullptr;
+        }
+
+        AYO_CORE_ASSERT(false, "No RendererAPI selected in Renderer.h!");
+        return nullptr;
+    }
+
 }
 

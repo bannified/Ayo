@@ -25,6 +25,8 @@ namespace Ayo
 		void UpdateMat3Uniform(const std::string& uniformName, const glm::mat3& value);
 		void UpdateMat4Uniform(const std::string& uniformName, const glm::mat4& value);
 
+        static std::shared_ptr<OpenGLShader> CreateFromPath(const std::string& vertexPath, const std::string& fragmentPath);
+
 	private:
 		uint32_t m_RendererId;
 

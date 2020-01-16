@@ -2,6 +2,8 @@
 
 #include "ImGui/imgui.h"
 
+#include "AppSettings.h"
+
 #include "Platform/OpenGL/OpenGLShader.h" // todo: remove/refactor
 
 class ExampleLayer : public Ayo::Layer
@@ -83,40 +85,12 @@ public:
 
 		/* Shaders */
 		// todo: remember to add in model matrix
-		std::string vertexSource = R"(
-			#version 330 core
+		std::string vertexSourcePath = AppSettings::DEBUG_ROOT_PATH + "/posCol.vs";
 
-			layout(location = 0) in vec3 a_Position;
-			layout(location = 1) in vec4 a_Color;
-
-			uniform mat4 u_ViewProjectionMatrix;
-
-			out vec3 v_Position;
-			out vec4 v_Color;
-
-			void main() {
-				v_Position = a_Position;
-				v_Color = a_Color;
-				gl_Position = u_ViewProjectionMatrix * vec4(a_Position, 1.0);
-			}
-		)";
-
-		std::string fragmentSource = R"(
-			#version 330 core
-			
-			layout(location = 0) out vec4 color;
-
-			in vec3 v_Position;
-			in vec4 v_Color;
-
-			void main() {
-				color = vec4(v_Position * 0.5 + 0.5, 1.0);
-				color = v_Color;
-			}
-		)";
+		std::string fragmentSourcePath = AppSettings::DEBUG_ROOT_PATH + "/colorOnly.fs";
 
 		// shader
-		m_Shader = Ayo::Shader::Create(vertexSource, fragmentSource);
+		m_Shader = Ayo::Shader::CreateFromPath(vertexSourcePath, fragmentSourcePath);
 
 		/* Shaders */
 		std::string vertexSourceFlat = R"(
