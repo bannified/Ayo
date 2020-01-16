@@ -15,7 +15,7 @@ namespace Ayo
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
 
-		void UpdateFloatInt(const std::string& uniformName, int value);
+		void UpdateIntUniform(const std::string& uniformName, int value);
 
 		void UpdateFloatUniform(const std::string& uniformName, float value);
 		void UpdateFloat2Uniform(const std::string& uniformName, const glm::vec2& value);
