@@ -5,6 +5,7 @@
 #include "AppSettings.h"
 
 #include "Platform/OpenGL/OpenGLShader.h" // todo: remove/refactor
+#include "Platform/OpenGL/OpenGLTexture.h"
 
 class ExampleLayer : public Ayo::Layer
 {
@@ -31,11 +32,12 @@ public:
 		m_VertexArrayTriangle = Ayo::VertexArray::Create();
 
 		/* Vertices */
-		float vertices[3 * 7] =
+		float vertices[3 * 9] =
 		{
-			-0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-			0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-			0.0f, 0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
+            // positions            // colors                   
+			-0.5f, -0.5f, 0.0f,     1.0f, 0.0f, 0.0f, 1.0f,     0.0f, 0.0f,
+			0.5f, -0.5f, 0.0f,      0.0f, 1.0f, 0.0f, 1.0f,     1.0f, 0.0f,
+			0.0f, 0.5f, 0.0f,       0.0f, 1.0f, 1.0f, 1.0f,     0.5f, 1.0f
 		};
 
 		vertexBufferTriangle = Ayo::VertexBuffer::Create(vertices, sizeof(vertices));
@@ -43,7 +45,8 @@ public:
 		/* Layout */
 		Ayo::BufferLayout layout = {
 			{ Ayo::ShaderDataType::Float3, "a_Position" },
-			{ Ayo::ShaderDataType::Float4, "a_Color"}
+			{ Ayo::ShaderDataType::Float4, "a_Color"},
+            { Ayo::ShaderDataType::Float2, "a_TexCoord"}
 		};
 
 		vertexBufferTriangle->SetLayout(layout);
@@ -85,12 +88,17 @@ public:
 
 		/* Shaders */
 		// todo: remember to add in model matrix
-		std::string vertexSourcePath = AppSettings::DEBUG_ROOT_PATH + "/posCol.vs";
+		std::string vertexSourcePath = AppSettings::DEBUG_ROOT_PATH + "/posColTex.vs";
 
-		std::string fragmentSourcePath = AppSettings::DEBUG_ROOT_PATH + "/colorOnly.fs";
+		std::string fragmentSourcePath = AppSettings::DEBUG_ROOT_PATH + "/texture.fs";
 
 		// shader
 		m_Shader = Ayo::Shader::CreateFromPath(vertexSourcePath, fragmentSourcePath);
+
+        // Textures
+        std::string texturePath = AppSettings::DEBUG_ROOT_PATH + "/wall.jpg";
+
+        m_Texture = Ayo::Texture::Create(texturePath);
 
 		/* Shaders */
 		std::string vertexSourceFlat = R"(
@@ -161,14 +169,17 @@ public:
 
 		Ayo::Renderer::BeginScene();
 
-		m_FlatShader->Bind();
-		std::dynamic_pointer_cast<Ayo::OpenGLShader>(m_FlatShader)->UpdateMat4Uniform("u_ViewProjectionMatrix", m_Camera->GetViewProjectionMatrix());
-
-		m_VertexArraySquare->Bind();
-		Ayo::Renderer::Submit(m_VertexArraySquare);
+		//m_FlatShader->Bind();
+        //std::dynamic_pointer_cast<Ayo::OpenGLShader>(m_FlatShader)->UpdateMat4Uniform("u_ViewProjectionMatrix", m_Camera->GetViewProjectionMatrix());
+        
+		//m_VertexArraySquare->Bind();
+		//Ayo::Renderer::Submit(m_VertexArraySquare);
 
 		m_Shader->Bind();
 		std::dynamic_pointer_cast<Ayo::OpenGLShader>(m_Shader)->UpdateMat4Uniform("u_ViewProjectionMatrix", m_Camera->GetViewProjectionMatrix());
+        // texture
+        std::dynamic_pointer_cast<Ayo::OpenGLShader>(m_Shader)->UpdateIntUniform("u_Texture", 0);
+        m_Texture->Bind(0);
 
 		m_VertexArrayTriangle->Bind();
 		Ayo::Renderer::Submit(m_VertexArrayTriangle);
@@ -198,6 +209,8 @@ private:
 	// temporary, as example.
 	std::shared_ptr<Ayo::Shader> m_Shader;
 	std::shared_ptr<Ayo::Shader> m_FlatShader;
+
+    std::shared_ptr<Ayo::Texture> m_Texture;
 
 	std::shared_ptr<Ayo::Camera> m_Camera;
 
