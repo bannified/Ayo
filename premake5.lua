@@ -18,6 +18,7 @@ IncludeDir["glfw"] = "Ayo/vendor/glfw/include"
 IncludeDir["glad"] = "Ayo/vendor/glad/include"
 IncludeDir["imgui"] = "Ayo/vendor/ImGui"
 IncludeDir["glm"] = "Ayo/vendor/glm"
+IncludeDir["stb"] = "Ayo/vendor/stb"
 
 include "Ayo/vendor/glfw" -- includes the premake5 file in glfw. kind of copy pasting it in here.
 include "Ayo/vendor/glad"
@@ -51,7 +52,8 @@ project "Ayo"
 		"%{IncludeDir.glfw}",
 		"%{IncludeDir.glad}",
 		"%{IncludeDir.imgui}",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+        "%{IncludeDir.stb}"
 	}
 
 	defines 
