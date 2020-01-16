@@ -129,7 +129,7 @@ namespace Ayo
 		glUseProgram(0);
 	}
 
-	void OpenGLShader::UpdateFloatInt(const std::string& uniformName, int value)
+	void OpenGLShader::UpdateIntUniform(const std::string& uniformName, int value)
 	{
 		int location = glGetUniformLocation(m_RendererId, uniformName.c_str());
 		glUniform1i(location, value);
