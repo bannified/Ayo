@@ -40,4 +40,14 @@ namespace Ayo {
         }
     }
 
+    void OpenGLRendererAPI::BeginScene()
+    {
+        glEnable(GL_DEPTH_TEST);
+    }
+
+    void OpenGLRendererAPI::EndScene()
+    {
+
+    }
+
 }

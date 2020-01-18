@@ -25,4 +25,14 @@ namespace Ayo {
         s_RendererAPI->SetWireframeMode(isWireframeMode);
     }
 
+    void RenderCommand::BeginScene()
+    {
+        s_RendererAPI->BeginScene();
+    }
+
+    void RenderCommand::EndScene()
+    {
+        s_RendererAPI->EndScene();
+    }
+
 }

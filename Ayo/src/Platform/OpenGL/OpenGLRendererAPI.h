@@ -16,6 +16,9 @@ namespace Ayo {
 
         virtual void SetWireframeMode(bool isWireframe) override;
 
+        virtual void BeginScene() override;
+        virtual void EndScene() override;
+
     };
 
 }

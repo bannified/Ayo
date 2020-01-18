@@ -17,6 +17,9 @@ namespace Ayo {
 		static void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray);
 
         static void SetWireframeMode(bool isWireframeMode);
+
+        static void BeginScene();
+        static void EndScene();
 	
 	private:
 		static RendererAPI* s_RendererAPI;
