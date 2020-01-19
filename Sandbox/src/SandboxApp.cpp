@@ -94,15 +94,17 @@ public:
 		// todo: remember to add in model matrix
 		std::string vertexSourcePath = AppSettings::DEBUG_ROOT_PATH + "/posTex.vs";
 
-		std::string fragmentSourcePath = AppSettings::DEBUG_ROOT_PATH + "/texture.fs";
+		std::string fragmentSourcePath = AppSettings::DEBUG_ROOT_PATH + "/2textures.fs";
 
 		// shader
 		m_Shader = Ayo::Shader::CreateFromPath(vertexSourcePath, fragmentSourcePath);
 
         // Textures
         std::string texturePath = AppSettings::DEBUG_ROOT_PATH + "/container.jpg";
+        std::string texture1Path = AppSettings::DEBUG_ROOT_PATH + "/awesomeface.png";
 
         m_Texture = Ayo::Texture::Create(texturePath);
+        m_Texture1 = Ayo::Texture::Create(texture1Path);
 
 		m_Camera->SetPosition(glm::vec3(0.0f, 0.0f, 3.0f));
 
@@ -207,6 +209,8 @@ public:
         // texture
         std::dynamic_pointer_cast<Ayo::OpenGLShader>(m_Shader)->UpdateIntUniform("u_Texture", 0);
         m_Texture->Bind(0);
+        std::dynamic_pointer_cast<Ayo::OpenGLShader>(m_Shader)->UpdateIntUniform("u_Texture1", 1);
+        m_Texture1->Bind(1);
 
 		m_VertexArrayCube->Bind();
 		Ayo::Renderer::Submit(m_VertexArrayCube);
@@ -237,6 +241,7 @@ private:
 	std::shared_ptr<Ayo::Shader> m_Shader;
 
     std::shared_ptr<Ayo::Texture> m_Texture;
+    std::shared_ptr<Ayo::Texture> m_Texture1;
 
 	std::shared_ptr<Ayo::Camera> m_Camera;
 

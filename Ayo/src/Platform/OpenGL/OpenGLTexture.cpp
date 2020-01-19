@@ -20,10 +20,19 @@ Ayo::OpenGLTexture::OpenGLTexture(const std::string textureImagePath)
     unsigned char* textureData = stbi_load(textureImagePath.c_str(), &m_Width, &m_Height, &m_NumColorChannels, 0);
 
     if (textureData) {
-        //glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_Width, m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, textureData);
         glTextureStorage2D(m_TextureId, 1, GL_RGB8, m_Width, m_Height);
-        glTextureSubImage2D(m_TextureId, 0, 0, 0, m_Width, m_Height, GL_RGB, GL_UNSIGNED_BYTE, textureData); // for image formats without alpha channel (.jpg)
-        //glTextureSubImage2D(m_TextureId, 0, 0, 0, m_Width, m_Height, GL_RGBA, GL_UNSIGNED_BYTE, textureData); // for image formats with alpha channel (.png)
+        switch (m_NumColorChannels) {
+            case 2:
+                glTextureSubImage2D(m_TextureId, 0, 0, 0, m_Width, m_Height, GL_RG, GL_UNSIGNED_BYTE, textureData); // for image formats without alpha channel (.jpg)
+            case 3:
+                glTextureSubImage2D(m_TextureId, 0, 0, 0, m_Width, m_Height, GL_RGB, GL_UNSIGNED_BYTE, textureData); // for image formats without alpha channel (.jpg)
+                break;
+            case 4:
+                glTextureSubImage2D(m_TextureId, 0, 0, 0, m_Width, m_Height, GL_RGBA, GL_UNSIGNED_BYTE, textureData); // for image formats with alpha channel (.png)
+                break;
+            default:
+                break;
+        }
         glGenerateMipmap(GL_TEXTURE_2D);
     }
     else {
