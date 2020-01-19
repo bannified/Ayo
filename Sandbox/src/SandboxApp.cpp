@@ -112,12 +112,45 @@ public:
 	{
 		//AYO_INFO("ExampleLayer::Update");
 
+        // horizontal movement of camera
 		if (Ayo::Input::IsKeyPressed(AYO_KEY_LEFT)) {
 			m_Camera->SetPosition(glm::vec3(m_Camera->GetPosition().x - speed, m_Camera->GetPosition().y, m_Camera->GetPosition().z));
 		}
 		else if (Ayo::Input::IsKeyPressed(AYO_KEY_RIGHT)) {
 			m_Camera->SetPosition(glm::vec3(m_Camera->GetPosition().x + speed, m_Camera->GetPosition().y, m_Camera->GetPosition().z));
 		}
+
+        // in/out movement of camera
+        if (Ayo::Input::IsKeyPressed(AYO_KEY_UP)) {
+            m_Camera->SetPosition(glm::vec3(m_Camera->GetPosition().x, m_Camera->GetPosition().y, m_Camera->GetPosition().z - speed));
+        }
+        else if (Ayo::Input::IsKeyPressed(AYO_KEY_DOWN)) {
+            m_Camera->SetPosition(glm::vec3(m_Camera->GetPosition().x, m_Camera->GetPosition().y, m_Camera->GetPosition().z + speed));
+        }
+
+        // vertical movement of camera
+        if (Ayo::Input::IsKeyPressed(AYO_KEY_SPACE)) {
+            m_Camera->SetPosition(glm::vec3(m_Camera->GetPosition().x, m_Camera->GetPosition().y + speed, m_Camera->GetPosition().z));
+        }
+        else if (Ayo::Input::IsKeyPressed(AYO_KEY_LEFT_CONTROL)) {
+            m_Camera->SetPosition(glm::vec3(m_Camera->GetPosition().x, m_Camera->GetPosition().y - speed, m_Camera->GetPosition().z));
+        }
+
+        // yaw modification of camera
+        if (Ayo::Input::IsKeyPressed(AYO_KEY_Z)) {
+            m_Camera->Rotate(rotSpeed * 0.1, glm::vec3(0.0f, 1.0f, 0.0f));
+        }
+        else if (Ayo::Input::IsKeyPressed(AYO_KEY_C)) {
+            m_Camera->Rotate(-rotSpeed * 0.1, glm::vec3(0.0f, 1.0f, 0.0f));
+        }
+
+        // pitch modification of camera
+        if (Ayo::Input::IsKeyPressed(AYO_KEY_EQUAL)) {
+            m_Camera->Rotate(rotSpeed * 0.1, glm::vec3(1.0f, 0.0f, 0.0f));
+        }
+        else if (Ayo::Input::IsKeyPressed(AYO_KEY_MINUS)) {
+            m_Camera->Rotate(-rotSpeed * 0.1, glm::vec3(1.0f, 0.0f, 0.0f));
+        }
 
         if (Ayo::Input::IsKeyPressed(AYO_KEY_1)) {
             m_WireframeMode = !m_WireframeMode;
@@ -140,13 +173,6 @@ public:
             modelTransform = glm::translate(modelTransform, glm::vec3(-speed, 0.0f, 0.0f));
         }
 
-		if (Ayo::Input::IsKeyPressed(AYO_KEY_UP)) {
-			m_Camera->SetPosition(glm::vec3(m_Camera->GetPosition().x, m_Camera->GetPosition().y, m_Camera->GetPosition().z - speed));
-		}
-		else if (Ayo::Input::IsKeyPressed(AYO_KEY_DOWN)) {
-			m_Camera->SetPosition(glm::vec3(m_Camera->GetPosition().x, m_Camera->GetPosition().y, m_Camera->GetPosition().z + speed));
-		}
-
         // Changing the object's yaw
 		if (Ayo::Input::IsKeyPressed(AYO_KEY_Q)) {
 			//m_Camera->Rotate(rotSpeed, m_Camera->GetForwardVector());
@@ -158,11 +184,11 @@ public:
 		}
 
         // Changing the object's pitch
-        if (Ayo::Input::IsKeyPressed(AYO_KEY_Z)) {
+        if (Ayo::Input::IsKeyPressed(AYO_KEY_R)) {
             //m_Camera->Rotate(rotSpeed, m_Camera->GetForwardVector());
             modelTransform = glm::rotate(modelTransform, glm::radians(rotSpeed), glm::vec3(1.0f, 0.0f, 0.0f));
         }
-        else if (Ayo::Input::IsKeyPressed(AYO_KEY_C)) {
+        else if (Ayo::Input::IsKeyPressed(AYO_KEY_F)) {
             //m_Camera->Rotate(-rotSpeed, m_Camera->GetForwardVector());
             modelTransform = glm::rotate(modelTransform, glm::radians(-rotSpeed), glm::vec3(1.0f, 0.0f, 0.0f));
         }
