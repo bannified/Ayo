@@ -4,6 +4,7 @@
 #include "Ayo/Application.h"
 #include "Ayo/Log.h"
 #include "Ayo/Input.h"
+#include "Ayo/Time.h"
 
 #include "Ayo/Layer.h"
 #include "Ayo/ImGui/ImGuiLayer.h"

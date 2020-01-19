@@ -140,7 +140,6 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\Platform\OpenGL\OpenGLTexture.h" />
     <ClInclude Include="src\Ayo.h" />
     <ClInclude Include="src\Ayo\Application.h" />
     <ClInclude Include="src\Ayo\Core.h" />
@@ -163,17 +162,19 @@
     <ClInclude Include="src\Ayo\Renderer\Renderer.h" />
     <ClInclude Include="src\Ayo\Renderer\RendererAPI.h" />
     <ClInclude Include="src\Ayo\Renderer\Shader.h" />
+    <ClInclude Include="src\Ayo\Renderer\Texture.h" />
     <ClInclude Include="src\Ayo\Renderer\VertexArray.h" />
+    <ClInclude Include="src\Ayo\Time.h" />
     <ClInclude Include="src\Ayo\Window.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLTexture.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\ayopch.h" />
-    <ClInclude Include="src\Ayo\Renderer\Texture.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_features.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_fixes.hpp" />
@@ -540,7 +541,6 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp" />
     <ClCompile Include="src\Ayo\Application.cpp" />
     <ClCompile Include="src\Ayo\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Ayo\ImGui\ImGuiLayer.cpp" />
@@ -554,18 +554,20 @@
     <ClCompile Include="src\Ayo\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Ayo\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\Ayo\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Ayo\Renderer\Texture.cpp" />
     <ClCompile Include="src\Ayo\Renderer\VertexArray.cpp" />
+    <ClCompile Include="src\Ayo\Time.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\ayopch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="src\Ayo\Renderer\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="vendor\glfw\GLFW.vcxproj">

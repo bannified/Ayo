@@ -14,6 +14,7 @@ public:
 		: Layer("Example")
 	{
 		SetupExampleScene();
+        Ayo::Time::Initialize();
 	}
 
 	void SetupExampleScene()
@@ -110,6 +111,9 @@ public:
 
 	void OnUpdate() override
 	{
+        Ayo::Time::Update();
+        //AYO_INFO("Time::GetDeltaTime(): {0}", Ayo::Time::GetDeltaTime());
+        //AYO_INFO("FPS: {0}", 1.0f/Ayo::Time::GetDeltaTime());
 		//AYO_INFO("ExampleLayer::Update");
 
         // horizontal movement of camera

@@ -117,8 +117,14 @@
     <ClInclude Include="src\Ayo\Renderer\Shader.h">
       <Filter>src\Ayo\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Ayo\Renderer\Texture.h">
+      <Filter>src\Ayo\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Ayo\Renderer\VertexArray.h">
       <Filter>src\Ayo\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Ayo\Time.h">
+      <Filter>src\Ayo</Filter>
     </ClInclude>
     <ClInclude Include="src\Ayo\Window.h">
       <Filter>src\Ayo</Filter>
@@ -133,6 +139,9 @@
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLTexture.h">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h">
@@ -1239,8 +1248,6 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
-    <ClInclude Include="src\Ayo\Renderer\Texture.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLTexture.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Ayo\Application.cpp">
@@ -1282,8 +1289,14 @@
     <ClCompile Include="src\Ayo\Renderer\Shader.cpp">
       <Filter>src\Ayo\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Ayo\Renderer\Texture.cpp">
+      <Filter>src\Ayo\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Ayo\Renderer\VertexArray.cpp">
       <Filter>src\Ayo\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Ayo\Time.cpp">
+      <Filter>src\Ayo</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>
@@ -1295,6 +1308,9 @@
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp">
@@ -1309,7 +1325,5 @@
     <ClCompile Include="src\ayopch.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Ayo\Renderer\Texture.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp" />
   </ItemGroup>
 </Project>
