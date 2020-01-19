@@ -147,6 +147,7 @@ public:
 			m_Camera->SetPosition(glm::vec3(m_Camera->GetPosition().x, m_Camera->GetPosition().y, m_Camera->GetPosition().z + speed));
 		}
 
+        // Changing the object's yaw
 		if (Ayo::Input::IsKeyPressed(AYO_KEY_Q)) {
 			//m_Camera->Rotate(rotSpeed, m_Camera->GetForwardVector());
             modelTransform = glm::rotate(modelTransform, glm::radians(-rotSpeed), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -155,6 +156,16 @@ public:
 			//m_Camera->Rotate(-rotSpeed, m_Camera->GetForwardVector());
             modelTransform = glm::rotate(modelTransform, glm::radians(rotSpeed), glm::vec3(0.0f, 1.0f, 0.0f));
 		}
+
+        // Changing the object's pitch
+        if (Ayo::Input::IsKeyPressed(AYO_KEY_Z)) {
+            //m_Camera->Rotate(rotSpeed, m_Camera->GetForwardVector());
+            modelTransform = glm::rotate(modelTransform, glm::radians(rotSpeed), glm::vec3(1.0f, 0.0f, 0.0f));
+        }
+        else if (Ayo::Input::IsKeyPressed(AYO_KEY_C)) {
+            //m_Camera->Rotate(-rotSpeed, m_Camera->GetForwardVector());
+            modelTransform = glm::rotate(modelTransform, glm::radians(-rotSpeed), glm::vec3(1.0f, 0.0f, 0.0f));
+        }
 
 		Ayo::RenderCommand::SetClearColor({ 0.95f, 0.0625f, 0.93f, 1.0f });
 		Ayo::RenderCommand::Clear();
