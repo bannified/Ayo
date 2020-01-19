@@ -140,6 +140,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Ayo\ValueTypes\Rotator.h" />
     <ClInclude Include="src\Ayo.h" />
     <ClInclude Include="src\Ayo\Application.h" />
     <ClInclude Include="src\Ayo\Core.h" />
@@ -541,6 +542,7 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Ayo\ValueTypes\Rotator.cpp" />
     <ClCompile Include="src\Ayo\Application.cpp" />
     <ClCompile Include="src\Ayo\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Ayo\ImGui\ImGuiLayer.cpp" />
