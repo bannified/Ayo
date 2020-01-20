@@ -199,6 +199,40 @@ namespace Ayo
          * @return A negated copy of the vector.
          */
         inline Vector3 operator-() const { return -m_Vector;}
+
+        /**
+         * Adds another vector to this.
+         * Uses component-wise addition.
+         *
+         * @param V Vector to add to this.
+         * @return Copy of the vector after addition.
+         */
+        inline Vector3 operator+=(const Vector3& vec) { return m_Vector += vec.m_Vector; }
+
+        /**
+         * Subtracts another vector from this.
+         * Uses component-wise subtraction.
+         *
+         * @param V Vector to subtract from this.
+         * @return Copy of the vector after subtraction.
+         */
+        inline Vector3 operator-=(const Vector3& vec) { return m_Vector -= vec.m_Vector; }
+
+        /**
+         * Scales the vector.
+         *
+         * @param Scale Amount to scale this vector by.
+         * @return Copy of the vector after scaling.
+         */
+        inline Vector3 operator*=(float scale) { return m_Vector *= scale; }
+
+        /**
+         * Divides the vector by a number.
+         *
+         * @param V What to divide this vector by.
+         * @return Copy of the vector after division.
+         */
+        inline Vector3 operator/=(float scale) { return m_Vector /= scale; }
     };
 }
 
