@@ -13,14 +13,14 @@ namespace Ayo
     struct Rotator
     {
     public:
-        /* Rotation about the forward axis (z-axis), tilting your head, 0 = upright (eyes parallel to xz-plane), +ve Clockwise, -ve Counter-Clockwise*/
-        float Roll;
-
         /* Rotation about the right axis (x-axis), looking up and down, 0 = Straight ahead, +ve up, -ve down*/
         float Pitch;
 
         /* Rotation about up axis (y-axis), rotating left and right, 0 = east, +ve right, -ve left*/
         float Yaw;
+
+        /* Rotation about the forward axis (z-axis), tilting your head, 0 = upright (eyes parallel to xz-plane), +ve Clockwise, -ve Counter-Clockwise*/
+        float Roll;
 
     public:
 
@@ -30,10 +30,17 @@ namespace Ayo
     public:
         ~Rotator();
         Rotator();
-        Rotator(float roll, float pitch, float yaw);
+        Rotator(float pitch, float yaw, float roll);
         Rotator(float value);
 
         explicit Rotator(const glm::quat quaternion);
+
+        /**
+          * Get Rotation as a quaternion.
+          *
+          * @return Rotation as a quaternion.
+         */
+        //FQuat Quaternion() const;
 
     public:
 
@@ -47,7 +54,7 @@ namespace Ayo
          */
         inline Rotator operator+(const Rotator& rot) const
         {
-            return Rotator(Roll + rot.Roll, Pitch + rot.Pitch, Yaw + rot.Yaw);
+            return Rotator(Pitch + rot.Pitch, Yaw + rot.Yaw, Roll + rot.Roll);
         }
 
         /**
@@ -58,7 +65,7 @@ namespace Ayo
          */
         inline Rotator operator-(const Rotator& rot) const
         {
-            return Rotator(Roll - rot.Roll, Pitch - rot.Pitch, Yaw - rot.Yaw);
+            return Rotator(Pitch - rot.Pitch, Yaw - rot.Yaw, Roll - rot.Roll);
         }
 
         /**
@@ -69,7 +76,7 @@ namespace Ayo
          */
         inline Rotator operator*(float scale) const
         {
-            return Rotator(Roll * scale, Pitch * scale, Yaw * scale);
+            return Rotator(Pitch * scale, Yaw * scale, Roll * scale);
         }
 
         // Binary comparison operators.
