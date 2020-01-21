@@ -11,10 +11,14 @@ Ayo::Rotator::~Rotator()
 Ayo::Rotator::Rotator(float roll, float pitch, float yaw) 
     : Roll(roll), Pitch(pitch), Yaw(yaw) { }
 
+Ayo::Rotator::Rotator(float value)
+    : Roll(value), Pitch(value), Yaw(value) { }
+
 Ayo::Rotator::Rotator(const glm::quat quaternion)
 {
     // todo
 }
 
-Ayo::Rotator::Rotator() { }
+Ayo::Rotator::Rotator() 
+    : Roll(0), Pitch(0), Yaw(0) { }
 

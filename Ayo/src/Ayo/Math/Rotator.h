@@ -31,8 +31,115 @@ namespace Ayo
         ~Rotator();
         Rotator();
         Rotator(float roll, float pitch, float yaw);
+        Rotator(float value);
 
         explicit Rotator(const glm::quat quaternion);
+
+    public:
+
+        // Binary operator overloads (arithmetic)
+
+        /**
+         * Get the result of adding a rotator to this.
+         *
+         * @param R The other rotator.
+         * @return The result of adding a rotator to this.
+         */
+        inline Rotator operator+(const Rotator& rot) const
+        {
+            return Rotator(Roll + rot.Roll, Pitch + rot.Pitch, Yaw + rot.Yaw);
+        }
+
+        /**
+         * Get the result of subtracting a rotator from this.
+         *
+         * @param R The other rotator.
+         * @return The result of subtracting a rotator from this.
+         */
+        inline Rotator operator-(const Rotator& rot) const
+        {
+            return Rotator(Roll - rot.Roll, Pitch - rot.Pitch, Yaw - rot.Yaw);
+        }
+
+        /**
+         * Get the result of scaling this rotator.
+         *
+         * @param Scale The scaling factor.
+         * @return The result of scaling.
+         */
+        inline Rotator operator*(float scale) const
+        {
+            return Rotator(Roll * scale, Pitch * scale, Yaw * scale);
+        }
+
+        // Binary comparison operators.
+
+        /**
+         * Checks whether two rotators are identical. This checks each component for exact equality.
+         *
+         * @param R The other rotator.
+         * @return true if two rotators are identical, otherwise false.
+         * @see Equals()
+         */
+        inline bool operator==(const Rotator& rot) const
+        {
+            return Roll == rot.Roll && Pitch == rot.Pitch && Yaw == rot.Yaw;
+        }
+
+        /**
+         * Checks whether two rotators are different.
+         *
+         * @param V The other rotator.
+         * @return true if two rotators are different, otherwise false.
+         */
+        inline bool operator!=(const Rotator& rot) const
+        {
+            return Roll != rot.Roll || Pitch != rot.Pitch || Yaw == rot.Yaw;
+        }
+
+        // Assignment operators.
+
+        /**
+         * Adds another rotator to this.
+         *
+         * @param R The other rotator.
+         * @return Copy of rotator after addition.
+         */
+        inline Rotator operator+=(const Rotator& rot)
+        {
+            Roll = Roll + rot.Roll;
+            Pitch = Pitch + rot.Pitch;
+            Yaw = Yaw + rot.Yaw;
+            return *this;
+        }
+
+        /**
+         * Subtracts another rotator from this.
+         *
+         * @param R The other rotator.
+         * @return Copy of rotator after subtraction.
+         */
+        inline Rotator operator-=(const Rotator& rot)
+        {
+            Roll = Roll - rot.Roll;
+            Pitch = Pitch - rot.Pitch;
+            Yaw = Yaw - rot.Yaw;
+            return *this;
+        }
+
+        /**
+         * Multiply this rotator by a scaling factor.
+         *
+         * @param Scale The scaling factor.
+         * @return Copy of the rotator after scaling.
+         */
+        inline Rotator operator*=(float scale)
+        {
+            Roll = Roll * scale;
+            Pitch = Pitch * scale;
+            Yaw = Yaw * scale;
+            return *this;
+        }
 
     };
 }
