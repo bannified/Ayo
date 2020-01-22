@@ -9,6 +9,9 @@ namespace Ayo
 {
     struct Vector3
     {
+        friend struct Rotator;
+        friend struct Quaternion;
+
     private:
         glm::vec3 m_Vector;
 

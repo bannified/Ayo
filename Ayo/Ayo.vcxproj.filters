@@ -7,6 +7,9 @@
     <Filter Include="src\Ayo">
       <UniqueIdentifier>{05642FA9-7143-AE44-7A5B-391BE6B914A6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Ayo\Components">
+      <UniqueIdentifier>{FA9B3690-E67F-F7E5-4FE0-F1383BE3E167}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Ayo\Events">
       <UniqueIdentifier>{49B835BE-3586-29C4-1E1A-9AEA0A870529}</UniqueIdentifier>
     </Filter>
@@ -15,6 +18,9 @@
     </Filter>
     <Filter Include="src\Ayo\Macros">
       <UniqueIdentifier>{59F261CF-45C0-55D5-2E54-C6FB1AC1313A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Ayo\Math">
+      <UniqueIdentifier>{FE139611-EA76-25B6-93FC-5D6C7F3EF138}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Ayo\Renderer">
       <UniqueIdentifier>{4BFD7F19-37F6-9E6B-6028-84F04C807E77}</UniqueIdentifier>
@@ -57,6 +63,9 @@
     <ClInclude Include="src\Ayo\Application.h">
       <Filter>src\Ayo</Filter>
     </ClInclude>
+    <ClInclude Include="src\Ayo\Components\SceneComponent.h">
+      <Filter>src\Ayo\Components</Filter>
+    </ClInclude>
     <ClInclude Include="src\Ayo\Core.h">
       <Filter>src\Ayo</Filter>
     </ClInclude>
@@ -95,6 +104,15 @@
     </ClInclude>
     <ClInclude Include="src\Ayo\Macros\MouseButtonCodes.h">
       <Filter>src\Ayo\Macros</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Ayo\Math\Quaternion.h">
+      <Filter>src\Ayo\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Ayo\Math\Rotator.h">
+      <Filter>src\Ayo\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Ayo\Math\Vector3.h">
+      <Filter>src\Ayo\Math</Filter>
     </ClInclude>
     <ClInclude Include="src\Ayo\Renderer\Buffer.h">
       <Filter>src\Ayo\Renderer</Filter>
@@ -1248,11 +1266,13 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
-    <ClInclude Include="src\Ayo\ValueTypes\Rotator.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Ayo\Application.cpp">
       <Filter>src\Ayo</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Ayo\Components\SceneComponent.cpp">
+      <Filter>src\Ayo\Components</Filter>
     </ClCompile>
     <ClCompile Include="src\Ayo\ImGui\ImGuiBuild.cpp">
       <Filter>src\Ayo\ImGui</Filter>
@@ -1268,6 +1288,15 @@
     </ClCompile>
     <ClCompile Include="src\Ayo\Log.cpp">
       <Filter>src\Ayo</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Ayo\Math\Quaternion.cpp">
+      <Filter>src\Ayo\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Ayo\Math\Rotator.cpp">
+      <Filter>src\Ayo\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Ayo\Math\Vector3.cpp">
+      <Filter>src\Ayo\Math</Filter>
     </ClCompile>
     <ClCompile Include="src\Ayo\Renderer\Buffer.cpp">
       <Filter>src\Ayo\Renderer</Filter>
@@ -1326,6 +1355,5 @@
     <ClCompile Include="src\ayopch.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Ayo\ValueTypes\Rotator.cpp" />
   </ItemGroup>
 </Project>

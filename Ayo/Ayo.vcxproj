@@ -140,9 +140,9 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\Ayo\ValueTypes\Rotator.h" />
     <ClInclude Include="src\Ayo.h" />
     <ClInclude Include="src\Ayo\Application.h" />
+    <ClInclude Include="src\Ayo\Components\SceneComponent.h" />
     <ClInclude Include="src\Ayo\Core.h" />
     <ClInclude Include="src\Ayo\EntryPoint.h" />
     <ClInclude Include="src\Ayo\Events\ApplicationEvent.h" />
@@ -156,6 +156,9 @@
     <ClInclude Include="src\Ayo\Log.h" />
     <ClInclude Include="src\Ayo\Macros\Keycodes.h" />
     <ClInclude Include="src\Ayo\Macros\MouseButtonCodes.h" />
+    <ClInclude Include="src\Ayo\Math\Quaternion.h" />
+    <ClInclude Include="src\Ayo\Math\Rotator.h" />
+    <ClInclude Include="src\Ayo\Math\Vector3.h" />
     <ClInclude Include="src\Ayo\Renderer\Buffer.h" />
     <ClInclude Include="src\Ayo\Renderer\Camera.h" />
     <ClInclude Include="src\Ayo\Renderer\GraphicsContext.h" />
@@ -542,13 +545,16 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Ayo\ValueTypes\Rotator.cpp" />
     <ClCompile Include="src\Ayo\Application.cpp" />
+    <ClCompile Include="src\Ayo\Components\SceneComponent.cpp" />
     <ClCompile Include="src\Ayo\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Ayo\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Ayo\Layer.cpp" />
     <ClCompile Include="src\Ayo\LayerStack.cpp" />
     <ClCompile Include="src\Ayo\Log.cpp" />
+    <ClCompile Include="src\Ayo\Math\Quaternion.cpp" />
+    <ClCompile Include="src\Ayo\Math\Rotator.cpp" />
+    <ClCompile Include="src\Ayo\Math\Vector3.cpp" />
     <ClCompile Include="src\Ayo\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Ayo\Renderer\Camera.cpp" />
     <ClCompile Include="src\Ayo\Renderer\GraphicsContext.cpp" />

@@ -1,10 +1,12 @@
 #pragma once
 
-#include <glm/glm.hpp>
-#include <glm/gtc/quaternion.hpp>
+#include "glm/fwd.hpp"
 
 namespace Ayo
 {
+    struct Quaternion;
+    struct Vector3;
+
     /**
      * Container for rotation information
      *
@@ -33,14 +35,16 @@ namespace Ayo
         Rotator(float pitch, float yaw, float roll);
         Rotator(float value);
 
-        explicit Rotator(const glm::quat quaternion);
+        Rotator(const glm::quat quaternion);
 
         /**
           * Get Rotation as a quaternion.
           *
           * @return Rotation as a quaternion.
          */
-        //FQuat Quaternion() const;
+        Quaternion AsQuaternion() const;
+
+        Vector3 TransformVectorNoScale(const Vector3& vec) const;
 
     public:
 
