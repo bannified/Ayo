@@ -210,32 +210,32 @@ namespace Ayo
 
     void OpenGLShader::UpdateFloatConstant(const std::string& constantName, float value)
     {
-        UpdateFloatConstant(constantName, value);
+        UpdateFloatUniform(constantName, value);
     }
 
     void OpenGLShader::UpdateFloat2Constant(const std::string& constantName, const glm::vec2& value)
     {
-        UpdateFloat2Constant(constantName, value);
+        UpdateFloat2Uniform(constantName, value);
     }
 
     void OpenGLShader::UpdateFloat3Constant(const std::string& constantName, const glm::vec3& value)
     {
-        UpdateFloat3Constant(constantName, value);
+        UpdateFloat3Uniform(constantName, value);
     }
 
     void OpenGLShader::UpdateFloat4Constant(const std::string& constantName, const glm::vec4& value)
     {
-        UpdateFloat4Constant(constantName, value);
+        UpdateFloat4Uniform(constantName, value);
     }
 
     void OpenGLShader::UpdateMat3Constant(const std::string& constantName, const glm::mat3& value)
     {
-        UpdateMat3Constant(constantName, value);
+        UpdateMat3Uniform(constantName, value);
     }
 
     void OpenGLShader::UpdateMat4Constant(const std::string& constantName, const glm::mat4& value)
     {
-        UpdateMat4Constant(constantName, value);
+        UpdateMat4Uniform(constantName, value);
     }
 
 }
