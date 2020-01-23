@@ -43,6 +43,8 @@ namespace Ayo
         inline float GetY() const { return m_Vector.y; }
         inline float GetZ() const { return m_Vector.z; }
 
+        inline glm::vec3 Get() const { return m_Vector; }
+
     public:
 
         /** A zero vector (0,0,0) */

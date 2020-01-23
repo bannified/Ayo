@@ -43,4 +43,12 @@
 
 // ------------
 
+// --- Components and objects ---
+
+#include "Ayo/Components/SceneComponent.h"
+#include "Ayo/Lighting/LightSource.h"
+#include "Ayo/Lighting/DirectionalLightSource.h"
+
+//
+
 #include "glm/glm.hpp"

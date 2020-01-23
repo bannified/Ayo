@@ -1,4 +1,6 @@
 #include "ayopch.h"
+#include "glm/gtx/euler_angles.hpp"
+
 #include "SceneComponent.h"
 
 #include "Ayo/Math/Quaternion.h"
@@ -7,7 +9,9 @@
 
 Ayo::SceneComponent::SceneComponent()
 {
-
+    m_LocalLocation = Vector3(0.0f);
+    m_LocalRotation = Rotator(0.0f);
+    m_LocalScale = Vector3(1.0f);
 }
 
 Ayo::SceneComponent::~SceneComponent()
@@ -32,8 +36,8 @@ void Ayo::SceneComponent::SetLocalRotation(Rotator newRotation)
 
 void Ayo::SceneComponent::AddLocalRotation(Rotator deltaRotation)
 {
-    const Quaternion currentQuat = m_LocalRotation.AsQuaternion();
-    const Quaternion targetQuat = currentQuat * deltaRotation.AsQuaternion();
+    const Quaternion currentQuat = m_LocalRotation.AsQuaternion().GetNormalized();
+    const Quaternion targetQuat = currentQuat * Quaternion(deltaRotation.AsQuaternion().GetNormalized());
 
     m_LocalRotation = Rotator(targetQuat.GetQuaternion());
 }
@@ -86,5 +90,18 @@ Ayo::Vector3 Ayo::SceneComponent::GetUpVector() const
 Ayo::Vector3 Ayo::SceneComponent::GetRightVector() const
 {
     return m_LocalRotation.TransformVectorNoScale(Vector3(1.0f, 0.0f, 0.0f));
+}
+
+glm::mat4 Ayo::SceneComponent::GetRelativeTransform()
+{
+    glm::mat4 res = glm::mat4(1.0f);
+
+    res = glm::translate(res, m_LocalLocation.Get());
+
+    res = res * glm::eulerAngleYXZ(m_LocalRotation.Yaw, m_LocalRotation.Pitch, m_LocalRotation.Roll);
+
+    res = glm::scale(res, m_LocalScale.Get());
+
+    return res;
 }
 

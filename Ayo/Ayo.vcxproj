@@ -140,6 +140,8 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Ayo\Lighting\DirectionalLightSource.h" />
+    <ClInclude Include="src\Ayo\Lighting\LightSource.h" />
     <ClInclude Include="src\Ayo.h" />
     <ClInclude Include="src\Ayo\Application.h" />
     <ClInclude Include="src\Ayo\Components\SceneComponent.h" />
@@ -545,6 +547,8 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Ayo\Lighting\DirectionalLightSource.cpp" />
+    <ClCompile Include="src\Ayo\Lighting\LightSource.cpp" />
     <ClCompile Include="src\Ayo\Application.cpp" />
     <ClCompile Include="src\Ayo\Components\SceneComponent.cpp" />
     <ClCompile Include="src\Ayo\ImGui\ImGuiBuild.cpp" />

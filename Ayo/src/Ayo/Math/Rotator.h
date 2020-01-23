@@ -46,6 +46,8 @@ namespace Ayo
 
         Vector3 TransformVectorNoScale(const Vector3& vec) const;
 
+        Vector3 AsVector3() const;
+
     public:
 
         // Binary operator overloads (arithmetic)

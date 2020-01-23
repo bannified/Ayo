@@ -90,7 +90,6 @@ public:
 		/* Shaders */
 		// todo: remember to add in model matrix
 		std::string vertexSourcePath = AppSettings::DEBUG_ROOT_PATH + "/posTex.vs";
-
 		std::string fragmentSourcePath = AppSettings::DEBUG_ROOT_PATH + "/2textures.fs";
 
 		// shader
@@ -106,6 +105,18 @@ public:
 		m_Camera->SetPosition(glm::vec3(0.0f, 0.0f, 3.0f));
 
         modelTransform = glm::mat4(1.0f);
+
+        // Setup DirLight
+
+        m_DirLight = std::make_shared<Ayo::DirectionalLightSource>(glm::vec3{1.0f, 1.0f, 1.0f}, 1.0f);
+
+        m_DirLight->SetLocalLocation({ 0.0f, 1.0f, -2.0f });
+        m_DirLight->SetLocalRotation({ -45.0f, -45.0f, 0.0f });
+
+        vertexSourcePath = AppSettings::DEBUG_ROOT_PATH + "/lightPosOnly.vs";
+        fragmentSourcePath = AppSettings::DEBUG_ROOT_PATH + "/lightColor.fs";
+
+        m_DirLightShader = Ayo::Shader::CreateFromPath(vertexSourcePath, fragmentSourcePath);
 	}
 
 	void OnUpdate() override
@@ -114,6 +125,8 @@ public:
         //AYO_INFO("Time::GetDeltaTime(): {0}", Ayo::Time::GetDeltaTime());
         //AYO_INFO("FPS: {0}", 1.0f/Ayo::Time::GetDeltaTime());
 		//AYO_INFO("ExampleLayer::Update");
+
+        /* ----------- Camera Controls ----------- */
 
         // horizontal movement of camera
 		if (Ayo::Input::IsKeyPressed(AYO_KEY_LEFT)) {
@@ -155,46 +168,90 @@ public:
             m_Camera->Rotate(-rotSpeed * 0.1, glm::vec3(1.0f, 0.0f, 0.0f));
         }
 
+        /* -------------------------------------------- */
+
+
         if (Ayo::Input::IsKeyPressed(AYO_KEY_1)) {
             m_WireframeMode = !m_WireframeMode;
             Ayo::RenderCommand::SetWireframeMode(m_WireframeMode);
         }
 
+        /* ----------- Light source Controls ----------- */
+
         // Vertical movement of cube
         if (Ayo::Input::IsKeyPressed(AYO_KEY_W)) {
-            modelTransform = glm::translate(modelTransform, glm::vec3(0.0f, speed, 0.0f));
-        } else if (Ayo::Input::IsKeyPressed(AYO_KEY_S))
-        {
-            modelTransform = glm::translate(modelTransform, glm::vec3(0.0f, -speed, 0.0f));
+            m_DirLight->AddLocalLocation({ 0.0f, speed, 0.0f });
+        }
+        else if (Ayo::Input::IsKeyPressed(AYO_KEY_S)) {
+            m_DirLight->AddLocalLocation({ 0.0f, -speed, 0.0f });
         }
 
         // horizontal movement of cube
         if (Ayo::Input::IsKeyPressed(AYO_KEY_A)) {
-            modelTransform = glm::translate(modelTransform, glm::vec3(speed, 0.0f, 0.0f));
+            m_DirLight->AddLocalLocation({ speed, 0.0f, 0.0f });
         }
         else if (Ayo::Input::IsKeyPressed(AYO_KEY_D)) {
-            modelTransform = glm::translate(modelTransform, glm::vec3(-speed, 0.0f, 0.0f));
+            m_DirLight->AddLocalLocation({ -speed, 0.0f, 0.0f });
         }
 
         // Changing the object's yaw
-		if (Ayo::Input::IsKeyPressed(AYO_KEY_Q)) {
-			//m_Camera->Rotate(rotSpeed, m_Camera->GetForwardVector());
-            modelTransform = glm::rotate(modelTransform, glm::radians(-rotSpeed), glm::vec3(0.0f, 1.0f, 0.0f));
-		}
-		else if (Ayo::Input::IsKeyPressed(AYO_KEY_E)) {
-			//m_Camera->Rotate(-rotSpeed, m_Camera->GetForwardVector());
-            modelTransform = glm::rotate(modelTransform, glm::radians(rotSpeed), glm::vec3(0.0f, 1.0f, 0.0f));
-		}
+        if (Ayo::Input::IsKeyPressed(AYO_KEY_Q)) {
+            m_DirLight->AddLocalRotation({ 0.0f, rotSpeed, 0.0f });
+        }
+        else if (Ayo::Input::IsKeyPressed(AYO_KEY_E)) {
+            m_DirLight->AddLocalRotation({ 0.0f, -rotSpeed, 0.0f });
+        }
 
         // Changing the object's pitch
         if (Ayo::Input::IsKeyPressed(AYO_KEY_R)) {
-            //m_Camera->Rotate(rotSpeed, m_Camera->GetForwardVector());
-            modelTransform = glm::rotate(modelTransform, glm::radians(rotSpeed), glm::vec3(1.0f, 0.0f, 0.0f));
+            m_DirLight->AddLocalRotation({ rotSpeed, 0.0f, 0.0f });
         }
         else if (Ayo::Input::IsKeyPressed(AYO_KEY_F)) {
-            //m_Camera->Rotate(-rotSpeed, m_Camera->GetForwardVector());
-            modelTransform = glm::rotate(modelTransform, glm::radians(-rotSpeed), glm::vec3(1.0f, 0.0f, 0.0f));
+            m_DirLight->AddLocalRotation({ -rotSpeed, 0.0f, 0.0f });
         }
+
+        /* -------------------------------------------- */
+
+        /* ----------- Object Controls ----------- */
+
+  //      // Vertical movement of cube
+  //      if (Ayo::Input::IsKeyPressed(AYO_KEY_W)) {
+  //          modelTransform = glm::translate(modelTransform, glm::vec3(0.0f, speed, 0.0f));
+  //      } else if (Ayo::Input::IsKeyPressed(AYO_KEY_S))
+  //      {
+  //          modelTransform = glm::translate(modelTransform, glm::vec3(0.0f, -speed, 0.0f));
+  //      }
+
+  //      // horizontal movement of cube
+  //      if (Ayo::Input::IsKeyPressed(AYO_KEY_A)) {
+  //          modelTransform = glm::translate(modelTransform, glm::vec3(speed, 0.0f, 0.0f));
+  //      }
+  //      else if (Ayo::Input::IsKeyPressed(AYO_KEY_D)) {
+  //          modelTransform = glm::translate(modelTransform, glm::vec3(-speed, 0.0f, 0.0f));
+  //      }
+
+  //      // Changing the object's yaw
+		//if (Ayo::Input::IsKeyPressed(AYO_KEY_Q)) {
+		//	//m_Camera->Rotate(rotSpeed, m_Camera->GetForwardVector());
+  //          modelTransform = glm::rotate(modelTransform, glm::radians(-rotSpeed), glm::vec3(0.0f, 1.0f, 0.0f));
+		//}
+		//else if (Ayo::Input::IsKeyPressed(AYO_KEY_E)) {
+		//	//m_Camera->Rotate(-rotSpeed, m_Camera->GetForwardVector());
+  //          modelTransform = glm::rotate(modelTransform, glm::radians(rotSpeed), glm::vec3(0.0f, 1.0f, 0.0f));
+		//}
+
+  //      // Changing the object's pitch
+  //      if (Ayo::Input::IsKeyPressed(AYO_KEY_R)) {
+  //          //m_Camera->Rotate(rotSpeed, m_Camera->GetForwardVector());
+  //          modelTransform = glm::rotate(modelTransform, glm::radians(rotSpeed), glm::vec3(1.0f, 0.0f, 0.0f));
+  //      }
+  //      else if (Ayo::Input::IsKeyPressed(AYO_KEY_F)) {
+  //          //m_Camera->Rotate(-rotSpeed, m_Camera->GetForwardVector());
+  //          modelTransform = glm::rotate(modelTransform, glm::radians(-rotSpeed), glm::vec3(1.0f, 0.0f, 0.0f));
+  //      }
+
+        /* -------------------------------------------- */
+
 
 		Ayo::RenderCommand::SetClearColor({ 0.95f, 0.0625f, 0.93f, 1.0f });
 		Ayo::RenderCommand::Clear();
@@ -202,15 +259,19 @@ public:
 		Ayo::Renderer::BeginScene();
 
 		m_Shader->Bind();
-		m_Shader->UpdateMat4Constant("u_ViewProjectionMatrix", m_Camera->GetViewProjectionMatrix() * modelTransform);
+        m_Shader->UpdateMat4Constant("u_ViewProjectionMatrix", m_Camera->GetViewProjectionMatrix() * modelTransform);
         // texture
         m_Shader->UpdateIntConstant("u_Texture", 0);
         m_Texture->Bind(0);
         m_Shader->UpdateIntConstant("u_Texture1", 1);
         m_Texture1->Bind(1);
-
 		m_VertexArrayCube->Bind();
 		Ayo::Renderer::Submit(m_VertexArrayCube);
+
+        m_DirLightShader->Bind();
+        m_DirLightShader->UpdateMat4Constant("u_ViewProjectionMatrix", m_Camera->GetViewProjectionMatrix() * m_DirLight->GetRelativeTransform());
+        m_DirLight->SetupShader(m_DirLightShader);
+        m_DirLight->Draw();
 
 		Ayo::Renderer::EndScene();
 	}
@@ -235,12 +296,16 @@ private:
 	// temporary, as example.
     glm::mat4 modelTransform;
 
-	std::shared_ptr<Ayo::Shader> m_Shader;
+    std::shared_ptr<Ayo::Shader> m_Shader;
+
+    std::shared_ptr<Ayo::Shader> m_DirLightShader;
 
     std::shared_ptr<Ayo::Texture> m_Texture;
     std::shared_ptr<Ayo::Texture> m_Texture1;
 
 	std::shared_ptr<Ayo::Camera> m_Camera;
+
+    std::shared_ptr<Ayo::DirectionalLightSource> m_DirLight;
 
 	float speed = 0.01f;
 	float rotSpeed = 0.1f;

@@ -30,6 +30,10 @@ namespace Ayo
 
         inline glm::quat GetQuaternion() const { return m_Quaternion; }
 
+        inline glm::quat GetInverse() const { return glm::inverse(m_Quaternion); }
+
+        inline glm::quat GetNormalized() const { return glm::normalize(m_Quaternion); }
+
         /**
          * Per-component Constructor.
          *

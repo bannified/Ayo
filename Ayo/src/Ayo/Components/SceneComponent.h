@@ -77,6 +77,11 @@ namespace Ayo
         /** Get the right (Y) unit direction vector from this component, in world space.  */
         Vector3 GetRightVector() const;
 
+        /**
+         * Get transform based on this component's location, rotation, and scale
+         */
+        glm::mat4 GetRelativeTransform();
+
     };
 }
 

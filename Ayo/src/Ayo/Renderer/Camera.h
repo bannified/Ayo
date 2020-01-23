@@ -4,9 +4,11 @@
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtx/quaternion.hpp>
 
+#include "Ayo/Components/SceneComponent.h"
+
 namespace Ayo {
 
-	class Camera
+	class Camera : public SceneComponent
 	{
 	public:
 		Camera();
