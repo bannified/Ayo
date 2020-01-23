@@ -35,4 +35,12 @@
 
 // ----------------
 
+// --- Math ---
+
+#include "Ayo/Math/Vector3.h"
+#include "Ayo/Math/Rotator.h"
+#include "Ayo/Math/Quaternion.h"
+
+// ------------
+
 #include "glm/glm.hpp"
