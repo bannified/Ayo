@@ -25,6 +25,7 @@
 
 #include "Ayo/Renderer/VertexArray.h"
 #include "Ayo/Renderer/Shader.h"
+#include "Ayo/Renderer/Texture.h"
 #include "Ayo/Renderer/Camera.h"
 #include "Ayo/Renderer/Buffer.h"
 #include "Ayo/Renderer/RendererAPI.h"

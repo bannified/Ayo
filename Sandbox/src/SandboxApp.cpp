@@ -4,9 +4,6 @@
 
 #include "AppSettings.h"
 
-#include "Platform/OpenGL/OpenGLShader.h" // todo: remove/refactor
-#include "Platform/OpenGL/OpenGLTexture.h"
-
 class ExampleLayer : public Ayo::Layer
 {
 public:
@@ -205,11 +202,11 @@ public:
 		Ayo::Renderer::BeginScene();
 
 		m_Shader->Bind();
-		std::dynamic_pointer_cast<Ayo::OpenGLShader>(m_Shader)->UpdateMat4Uniform("u_ViewProjectionMatrix", m_Camera->GetViewProjectionMatrix() * modelTransform);
+		m_Shader->UpdateMat4Constant("u_ViewProjectionMatrix", m_Camera->GetViewProjectionMatrix() * modelTransform);
         // texture
-        std::dynamic_pointer_cast<Ayo::OpenGLShader>(m_Shader)->UpdateIntUniform("u_Texture", 0);
+        m_Shader->UpdateIntConstant("u_Texture", 0);
         m_Texture->Bind(0);
-        std::dynamic_pointer_cast<Ayo::OpenGLShader>(m_Shader)->UpdateIntUniform("u_Texture1", 1);
+        m_Shader->UpdateIntConstant("u_Texture1", 1);
         m_Texture1->Bind(1);
 
 		m_VertexArrayCube->Bind();
