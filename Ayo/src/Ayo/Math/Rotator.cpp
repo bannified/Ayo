@@ -28,7 +28,7 @@ Ayo::Rotator::Rotator()
 
 Ayo::Quaternion Ayo::Rotator::AsQuaternion() const
 {
-    return Ayo::Quaternion(glm::quat(glm::vec3(Pitch, Roll, Yaw)));
+    return Ayo::Quaternion(glm::quat(glm::vec3(glm::radians(Pitch), glm::radians(Yaw), glm::radians(Roll))));
 }
 
 Ayo::Vector3 Ayo::Rotator::TransformVectorNoScale(const Vector3& vec) const

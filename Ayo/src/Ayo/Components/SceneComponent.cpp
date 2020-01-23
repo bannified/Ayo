@@ -37,9 +37,12 @@ void Ayo::SceneComponent::SetLocalRotation(Rotator newRotation)
 void Ayo::SceneComponent::AddLocalRotation(Rotator deltaRotation)
 {
     const Quaternion currentQuat = m_LocalRotation.AsQuaternion().GetNormalized();
-    const Quaternion targetQuat = currentQuat * Quaternion(deltaRotation.AsQuaternion().GetNormalized());
+    const Quaternion targetQuat = currentQuat * deltaRotation.AsQuaternion();
 
-    m_LocalRotation = Rotator(targetQuat.GetQuaternion());
+    m_LocalRotation = Rotator(targetQuat.GetNormalized());
+    
+    // Correct, but suffers from gimbal lock and floating point errors for large numbers
+    //m_LocalRotation += deltaRotation;
 }
 
 //Ayo::Rotator Ayo::SceneComponent::GetWorldRotation() const
@@ -98,7 +101,7 @@ glm::mat4 Ayo::SceneComponent::GetRelativeTransform()
 
     res = glm::translate(res, m_LocalLocation.Get());
 
-    res = res * glm::eulerAngleYXZ(m_LocalRotation.Yaw, m_LocalRotation.Pitch, m_LocalRotation.Roll);
+    res = res * glm::eulerAngleXYZ(m_LocalRotation.Pitch, m_LocalRotation.Yaw, m_LocalRotation.Roll);
 
     res = glm::scale(res, m_LocalScale.Get());
 

@@ -111,7 +111,7 @@ public:
         m_DirLight = std::make_shared<Ayo::DirectionalLightSource>(glm::vec3{1.0f, 1.0f, 1.0f}, 1.0f);
 
         m_DirLight->SetLocalLocation({ 0.0f, 1.0f, -2.0f });
-        m_DirLight->SetLocalRotation({ -45.0f, -45.0f, 0.0f });
+        m_DirLight->SetLocalRotation({ 0.0f, 0.0f, 0.0f });
 
         vertexSourcePath = AppSettings::DEBUG_ROOT_PATH + "/lightPosOnly.vs";
         fragmentSourcePath = AppSettings::DEBUG_ROOT_PATH + "/lightColor.fs";
