@@ -184,18 +184,18 @@ public:
 
         // Vertical movement of cube
         if (Ayo::Input::IsKeyPressed(AYO_KEY_W)) {
-            m_DirLight->AddLocalLocation({ 0.0f, speed, 0.0f });
+            m_DirLight->AddLocalOffset({ 0.0f, speed, 0.0f });
         }
         else if (Ayo::Input::IsKeyPressed(AYO_KEY_S)) {
-            m_DirLight->AddLocalLocation({ 0.0f, -speed, 0.0f });
+            m_DirLight->AddLocalOffset({ 0.0f, -speed, 0.0f });
         }
 
         // horizontal movement of cube
         if (Ayo::Input::IsKeyPressed(AYO_KEY_A)) {
-            m_DirLight->AddLocalLocation({ speed, 0.0f, 0.0f });
+            m_DirLight->AddLocalOffset({ speed, 0.0f, 0.0f });
         }
         else if (Ayo::Input::IsKeyPressed(AYO_KEY_D)) {
-            m_DirLight->AddLocalLocation({ -speed, 0.0f, 0.0f });
+            m_DirLight->AddLocalOffset({ -speed, 0.0f, 0.0f });
         }
 
         // Changing the object's yaw
