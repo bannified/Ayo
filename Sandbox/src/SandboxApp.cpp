@@ -21,7 +21,7 @@ public:
 		// Setup Camera
 		m_Camera = std::make_shared<Ayo::Camera>();
 		m_Camera->SetProjectionMatrix(glm::perspective(glm::radians(45.0f), 16.0f / 9.0f, 0.1f, 100.0f));
-		m_Camera->SetViewMatrix(glm::identity<glm::mat4>());
+		//m_Camera->SetViewMatrix(glm::identity<glm::mat4>());
 
 		// Setup buffers
 		std::shared_ptr<Ayo::VertexBuffer> vertexBufferCube;
@@ -102,7 +102,7 @@ public:
         m_Texture = Ayo::Texture::Create(texturePath);
         m_Texture1 = Ayo::Texture::Create(texture1Path);
 
-		m_Camera->SetPosition(glm::vec3(0.0f, 0.0f, 3.0f));
+		m_Camera->SetLocalLocation(Ayo::Vector3(0.0f, 0.0f, 3.0f));
 
         modelTransform = glm::mat4(1.0f);
 
@@ -117,6 +117,8 @@ public:
         fragmentSourcePath = AppSettings::DEBUG_ROOT_PATH + "/lightColor.fs";
 
         m_DirLightShader = Ayo::Shader::CreateFromPath(vertexSourcePath, fragmentSourcePath);
+
+        //m_Camera->SetLocalRotation({0.0f, 45.0f, 0.0f});
 	}
 
 	void OnUpdate() override
@@ -130,42 +132,44 @@ public:
 
         // horizontal movement of camera
 		if (Ayo::Input::IsKeyPressed(AYO_KEY_LEFT)) {
-			m_Camera->SetPosition(glm::vec3(m_Camera->GetPosition().x - speed, m_Camera->GetPosition().y, m_Camera->GetPosition().z));
+            m_Camera->AddLocalOffset(Ayo::Vector3(-speed, 0.0f, 0.0f));
 		}
 		else if (Ayo::Input::IsKeyPressed(AYO_KEY_RIGHT)) {
-			m_Camera->SetPosition(glm::vec3(m_Camera->GetPosition().x + speed, m_Camera->GetPosition().y, m_Camera->GetPosition().z));
-		}
+            m_Camera->AddLocalOffset(Ayo::Vector3(speed, 0.0f, 0.0f));
+        }
 
         // in/out movement of camera
         if (Ayo::Input::IsKeyPressed(AYO_KEY_UP)) {
-            m_Camera->SetPosition(glm::vec3(m_Camera->GetPosition().x, m_Camera->GetPosition().y, m_Camera->GetPosition().z - speed));
+            m_Camera->AddLocalOffset(Ayo::Vector3(0.0f, 0.0f, -speed));
         }
         else if (Ayo::Input::IsKeyPressed(AYO_KEY_DOWN)) {
-            m_Camera->SetPosition(glm::vec3(m_Camera->GetPosition().x, m_Camera->GetPosition().y, m_Camera->GetPosition().z + speed));
+            m_Camera->AddLocalOffset(Ayo::Vector3(0.0f, 0.0f, speed));
         }
 
         // vertical movement of camera
         if (Ayo::Input::IsKeyPressed(AYO_KEY_SPACE)) {
-            m_Camera->SetPosition(glm::vec3(m_Camera->GetPosition().x, m_Camera->GetPosition().y + speed, m_Camera->GetPosition().z));
+            m_Camera->AddLocalOffset(Ayo::Vector3(0.0f, speed, 0.0f));
         }
         else if (Ayo::Input::IsKeyPressed(AYO_KEY_LEFT_CONTROL)) {
-            m_Camera->SetPosition(glm::vec3(m_Camera->GetPosition().x, m_Camera->GetPosition().y - speed, m_Camera->GetPosition().z));
+            m_Camera->AddLocalOffset(Ayo::Vector3(0.0f, -speed, 0.0f));
         }
 
         // yaw modification of camera
         if (Ayo::Input::IsKeyPressed(AYO_KEY_Z)) {
-            m_Camera->Rotate(rotSpeed * 0.1, glm::vec3(0.0f, 1.0f, 0.0f));
+            m_Camera->AddLocalRotation({ 0.0f, rotSpeed * 0.1f, 0.0f });
+            AYO_INFO("Camera Rotation // Pitch: {0}, Yaw: {1}, Roll: {2}", m_Camera->GetLocalRotation().Pitch, m_Camera->GetLocalRotation().Yaw, m_Camera->GetLocalRotation().Roll);
         }
         else if (Ayo::Input::IsKeyPressed(AYO_KEY_C)) {
-            m_Camera->Rotate(-rotSpeed * 0.1, glm::vec3(0.0f, 1.0f, 0.0f));
+            m_Camera->AddLocalRotation({ 0.0f, -rotSpeed * 0.1f, 0.0f });
+            AYO_INFO("Camera Rotation // Pitch: {0}, Yaw: {1}, Roll: {2}", m_Camera->GetLocalRotation().Pitch, m_Camera->GetLocalRotation().Yaw, m_Camera->GetLocalRotation().Roll);
         }
 
         // pitch modification of camera
         if (Ayo::Input::IsKeyPressed(AYO_KEY_EQUAL)) {
-            m_Camera->Rotate(rotSpeed * 0.1, glm::vec3(1.0f, 0.0f, 0.0f));
+            m_Camera->AddLocalRotation({ rotSpeed * 0.1f, 0.0f, 0.0f });
         }
         else if (Ayo::Input::IsKeyPressed(AYO_KEY_MINUS)) {
-            m_Camera->Rotate(-rotSpeed * 0.1, glm::vec3(1.0f, 0.0f, 0.0f));
+            m_Camera->AddLocalRotation({ -rotSpeed * 0.1f, 0.0f, 0.0f });
         }
 
         /* -------------------------------------------- */
@@ -252,6 +256,7 @@ public:
 
         /* -------------------------------------------- */
 
+        m_Camera->RecalculateViewProjectionMatrix();
 
 		Ayo::RenderCommand::SetClearColor({ 0.95f, 0.0625f, 0.93f, 1.0f });
 		Ayo::RenderCommand::Clear();
