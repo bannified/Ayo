@@ -5,11 +5,15 @@
 
 #include "glm/gtc/type_ptr.hpp"
 
+#include "Ayo/Renderer/Texture.h"
+
 namespace Ayo
 {
 
 	OpenGLShader::OpenGLShader(const std::string vertexSource, const std::string fragmentSource)
 	{
+        m_NextTextureIndex = 0;
+
 		// Create an empty vertex shader handle
 		GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
 
@@ -122,6 +126,7 @@ namespace Ayo
 	void OpenGLShader::Bind() const
 	{
 		glUseProgram(m_RendererId);
+        m_NextTextureIndex = 0; // reset next texture index.
 	}
 
 	void OpenGLShader::Unbind() const
@@ -236,6 +241,14 @@ namespace Ayo
     void OpenGLShader::UpdateMat4Constant(const std::string& constantName, const glm::mat4& value)
     {
         UpdateMat4Uniform(constantName, value);
+    }
+
+    void OpenGLShader::AddTexture(const std::string& constantName, const std::shared_ptr<Texture>& texture)
+    {
+        UpdateIntConstant(constantName, m_NextTextureIndex);
+        texture->Bind(m_NextTextureIndex);
+
+        m_NextTextureIndex++;
     }
 
 }

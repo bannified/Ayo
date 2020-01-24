@@ -304,10 +304,9 @@ public:
         m_DirLight->SetupShader(m_Shader);
 
         // texture
-        m_Shader->UpdateIntConstant("u_Texture", 0);
-        m_Texture->Bind(0);
-        m_Shader->UpdateIntConstant("u_Texture1", 1);
-        m_Texture1->Bind(1);
+        m_Shader->AddTexture("u_Texture", m_Texture);
+        m_Shader->AddTexture("u_Texture1", m_Texture1);
+
 		m_VertexArrayCube->Bind();
 		Ayo::Renderer::Submit(m_VertexArrayCube);
 

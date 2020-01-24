@@ -6,6 +6,8 @@
 
 namespace Ayo
 {
+    class Texture;
+
 	class OpenGLShader : public Shader
 	{
 	public:
@@ -28,6 +30,8 @@ namespace Ayo
         virtual void UpdateMat3Constant(const std::string& constantName, const glm::mat3& value) override;
         virtual void UpdateMat4Constant(const std::string& constantName, const glm::mat4& value) override;
 
+        virtual void AddTexture(const std::string& constantName, const std::shared_ptr<Texture>& texture) override;
+
     private:
         void UpdateIntUniform(const std::string& uniformName, int value);
 
@@ -40,6 +44,8 @@ namespace Ayo
         void UpdateMat4Uniform(const std::string& uniformName, const glm::mat4& value);
 
 		uint32_t m_RendererId;
+
+        mutable int m_NextTextureIndex;
 
 	};
 }
