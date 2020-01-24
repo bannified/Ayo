@@ -1268,6 +1268,9 @@
     </ClInclude>
     <ClInclude Include="src\Ayo\Lighting\LightSource.h" />
     <ClInclude Include="src\Ayo\Lighting\DirectionalLightSource.h" />
+    <ClInclude Include="src\Ayo\Renderer\Material.h" />
+    <ClInclude Include="src\Ayo\Renderer\Materials\StandardMaterial.h" />
+    <ClInclude Include="src\Platform\OpenGL\Materials\OpenGLStandardMaterial.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Ayo\Application.cpp">
@@ -1359,5 +1362,8 @@
     </ClCompile>
     <ClCompile Include="src\Ayo\Lighting\LightSource.cpp" />
     <ClCompile Include="src\Ayo\Lighting\DirectionalLightSource.cpp" />
+    <ClCompile Include="src\Ayo\Renderer\Material.cpp" />
+    <ClCompile Include="src\Ayo\Renderer\Materials\StandardMaterial.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\Materials\OpenGLStandardMaterial.cpp" />
   </ItemGroup>
 </Project>
