@@ -23,7 +23,7 @@ namespace Ayo
 	void Camera::RecalculateViewProjectionMatrix()
 	{
         glm::mat4 transform = GetRelativeTransform();
-
+        // todo: View Projection affects scale of the world since we're using GetRelativeTransform(), which SHOULD NOT happen.
 		m_ViewProjectionMatrix = m_ProjectionMatrix * glm::inverse(transform);
 	}
 

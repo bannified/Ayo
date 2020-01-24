@@ -23,6 +23,8 @@ public:
 		m_Camera->SetProjectionMatrix(glm::perspective(glm::radians(45.0f), 16.0f / 9.0f, 0.1f, 100.0f));
 		//m_Camera->SetViewMatrix(glm::identity<glm::mat4>());
 
+        modelTransform = glm::mat4(1.0f);
+
 		// Setup buffers
 		std::shared_ptr<Ayo::VertexBuffer> vertexBufferCube;
 		std::shared_ptr<Ayo::IndexBuffer> indexBufferCube;
@@ -31,36 +33,48 @@ public:
 
 		/* Vertices */
         float vertices[] = {
-            // Vertices             // Tex coords
-            -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-             0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-             0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-            -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+            // Vertices           // Tex coords     // Normals
+            -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,        0.0f,  0.0f, -1.0f,
+             0.5f, -0.5f, -0.5f,  1.0f, 0.0f,        0.0f,  0.0f, -1.0f,
+             0.5f,  0.5f, -0.5f,  1.0f, 1.0f,        0.0f,  0.0f, -1.0f,
+             0.5f,  0.5f, -0.5f,  1.0f, 1.0f,        0.0f,  0.0f, -1.0f,
+            -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,        0.0f,  0.0f, -1.0f,
+            -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,        0.0f,  0.0f, -1.0f,
 
-            -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-             0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-             0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-            -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
+            -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,        0.0f,  0.0f, 1.0f,
+             0.5f, -0.5f,  0.5f,  1.0f, 0.0f,        0.0f,  0.0f, 1.0f,
+             0.5f,  0.5f,  0.5f,  1.0f, 1.0f,        0.0f,  0.0f, 1.0f,
+             0.5f,  0.5f,  0.5f,  1.0f, 1.0f,        0.0f,  0.0f, 1.0f,
+            -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,        0.0f,  0.0f, 1.0f,
+            -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,        0.0f,  0.0f, 1.0f,
 
-            -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-            -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-            -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-            -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+            -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,       -1.0f,  0.0f,  0.0f,
+            -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,       -1.0f,  0.0f,  0.0f,
+            -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,       -1.0f,  0.0f,  0.0f,
+            -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,       -1.0f,  0.0f,  0.0f,
+            -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,       -1.0f,  0.0f,  0.0f,
+            -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,       -1.0f,  0.0f,  0.0f,
 
-             0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-             0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-             0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-             0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+             0.5f,  0.5f,  0.5f,  1.0f, 0.0f,        1.0f,  0.0f,  0.0f,
+             0.5f,  0.5f, -0.5f,  1.0f, 1.0f,        1.0f,  0.0f,  0.0f,
+             0.5f, -0.5f, -0.5f,  0.0f, 1.0f,        1.0f,  0.0f,  0.0f,
+             0.5f, -0.5f, -0.5f,  0.0f, 1.0f,        1.0f,  0.0f,  0.0f,
+             0.5f, -0.5f,  0.5f,  0.0f, 0.0f,        1.0f,  0.0f,  0.0f,
+             0.5f,  0.5f,  0.5f,  1.0f, 0.0f,        1.0f,  0.0f,  0.0f,
 
-            -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-             0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-             0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-            -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+            -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,        0.0f, -1.0f,  0.0f,
+             0.5f, -0.5f, -0.5f,  1.0f, 1.0f,        0.0f, -1.0f,  0.0f,
+             0.5f, -0.5f,  0.5f,  1.0f, 0.0f,        0.0f, -1.0f,  0.0f,
+             0.5f, -0.5f,  0.5f,  1.0f, 0.0f,        0.0f, -1.0f,  0.0f,
+            -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,        0.0f, -1.0f,  0.0f,
+            -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,        0.0f, -1.0f,  0.0f,
 
-            -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-             0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-             0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-            -0.5f,  0.5f,  0.5f,  0.0f, 0.0f
+            -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,        0.0f,  1.0f,  0.0f,
+             0.5f,  0.5f, -0.5f,  1.0f, 1.0f,        0.0f,  1.0f,  0.0f,
+             0.5f,  0.5f,  0.5f,  1.0f, 0.0f,        0.0f,  1.0f,  0.0f,
+             0.5f,  0.5f,  0.5f,  1.0f, 0.0f,        0.0f,  1.0f,  0.0f,
+            -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,        0.0f,  1.0f,  0.0f,
+            -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,        0.0f,  1.0f,  0.0f
         };
 
 		vertexBufferCube = Ayo::VertexBuffer::Create(vertices, sizeof(vertices));
@@ -68,19 +82,21 @@ public:
 		/* Layout */
 		Ayo::BufferLayout layout = {
 			{ Ayo::ShaderDataType::Float3, "a_Position"},
-            { Ayo::ShaderDataType::Float2, "a_TexCoord"}
+            { Ayo::ShaderDataType::Float2, "a_TexCoord"},
+            { Ayo::ShaderDataType::Float3, "a_Normal"}
 		};
 
 		vertexBufferCube->SetLayout(layout);
 
 		/* Indices */
-		unsigned int indices[] = {  0,  1,      2,      2,      3,      0,
-                                    4,  4 + 1,  4 + 2,  4 + 2,  4 + 3,  4,
-                                    8,  8 + 1,  8 + 2,  8 + 2,  8 + 3,  8,
-                                    12, 12 + 1, 12 + 2, 12 + 2, 12 + 3, 12,
-                                    16, 16 + 1, 16 + 2, 16 + 2, 16 + 3, 16,
-                                    20, 20 + 1, 20 + 2, 20 + 2, 20 + 3, 20,
-        };
+		unsigned int indices[] = {  
+                                    0,  1,  2,  3,  4,  5,
+                                    6,  7,  8,  9,  10, 11,
+                                    12, 13, 14, 15, 16, 17, 
+                                    18, 19, 20, 21, 22, 23, 
+                                    24, 25, 26, 27, 28, 29, 
+                                    30, 31, 32, 33, 34, 35 
+                                 };
 		indexBufferCube = Ayo::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
 
 		/* Final Binding to VertexArray */
@@ -89,8 +105,8 @@ public:
 
 		/* Shaders */
 		// todo: remember to add in model matrix
-		std::string vertexSourcePath = AppSettings::DEBUG_ROOT_PATH + "/posTex.vs";
-		std::string fragmentSourcePath = AppSettings::DEBUG_ROOT_PATH + "/2textures.fs";
+		std::string vertexSourcePath = AppSettings::DEBUG_ROOT_PATH + "/posTexphong.vs";
+		std::string fragmentSourcePath = AppSettings::DEBUG_ROOT_PATH + "/2texturesphong.fs";
 
 		// shader
 		m_Shader = Ayo::Shader::CreateFromPath(vertexSourcePath, fragmentSourcePath);
@@ -104,14 +120,13 @@ public:
 
 		m_Camera->SetLocalLocation(Ayo::Vector3(0.0f, 0.0f, 3.0f));
 
-        modelTransform = glm::mat4(1.0f);
-
         // Setup DirLight
 
         m_DirLight = std::make_shared<Ayo::DirectionalLightSource>(glm::vec3{1.0f, 1.0f, 1.0f}, 1.0f);
 
-        m_DirLight->SetLocalLocation({ 0.0f, 1.0f, -2.0f });
+        m_DirLight->SetLocalLocation({ 0.0f, 0.3f, 1.0f });
         m_DirLight->SetLocalRotation({ 0.0f, 0.0f, 0.0f });
+        m_DirLight->SetLocalScale({ 0.2f, 0.2f, 0.2f });
 
         vertexSourcePath = AppSettings::DEBUG_ROOT_PATH + "/lightPosOnly.vs";
         fragmentSourcePath = AppSettings::DEBUG_ROOT_PATH + "/lightColor.fs";
@@ -198,6 +213,14 @@ public:
             m_DirLight->AddLocalOffset({ -speed, 0.0f, 0.0f });
         }
 
+        // depth movement of cube
+        if (Ayo::Input::IsKeyPressed(AYO_KEY_V)) {
+            m_DirLight->AddLocalOffset({ 0.0f, 0.0f, -speed });
+        }
+        else if (Ayo::Input::IsKeyPressed(AYO_KEY_B)) {
+            m_DirLight->AddLocalOffset({ 0.0f, 0.0f, speed });
+        }
+
         // Changing the object's yaw
         if (Ayo::Input::IsKeyPressed(AYO_KEY_Q)) {
             m_DirLight->AddLocalRotation({ 0.0f, rotSpeed, 0.0f });
@@ -258,13 +281,28 @@ public:
 
         m_Camera->RecalculateViewProjectionMatrix();
 
-		Ayo::RenderCommand::SetClearColor({ 0.95f, 0.0625f, 0.93f, 1.0f });
+        //Ayo::RenderCommand::SetClearColor({ 0.95f, 0.0625f, 0.93f, 1.0f });
+        Ayo::RenderCommand::SetClearColor({ 0.0f, 0.0f, 0.0f, 1.0f });
 		Ayo::RenderCommand::Clear();
 
 		Ayo::Renderer::BeginScene();
 
+        glm::mat4 normalMatrix;
+
 		m_Shader->Bind();
-        m_Shader->UpdateMat4Constant("u_ViewProjectionMatrix", m_Camera->GetViewProjectionMatrix() * modelTransform);
+        m_Shader->UpdateFloat3Constant("u_ViewPosition", m_Camera->GetLocalLocation().Get());
+
+        m_Shader->UpdateMat4Constant("u_ViewProjectionMatrix", m_Camera->GetViewProjectionMatrix());
+        m_Shader->UpdateMat4Constant("u_ModelMatrix", modelTransform);
+
+        normalMatrix = glm::transpose(glm::inverse(modelTransform));
+        m_Shader->UpdateMat4Constant("u_NormalMatrix", normalMatrix);
+
+        m_Shader->UpdateFloat3Constant("u_PointLightPosition", m_DirLight->GetLocalLocation().Get());
+        m_Shader->UpdateFloat3Constant("u_SpecColor", m_SpecularColor);
+
+        m_DirLight->SetupShader(m_Shader);
+
         // texture
         m_Shader->UpdateIntConstant("u_Texture", 0);
         m_Texture->Bind(0);
@@ -274,7 +312,9 @@ public:
 		Ayo::Renderer::Submit(m_VertexArrayCube);
 
         m_DirLightShader->Bind();
-        m_DirLightShader->UpdateMat4Constant("u_ViewProjectionMatrix", m_Camera->GetViewProjectionMatrix() * m_DirLight->GetRelativeTransform());
+
+        m_DirLightShader->UpdateMat4Constant("u_ViewProjectionMatrix", m_Camera->GetViewProjectionMatrix() );
+        m_DirLightShader->UpdateMat4Constant("u_ModelMatrix", m_DirLight->GetRelativeTransform());
         m_DirLight->SetupShader(m_DirLightShader);
         m_DirLight->Draw();
 
@@ -297,8 +337,7 @@ private:
 
 	// buffers
 	std::shared_ptr<Ayo::VertexArray> m_VertexArrayCube;
-
-	// temporary, as example.
+    
     glm::mat4 modelTransform;
 
     std::shared_ptr<Ayo::Shader> m_Shader;
@@ -311,6 +350,8 @@ private:
 	std::shared_ptr<Ayo::Camera> m_Camera;
 
     std::shared_ptr<Ayo::DirectionalLightSource> m_DirLight;
+
+    glm::vec3 m_SpecularColor = { 0.5f, 0.5f, 0.5f };
 
 	float speed = 0.01f;
 	float rotSpeed = 0.1f;

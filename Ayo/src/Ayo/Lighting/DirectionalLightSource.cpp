@@ -82,6 +82,7 @@ Ayo::DirectionalLightSource::DirectionalLightSource(glm::vec3 color, float inten
 void Ayo::DirectionalLightSource::SetupShader(const std::shared_ptr<Shader>& shader)
 {
     shader->UpdateFloat3Constant("u_DirLightColor", p_Color);
+    shader->UpdateFloatConstant("u_DirLightIntensity", p_Intensity);
 }
 
 void Ayo::DirectionalLightSource::Draw()
