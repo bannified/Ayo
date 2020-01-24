@@ -34,6 +34,8 @@ namespace Ayo
 
         inline glm::quat GetNormalized() const { return glm::normalize(m_Quaternion); }
 
+        Vector3 RotateVector(Vector3 vec) const { return glm::rotate(m_Quaternion, vec.Get()); }
+
         /**
          * Per-component Constructor.
          *

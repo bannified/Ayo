@@ -21,14 +21,14 @@ Ayo::Rotator::Rotator(float value)
     :  Pitch(value), Yaw(value), Roll(value) { }
 
 Ayo::Rotator::Rotator(const glm::quat quaternion) 
-    : Pitch(glm::degrees(glm::pitch(quaternion))), Yaw(glm::degrees(glm::yaw(quaternion))), Roll(glm::degrees(glm::roll(quaternion))) { }
+    : Pitch(glm::pitch(quaternion)), Yaw(glm::yaw(quaternion)), Roll(glm::roll(quaternion)) { }
 
 Ayo::Rotator::Rotator() 
     : Pitch(0), Yaw(0), Roll(0) { }
 
 Ayo::Quaternion Ayo::Rotator::AsQuaternion() const
 {
-    return Ayo::Quaternion(glm::quat(glm::vec3(glm::radians(Pitch), glm::radians(Yaw), glm::radians(Roll))));
+    return Ayo::Quaternion(glm::quat(glm::vec3(Pitch, Yaw, Roll)));
 }
 
 Ayo::Vector3 Ayo::Rotator::TransformVectorNoScale(const Vector3& vec) const

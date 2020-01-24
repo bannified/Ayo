@@ -39,7 +39,7 @@ void Ayo::SceneComponent::AddLocalRotation(Rotator deltaRotation)
     const Quaternion currentQuat = m_LocalRotation.AsQuaternion().GetNormalized();
     const Quaternion targetQuat = currentQuat * deltaRotation.AsQuaternion();
 
-    m_LocalRotation = Rotator(targetQuat.GetNormalized());
+    m_LocalRotation = targetQuat.AsRotator();
     
     // Correct, but suffers from gimbal lock and floating point errors for large numbers
     //m_LocalRotation += deltaRotation;
@@ -77,7 +77,10 @@ void Ayo::SceneComponent::AddLocalScale(Vector3 deltaScale)
 
 void Ayo::SceneComponent::AddLocalOffset(Vector3 offset)
 {
-    m_LocalLocation = offset * GetRightVector();
+    const Quaternion currentQuat = m_LocalRotation.AsQuaternion().GetNormalized();
+    const Vector3 DeltaOffset = currentQuat.RotateVector(offset);
+
+    m_LocalLocation += DeltaOffset;
 }
 
 Ayo::Vector3 Ayo::SceneComponent::GetForwardVector() const

@@ -10,7 +10,7 @@ namespace Ayo
     /**
      * Container for rotation information
      *
-     * All values stored in terms of degrees (euler angles).
+     * All values stored in terms of euler angles (in radians).
      */
     struct Rotator
     {

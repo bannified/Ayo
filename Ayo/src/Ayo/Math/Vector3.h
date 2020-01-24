@@ -35,7 +35,6 @@ namespace Ayo
          */
         Vector3(float inX, float inY, float inZ);
 
-    private:
         Vector3(glm::vec3 vec);
 
     public:
@@ -100,12 +99,12 @@ namespace Ayo
          */
         inline float SizeSquared() const;
 
-        inline Vector3 CrossProduct(const Vector3& A, const Vector3& B)
+        inline static Vector3 CrossProduct(const Vector3& A, const Vector3& B)
         {
             return glm::cross(A.m_Vector, B.m_Vector);
         }
 
-        inline float Vector3::DotProduct(const Vector3& A, const Vector3& B)
+        inline static float Vector3::DotProduct(const Vector3& A, const Vector3& B)
         {
             return glm::dot(A.m_Vector, B.m_Vector);
         }
@@ -147,14 +146,6 @@ namespace Ayo
          * @return The result of the component-wise vector subtraction
          */
         inline Vector3 operator-(const Vector3& vec) const { return { m_Vector - vec.m_Vector }; }
-
-        /**
-         * Gets the result of scaling the vector (multiplying each component by a value).
-         *
-         * @param scale What to multiply each component by.
-         * @return The result of multiplication.
-         */
-        inline Vector3 operator*(float scale) const { return m_Vector * scale; }
 
         /**
          * Gets the result of dividing each component of the vector by a value.
@@ -239,6 +230,22 @@ namespace Ayo
          */
         inline Vector3 operator/=(float scale) { return m_Vector /= scale; }
     };
+
+    /**
+    * Gets the result of scaling the vector (multiplying each component by a value).
+    *
+    * @param scale What to multiply each component by.
+    * @return The result of multiplication.
+    */
+    inline Vector3 operator*(const Vector3& v, float scale)
+    {
+        return v.Get() * scale;
+    }
+
+    inline Vector3 operator*(float scale, const Vector3& v)
+    {
+        return v.Get() * scale;
+    }
 }
 
 

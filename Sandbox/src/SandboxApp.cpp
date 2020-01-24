@@ -156,20 +156,20 @@ public:
 
         // yaw modification of camera
         if (Ayo::Input::IsKeyPressed(AYO_KEY_Z)) {
-            m_Camera->AddLocalRotation({ 0.0f, rotSpeed * 0.1f, 0.0f });
+            m_Camera->AddLocalRotation({ 0.0f, rotSpeed, 0.0f });
             AYO_INFO("Camera Rotation // Pitch: {0}, Yaw: {1}, Roll: {2}", m_Camera->GetLocalRotation().Pitch, m_Camera->GetLocalRotation().Yaw, m_Camera->GetLocalRotation().Roll);
         }
         else if (Ayo::Input::IsKeyPressed(AYO_KEY_C)) {
-            m_Camera->AddLocalRotation({ 0.0f, -rotSpeed * 0.1f, 0.0f });
+            m_Camera->AddLocalRotation({ 0.0f, -rotSpeed, 0.0f });
             AYO_INFO("Camera Rotation // Pitch: {0}, Yaw: {1}, Roll: {2}", m_Camera->GetLocalRotation().Pitch, m_Camera->GetLocalRotation().Yaw, m_Camera->GetLocalRotation().Roll);
         }
 
         // pitch modification of camera
         if (Ayo::Input::IsKeyPressed(AYO_KEY_EQUAL)) {
-            m_Camera->AddLocalRotation({ rotSpeed * 0.1f, 0.0f, 0.0f });
+            m_Camera->AddLocalRotation({ rotSpeed, 0.0f, 0.0f });
         }
         else if (Ayo::Input::IsKeyPressed(AYO_KEY_MINUS)) {
-            m_Camera->AddLocalRotation({ -rotSpeed * 0.1f, 0.0f, 0.0f });
+            m_Camera->AddLocalRotation({ -rotSpeed, 0.0f, 0.0f });
         }
 
         /* -------------------------------------------- */
