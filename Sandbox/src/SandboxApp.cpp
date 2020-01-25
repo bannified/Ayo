@@ -106,7 +106,7 @@ public:
 		/* Shaders */
 		// todo: remember to add in model matrix
 		std::string vertexSourcePath = AppSettings::DEBUG_ROOT_PATH + "/posTexphong.vs";
-		std::string fragmentSourcePath = AppSettings::DEBUG_ROOT_PATH + "/texMapsPhong.fs";
+		std::string fragmentSourcePath = AppSettings::DEBUG_ROOT_PATH + "/2texturesphong.fs";
 
 		// shader
 		m_Shader = Ayo::Shader::CreateFromPath(vertexSourcePath, fragmentSourcePath);
