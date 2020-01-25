@@ -7,7 +7,12 @@ namespace Ayo
     class OpenGLStandardMaterial : public StandardMaterial
     {
     public:
-        OpenGLStandardMaterial(const Vector3& ambient, const Vector3& diffuse, const Vector3& specular, const float shininess);
+        OpenGLStandardMaterial(const Vector3& baseColor,
+                               const std::shared_ptr<Texture>& ambientMap,
+                               const std::shared_ptr<Texture>& diffuseMap,
+                               const std::shared_ptr<Texture>& specularMap,
+                               const float shininess);
+
         ~OpenGLStandardMaterial();
     protected:
         virtual void SetShaderProperties(Shader& shader) override;

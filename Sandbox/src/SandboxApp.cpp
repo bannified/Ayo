@@ -106,7 +106,7 @@ public:
 		/* Shaders */
 		// todo: remember to add in model matrix
 		std::string vertexSourcePath = AppSettings::DEBUG_ROOT_PATH + "/posTexphong.vs";
-		std::string fragmentSourcePath = AppSettings::DEBUG_ROOT_PATH + "/2texturesphong.fs";
+		std::string fragmentSourcePath = AppSettings::DEBUG_ROOT_PATH + "/texMapsPhong.fs";
 
 		// shader
 		m_Shader = Ayo::Shader::CreateFromPath(vertexSourcePath, fragmentSourcePath);
@@ -134,6 +134,9 @@ public:
         m_DirLightShader = Ayo::Shader::CreateFromPath(vertexSourcePath, fragmentSourcePath);
 
         //m_Camera->SetLocalRotation({0.0f, 45.0f, 0.0f});
+
+        //m_StandardMat = std::make_shared<Ayo::StandardMaterial>();
+
 	}
 
 	void OnUpdate() override
@@ -340,6 +343,7 @@ private:
     glm::mat4 modelTransform;
 
     std::shared_ptr<Ayo::Shader> m_Shader;
+    std::shared_ptr<Ayo::StandardMaterial> m_StandardMat;
 
     std::shared_ptr<Ayo::Shader> m_DirLightShader;
 

@@ -33,6 +33,9 @@
 #include "Ayo/Renderer/RenderCommand.h"
 #include "Ayo/Renderer/Renderer.h"
 
+#include "Ayo/Renderer/Material.h"
+#include "Ayo/Renderer/Materials/StandardMaterial.h"
+
 // ----------------
 
 // --- Math ---

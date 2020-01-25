@@ -2,6 +2,7 @@
 
 #include "Ayo/Renderer/Material.h"
 #include "Ayo/Math/Vector3.h"
+#include "Ayo/Renderer/Texture.h"
 
 namespace Ayo
 {
@@ -9,20 +10,32 @@ namespace Ayo
     class StandardMaterial : public Material
     {
     public:
-        StandardMaterial(const Vector3& ambient, const Vector3& diffuse, const Vector3& specular, const float shininess);
+        StandardMaterial(const Vector3& baseColor,
+                         const std::shared_ptr<Texture>& ambientMap,
+                         const std::shared_ptr<Texture>& diffuseMap,
+                         const std::shared_ptr<Texture>& specularMap,
+                         const float shininess);
+
         ~StandardMaterial();
         
-        static std::shared_ptr<StandardMaterial> Create(const Vector3& ambient, const Vector3& diffuse, const Vector3& specular, const float shininess);
+        static std::shared_ptr<StandardMaterial> Create(const Vector3& baseColor, 
+                                                        const std::shared_ptr<Texture>& ambientMap,
+                                                        const std::shared_ptr<Texture>& diffuseMap, 
+                                                        const std::shared_ptr<Texture>& specularMap,
+                                                        const float shininess);
 
     protected:
-        /* Ambient Color */
-        Vector3 p_Ambient;
+        /* Base Color, ambient color */
+        Vector3 p_BaseColor;
 
-        /* Diffuse Color */
-        Vector3 p_Diffuse;
+        /* Ambient Map */
+        std::shared_ptr<Texture> p_AmbientMap;
 
-        /* Specular Color */
-        Vector3 p_Specular;
+        /* Diffuse Map */
+        std::shared_ptr<Texture> p_DiffuseMap;
+
+        /* Specular Map */
+        std::shared_ptr<Texture> p_SpecularMap;
 
         /* Specular exponent */
         float p_Shininess;
