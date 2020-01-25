@@ -245,6 +245,10 @@ namespace Ayo
 
     void OpenGLShader::AddTexture(const std::string& constantName, const std::shared_ptr<Texture>& texture)
     {
+        if (texture == nullptr) {
+            return;
+        }
+
         UpdateIntConstant(constantName, m_NextTextureIndex);
         texture->Bind(m_NextTextureIndex);
 

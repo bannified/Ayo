@@ -8,14 +8,13 @@ namespace Ayo
     {
     public:
         OpenGLStandardMaterial(const Vector3& baseColor,
-                               const std::shared_ptr<Texture>& ambientMap,
                                const std::shared_ptr<Texture>& diffuseMap,
                                const std::shared_ptr<Texture>& specularMap,
                                const float shininess);
 
         ~OpenGLStandardMaterial();
     protected:
-        virtual void SetShaderProperties(Shader& shader) override;
+        virtual void SetShaderProperties(const std::shared_ptr<Shader>& shader) override;
 
     };
 }

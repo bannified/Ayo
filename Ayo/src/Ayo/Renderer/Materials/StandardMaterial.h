@@ -11,7 +11,6 @@ namespace Ayo
     {
     public:
         StandardMaterial(const Vector3& baseColor,
-                         const std::shared_ptr<Texture>& ambientMap,
                          const std::shared_ptr<Texture>& diffuseMap,
                          const std::shared_ptr<Texture>& specularMap,
                          const float shininess);
@@ -19,7 +18,6 @@ namespace Ayo
         ~StandardMaterial();
         
         static std::shared_ptr<StandardMaterial> Create(const Vector3& baseColor, 
-                                                        const std::shared_ptr<Texture>& ambientMap,
                                                         const std::shared_ptr<Texture>& diffuseMap, 
                                                         const std::shared_ptr<Texture>& specularMap,
                                                         const float shininess);

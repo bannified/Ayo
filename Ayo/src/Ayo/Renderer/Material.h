@@ -9,10 +9,10 @@ namespace Ayo
     {
     public:
 
-        void SetupShader(Shader& shader);
+        void SetupShader(const std::shared_ptr<Shader>& shader);
 
     protected:
-        virtual void SetShaderProperties(Shader& shader) = 0;
+        virtual void SetShaderProperties(const std::shared_ptr<Shader>& shader) = 0;
 
     };
 

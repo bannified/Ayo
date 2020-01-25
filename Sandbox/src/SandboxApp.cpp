@@ -106,7 +106,7 @@ public:
 		/* Shaders */
 		// todo: remember to add in model matrix
 		std::string vertexSourcePath = AppSettings::DEBUG_ROOT_PATH + "/posTexphong.vs";
-		std::string fragmentSourcePath = AppSettings::DEBUG_ROOT_PATH + "/2texturesphong.fs";
+		std::string fragmentSourcePath = AppSettings::DEBUG_ROOT_PATH + "/texMapsPhong.fs";
 
 		// shader
 		m_Shader = Ayo::Shader::CreateFromPath(vertexSourcePath, fragmentSourcePath);
@@ -122,7 +122,7 @@ public:
 
         // Setup DirLight
 
-        m_DirLight = std::make_shared<Ayo::DirectionalLightSource>(glm::vec3{1.0f, 1.0f, 1.0f}, 1.0f);
+        m_DirLight = std::make_shared<Ayo::DirectionalLightSource>(glm::vec3{1.0f, 1.0f, 1.0f}, 0.2f);
 
         m_DirLight->SetLocalLocation({ 0.0f, 0.3f, 1.0f });
         m_DirLight->SetLocalRotation({ 0.0f, 0.0f, 0.0f });
@@ -135,8 +135,15 @@ public:
 
         //m_Camera->SetLocalRotation({0.0f, 45.0f, 0.0f});
 
-        //m_StandardMat = std::make_shared<Ayo::StandardMaterial>();
+        // setup StandardMaterial
+        std::string diffuseMapPath = AppSettings::DEBUG_ROOT_PATH + "/container2.png";
+        std::string specularMapPath = AppSettings::DEBUG_ROOT_PATH + "/container2_specular.png";
 
+        Ayo::Vector3 baseColor(1.0f, 1.0f, 1.0f);
+        std::shared_ptr<Ayo::Texture> diffuseMapTexture = Ayo::Texture::Create(diffuseMapPath);
+        std::shared_ptr<Ayo::Texture> specularMapTexture = Ayo::Texture::Create(specularMapPath);
+
+        m_StandardMat = Ayo::StandardMaterial::Create(baseColor, diffuseMapTexture, specularMapTexture, 64);
 	}
 
 	void OnUpdate() override
@@ -292,6 +299,7 @@ public:
 
         glm::mat4 normalMatrix;
 
+        // Standard material
 		m_Shader->Bind();
         m_Shader->UpdateFloat3Constant("u_ViewPosition", m_Camera->GetLocalLocation().Get());
 
@@ -304,11 +312,9 @@ public:
         m_Shader->UpdateFloat3Constant("u_PointLightPosition", m_DirLight->GetLocalLocation().Get());
         m_Shader->UpdateFloat3Constant("u_SpecColor", m_SpecularColor);
 
-        m_DirLight->SetupShader(m_Shader);
+        m_StandardMat->SetupShader(m_Shader);
 
-        // texture
-        m_Shader->AddTexture("u_Texture", m_Texture);
-        m_Shader->AddTexture("u_Texture1", m_Texture1);
+        m_DirLight->SetupShader(m_Shader); // lighting
 
 		m_VertexArrayCube->Bind();
 		Ayo::Renderer::Submit(m_VertexArrayCube);
