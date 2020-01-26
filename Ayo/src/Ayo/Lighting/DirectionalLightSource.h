@@ -14,15 +14,12 @@ namespace Ayo
     public:
         ~DirectionalLightSource();
 
-        DirectionalLightSource(glm::vec3 color, float intensity);
+        DirectionalLightSource(const Vector3 ambient, const Vector3 diffuse, const Vector3 specular, const float intensity);
 
         virtual void SetupShader(const std::shared_ptr<Shader>& shader) override;
 
         virtual void Draw() override;
 
-    private:
-        std::shared_ptr<BufferLayout> m_Layout;
-        std::shared_ptr<VertexArray> m_VertexArray;
     };
 }
 

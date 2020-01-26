@@ -51,6 +51,7 @@
 #include "Ayo/Components/SceneComponent.h"
 #include "Ayo/Lighting/LightSource.h"
 #include "Ayo/Lighting/DirectionalLightSource.h"
+#include "Ayo/Lighting/PointLightSource.h"
 
 //
 
