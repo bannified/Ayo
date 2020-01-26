@@ -46,7 +46,12 @@ namespace Ayo
 
         Vector3 TransformVectorNoScale(const Vector3& vec) const;
 
-        Vector3 AsVector3() const;
+        Vector3 AsVector3Radians() const;
+
+        Vector3 AsVector3Degrees() const;
+
+        static Rotator FromDegrees(const float pitchDegree, const float yawDegree, const float rollDegree);
+        static Rotator FromDegrees(const glm::vec3 angleDegrees);
 
     public:
 

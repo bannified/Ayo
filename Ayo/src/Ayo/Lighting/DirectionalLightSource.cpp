@@ -16,9 +16,11 @@ Ayo::DirectionalLightSource::DirectionalLightSource(const Vector3 ambient, const
 
 void Ayo::DirectionalLightSource::SetupShader(const std::shared_ptr<Shader>& shader)
 {
-    shader->UpdateFloat3Constant("u_GlobalDirLight.ambient", p_Color.Get());
-    shader->UpdateFloat3Constant("u_GlobalDirLight.diffuse", p_Diffuse.Get());
-    shader->UpdateFloat3Constant("u_GlobalDirLight.specular", p_Specular.Get());
+    shader->UpdateFloat3Constant("u_GlobalDirLight.direction", GetLocalRotation().AsVector3Degrees().Get());
+
+    shader->UpdateFloat3Constant("u_GlobalDirLight.ambient", p_Color.Get() * p_Intensity);
+    shader->UpdateFloat3Constant("u_GlobalDirLight.diffuse", p_Diffuse.Get() * p_Intensity);
+    shader->UpdateFloat3Constant("u_GlobalDirLight.specular", p_Specular.Get() * p_Intensity);
 
     shader->UpdateFloatConstant("u_GlobalDirLight.intensity", p_Intensity);
 }

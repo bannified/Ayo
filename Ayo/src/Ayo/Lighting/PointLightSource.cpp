@@ -4,7 +4,10 @@
 #include "Ayo/Renderer/Shader.h"
 #include "Ayo/Renderer/Renderer.h"
 
-Ayo::PointLightSource::PointLightSource(const Vector3 ambient, const Vector3 diffuse, const Vector3 specular, const float intensity)
+Ayo::PointLightSource::PointLightSource(const Vector3 ambient, const Vector3 diffuse, const Vector3 specular, const float intensity, 
+                                        const float constantAttenuation /*= 1.0f*/, const float linearAttentuation /*= 0.09f*/, const float quadraticAttenuation /*= 0.032f*/)
+    : LightSource(ambient, diffuse, specular, intensity),
+    p_ConstantAttenuation(constantAttenuation), p_LinearAttenuation(linearAttentuation), p_QuadraticAttenuation(quadraticAttenuation) 
 {
     BufferLayout m_Layout = {
             {
@@ -80,11 +83,15 @@ void Ayo::PointLightSource::SetupShader(const std::shared_ptr<Shader>& shader)
 {
     shader->UpdateFloat3Constant("u_PointLight.position", GetLocalLocation().Get());
 
-    shader->UpdateFloat3Constant("u_PointLight.ambient", p_Color.Get());
-    shader->UpdateFloat3Constant("u_PointLight.diffuse", p_Diffuse.Get());
-    shader->UpdateFloat3Constant("u_PointLight.specular", p_Specular.Get());
+    shader->UpdateFloat3Constant("u_PointLight.ambient", p_Color.Get() * p_Intensity);
+    shader->UpdateFloat3Constant("u_PointLight.diffuse", p_Diffuse.Get() * p_Intensity);
+    shader->UpdateFloat3Constant("u_PointLight.specular", p_Specular.Get() * p_Intensity);
 
     shader->UpdateFloatConstant("u_PointLight.intensity", p_Intensity);
+
+    shader->UpdateFloatConstant("u_PointLight.constant", p_ConstantAttenuation);
+    shader->UpdateFloatConstant("u_PointLight.linear", p_LinearAttenuation);
+    shader->UpdateFloatConstant("u_PointLight.quadratic", p_QuadraticAttenuation);
 }
 
 void Ayo::PointLightSource::Draw()

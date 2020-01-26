@@ -36,8 +36,22 @@ Ayo::Vector3 Ayo::Rotator::TransformVectorNoScale(const Vector3& vec) const
     return glm::rotate(AsQuaternion().m_Quaternion, vec.m_Vector);
 }
 
-Ayo::Vector3 Ayo::Rotator::AsVector3() const
+Ayo::Vector3 Ayo::Rotator::AsVector3Radians() const
 {
     return Ayo::Vector3(glm::vec3(Pitch, Yaw, Roll));
 }
 
+Ayo::Vector3 Ayo::Rotator::AsVector3Degrees() const
+{
+    return Ayo::Vector3(glm::vec3(glm::degrees(Pitch), glm::degrees(Yaw), glm::degrees(Roll)));
+}
+
+Ayo::Rotator Ayo::Rotator::FromDegrees(const glm::vec3 angleDegrees)
+{
+    return FromDegrees(angleDegrees.x, angleDegrees.y, angleDegrees.z);
+}
+
+Ayo::Rotator Ayo::Rotator::FromDegrees(const float pitchDegree, const float yawDegree, const float rollDegree)
+{
+    return Rotator(glm::radians(pitchDegree), glm::radians(yawDegree), glm::radians(rollDegree));
+}
