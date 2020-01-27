@@ -16,6 +16,9 @@
     <Filter Include="src\Ayo\ImGui">
       <UniqueIdentifier>{EF081644-5BC9-917A-2404-DBF79083D656}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Ayo\Lighting">
+      <UniqueIdentifier>{2A4DDAB3-1646-F905-3F78-DE8A2BD0D811}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Ayo\Macros">
       <UniqueIdentifier>{59F261CF-45C0-55D5-2E54-C6FB1AC1313A}</UniqueIdentifier>
     </Filter>
@@ -25,11 +28,17 @@
     <Filter Include="src\Ayo\Renderer">
       <UniqueIdentifier>{4BFD7F19-37F6-9E6B-6028-84F04C807E77}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Ayo\Renderer\Materials">
+      <UniqueIdentifier>{DC592017-C869-CCE7-3123-31061D52BB80}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Platform">
       <UniqueIdentifier>{21CA02E5-0D2D-9289-B6B2-CA3FA2F45D0C}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Platform\OpenGL">
       <UniqueIdentifier>{35A49437-A105-7245-2A73-B8F796D3A804}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Platform\OpenGL\Materials">
+      <UniqueIdentifier>{462D7AE2-B245-610C-7BF2-F0A5E7C9F5A5}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Platform\Windows">
       <UniqueIdentifier>{5B054582-4794-CE4B-F0B2-E246DC20DFF1}</UniqueIdentifier>
@@ -96,6 +105,15 @@
     <ClInclude Include="src\Ayo\LayerStack.h">
       <Filter>src\Ayo</Filter>
     </ClInclude>
+    <ClInclude Include="src\Ayo\Lighting\DirectionalLightSource.h">
+      <Filter>src\Ayo\Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Ayo\Lighting\LightSource.h">
+      <Filter>src\Ayo\Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Ayo\Lighting\PointLightSource.h">
+      <Filter>src\Ayo\Lighting</Filter>
+    </ClInclude>
     <ClInclude Include="src\Ayo\Log.h">
       <Filter>src\Ayo</Filter>
     </ClInclude>
@@ -123,6 +141,12 @@
     <ClInclude Include="src\Ayo\Renderer\GraphicsContext.h">
       <Filter>src\Ayo\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Ayo\Renderer\Material.h">
+      <Filter>src\Ayo\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Ayo\Renderer\Materials\StandardMaterial.h">
+      <Filter>src\Ayo\Renderer\Materials</Filter>
+    </ClInclude>
     <ClInclude Include="src\Ayo\Renderer\RenderCommand.h">
       <Filter>src\Ayo\Renderer</Filter>
     </ClInclude>
@@ -146,6 +170,9 @@
     </ClInclude>
     <ClInclude Include="src\Ayo\Window.h">
       <Filter>src\Ayo</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\Materials\OpenGLStandardMaterial.h">
+      <Filter>src\Platform\OpenGL\Materials</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h">
       <Filter>src\Platform\OpenGL</Filter>
@@ -1266,12 +1293,6 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
-    <ClInclude Include="src\Ayo\Lighting\LightSource.h" />
-    <ClInclude Include="src\Ayo\Lighting\DirectionalLightSource.h" />
-    <ClInclude Include="src\Ayo\Renderer\Material.h" />
-    <ClInclude Include="src\Ayo\Renderer\Materials\StandardMaterial.h" />
-    <ClInclude Include="src\Platform\OpenGL\Materials\OpenGLStandardMaterial.h" />
-    <ClInclude Include="src\Ayo\Lighting\PointLightSource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Ayo\Application.cpp">
@@ -1291,6 +1312,15 @@
     </ClCompile>
     <ClCompile Include="src\Ayo\LayerStack.cpp">
       <Filter>src\Ayo</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Ayo\Lighting\DirectionalLightSource.cpp">
+      <Filter>src\Ayo\Lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Ayo\Lighting\LightSource.cpp">
+      <Filter>src\Ayo\Lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Ayo\Lighting\PointLightSource.cpp">
+      <Filter>src\Ayo\Lighting</Filter>
     </ClCompile>
     <ClCompile Include="src\Ayo\Log.cpp">
       <Filter>src\Ayo</Filter>
@@ -1313,6 +1343,12 @@
     <ClCompile Include="src\Ayo\Renderer\GraphicsContext.cpp">
       <Filter>src\Ayo\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Ayo\Renderer\Material.cpp">
+      <Filter>src\Ayo\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Ayo\Renderer\Materials\StandardMaterial.cpp">
+      <Filter>src\Ayo\Renderer\Materials</Filter>
+    </ClCompile>
     <ClCompile Include="src\Ayo\Renderer\RenderCommand.cpp">
       <Filter>src\Ayo\Renderer</Filter>
     </ClCompile>
@@ -1333,6 +1369,9 @@
     </ClCompile>
     <ClCompile Include="src\Ayo\Time.cpp">
       <Filter>src\Ayo</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\Materials\OpenGLStandardMaterial.cpp">
+      <Filter>src\Platform\OpenGL\Materials</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>
@@ -1361,11 +1400,5 @@
     <ClCompile Include="src\ayopch.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Ayo\Lighting\LightSource.cpp" />
-    <ClCompile Include="src\Ayo\Lighting\DirectionalLightSource.cpp" />
-    <ClCompile Include="src\Ayo\Renderer\Material.cpp" />
-    <ClCompile Include="src\Ayo\Renderer\Materials\StandardMaterial.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\Materials\OpenGLStandardMaterial.cpp" />
-    <ClCompile Include="src\Ayo\Lighting\PointLightSource.cpp" />
   </ItemGroup>
 </Project>
