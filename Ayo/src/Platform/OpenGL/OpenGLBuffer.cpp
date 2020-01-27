@@ -9,7 +9,7 @@ namespace Ayo {
 		Vertex Buffer Definitions
 	*/
 	
-	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size)
+	OpenGLVertexBuffer::OpenGLVertexBuffer(const void* vertices, uint32_t size)
 	{
 		glCreateBuffers(1, &m_Buffer);
 		glNamedBufferStorage(m_Buffer, size, vertices, 0);

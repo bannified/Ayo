@@ -77,7 +77,7 @@ public:
             -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,        0.0f,  1.0f,  0.0f
         };
 
-		vertexBufferCube = Ayo::VertexBuffer::Create(vertices, sizeof(vertices));
+		vertexBufferCube = Ayo::VertexBuffer::Create(&vertices[0], sizeof(vertices));
 
 		/* Layout */
 		Ayo::BufferLayout layout = {

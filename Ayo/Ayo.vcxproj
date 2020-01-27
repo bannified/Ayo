@@ -162,6 +162,9 @@
     <ClInclude Include="src\Ayo\Math\Quaternion.h" />
     <ClInclude Include="src\Ayo\Math\Rotator.h" />
     <ClInclude Include="src\Ayo\Math\Vector3.h" />
+    <ClInclude Include="src\Ayo\RenderObjects\Mesh.h" />
+    <ClInclude Include="src\Ayo\RenderObjects\Model.h" />
+    <ClInclude Include="src\Ayo\RenderObjects\Vertex.h" />
     <ClInclude Include="src\Ayo\Renderer\Buffer.h" />
     <ClInclude Include="src\Ayo\Renderer\Camera.h" />
     <ClInclude Include="src\Ayo\Renderer\GraphicsContext.h" />
@@ -564,6 +567,8 @@
     <ClCompile Include="src\Ayo\Math\Quaternion.cpp" />
     <ClCompile Include="src\Ayo\Math\Rotator.cpp" />
     <ClCompile Include="src\Ayo\Math\Vector3.cpp" />
+    <ClCompile Include="src\Ayo\RenderObjects\Mesh.cpp" />
+    <ClCompile Include="src\Ayo\RenderObjects\Model.cpp" />
     <ClCompile Include="src\Ayo\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Ayo\Renderer\Camera.cpp" />
     <ClCompile Include="src\Ayo\Renderer\GraphicsContext.cpp" />

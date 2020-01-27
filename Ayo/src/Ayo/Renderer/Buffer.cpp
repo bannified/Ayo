@@ -6,7 +6,7 @@
 
 namespace Ayo {
 
-	std::shared_ptr<VertexBuffer> VertexBuffer::Create(float* vertices, uint32_t size)
+	std::shared_ptr<VertexBuffer> VertexBuffer::Create(const void* vertices, uint32_t size)
 	{
 		switch (RendererAPI::GetCurrentAPI()) {
 			case RendererAPI::API::OpenGL:

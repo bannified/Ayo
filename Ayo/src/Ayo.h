@@ -25,16 +25,19 @@
 
 #include "Ayo/Renderer/VertexArray.h"
 #include "Ayo/Renderer/Shader.h"
-#include "Ayo/Renderer/Texture.h"
 #include "Ayo/Renderer/Camera.h"
 #include "Ayo/Renderer/Buffer.h"
 #include "Ayo/Renderer/RendererAPI.h"
+#include "Ayo/Renderer/Texture.h"
 
 #include "Ayo/Renderer/RenderCommand.h"
 #include "Ayo/Renderer/Renderer.h"
 
 #include "Ayo/Renderer/Material.h"
 #include "Ayo/Renderer/Materials/StandardMaterial.h"
+
+#include "Ayo/RenderObjects/Mesh.h"
+#include "Ayo/RenderObjects/Vertex.h"
 
 // ----------------
 

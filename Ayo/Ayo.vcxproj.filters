@@ -25,6 +25,9 @@
     <Filter Include="src\Ayo\Math">
       <UniqueIdentifier>{FE139611-EA76-25B6-93FC-5D6C7F3EF138}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Ayo\RenderObjects">
+      <UniqueIdentifier>{BE7DDCFD-2AEA-97F8-F3DD-2F565F09BA60}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Ayo\Renderer">
       <UniqueIdentifier>{4BFD7F19-37F6-9E6B-6028-84F04C807E77}</UniqueIdentifier>
     </Filter>
@@ -131,6 +134,15 @@
     </ClInclude>
     <ClInclude Include="src\Ayo\Math\Vector3.h">
       <Filter>src\Ayo\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Ayo\RenderObjects\Mesh.h">
+      <Filter>src\Ayo\RenderObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Ayo\RenderObjects\Model.h">
+      <Filter>src\Ayo\RenderObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Ayo\RenderObjects\Vertex.h">
+      <Filter>src\Ayo\RenderObjects</Filter>
     </ClInclude>
     <ClInclude Include="src\Ayo\Renderer\Buffer.h">
       <Filter>src\Ayo\Renderer</Filter>
@@ -1333,6 +1345,12 @@
     </ClCompile>
     <ClCompile Include="src\Ayo\Math\Vector3.cpp">
       <Filter>src\Ayo\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Ayo\RenderObjects\Mesh.cpp">
+      <Filter>src\Ayo\RenderObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Ayo\RenderObjects\Model.cpp">
+      <Filter>src\Ayo\RenderObjects</Filter>
     </ClCompile>
     <ClCompile Include="src\Ayo\Renderer\Buffer.cpp">
       <Filter>src\Ayo\Renderer</Filter>
