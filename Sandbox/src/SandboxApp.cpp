@@ -4,9 +4,6 @@
 
 #include "AppSettings.h"
 
-#include "Platform/OpenGL/OpenGLShader.h" // todo: remove/refactor
-#include "Platform/OpenGL/OpenGLTexture.h"
-
 class ExampleLayer : public Ayo::Layer
 {
 public:
@@ -24,7 +21,9 @@ public:
 		// Setup Camera
 		m_Camera = std::make_shared<Ayo::Camera>();
 		m_Camera->SetProjectionMatrix(glm::perspective(glm::radians(45.0f), 16.0f / 9.0f, 0.1f, 100.0f));
-		m_Camera->SetViewMatrix(glm::identity<glm::mat4>());
+		//m_Camera->SetViewMatrix(glm::identity<glm::mat4>());
+
+        modelTransform = glm::mat4(1.0f);
 
 		// Setup buffers
 		std::shared_ptr<Ayo::VertexBuffer> vertexBufferCube;
@@ -34,56 +33,70 @@ public:
 
 		/* Vertices */
         float vertices[] = {
-            // Vertices             // Tex coords
-            -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-             0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-             0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-            -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+            // Vertices           // Tex coords     // Normals
+            -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,        0.0f,  0.0f, -1.0f,
+             0.5f, -0.5f, -0.5f,  1.0f, 0.0f,        0.0f,  0.0f, -1.0f,
+             0.5f,  0.5f, -0.5f,  1.0f, 1.0f,        0.0f,  0.0f, -1.0f,
+             0.5f,  0.5f, -0.5f,  1.0f, 1.0f,        0.0f,  0.0f, -1.0f,
+            -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,        0.0f,  0.0f, -1.0f,
+            -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,        0.0f,  0.0f, -1.0f,
 
-            -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-             0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-             0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-            -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
+            -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,        0.0f,  0.0f, 1.0f,
+             0.5f, -0.5f,  0.5f,  1.0f, 0.0f,        0.0f,  0.0f, 1.0f,
+             0.5f,  0.5f,  0.5f,  1.0f, 1.0f,        0.0f,  0.0f, 1.0f,
+             0.5f,  0.5f,  0.5f,  1.0f, 1.0f,        0.0f,  0.0f, 1.0f,
+            -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,        0.0f,  0.0f, 1.0f,
+            -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,        0.0f,  0.0f, 1.0f,
 
-            -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-            -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-            -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-            -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+            -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,       -1.0f,  0.0f,  0.0f,
+            -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,       -1.0f,  0.0f,  0.0f,
+            -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,       -1.0f,  0.0f,  0.0f,
+            -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,       -1.0f,  0.0f,  0.0f,
+            -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,       -1.0f,  0.0f,  0.0f,
+            -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,       -1.0f,  0.0f,  0.0f,
 
-             0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-             0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-             0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-             0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+             0.5f,  0.5f,  0.5f,  1.0f, 0.0f,        1.0f,  0.0f,  0.0f,
+             0.5f,  0.5f, -0.5f,  1.0f, 1.0f,        1.0f,  0.0f,  0.0f,
+             0.5f, -0.5f, -0.5f,  0.0f, 1.0f,        1.0f,  0.0f,  0.0f,
+             0.5f, -0.5f, -0.5f,  0.0f, 1.0f,        1.0f,  0.0f,  0.0f,
+             0.5f, -0.5f,  0.5f,  0.0f, 0.0f,        1.0f,  0.0f,  0.0f,
+             0.5f,  0.5f,  0.5f,  1.0f, 0.0f,        1.0f,  0.0f,  0.0f,
 
-            -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-             0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-             0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-            -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+            -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,        0.0f, -1.0f,  0.0f,
+             0.5f, -0.5f, -0.5f,  1.0f, 1.0f,        0.0f, -1.0f,  0.0f,
+             0.5f, -0.5f,  0.5f,  1.0f, 0.0f,        0.0f, -1.0f,  0.0f,
+             0.5f, -0.5f,  0.5f,  1.0f, 0.0f,        0.0f, -1.0f,  0.0f,
+            -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,        0.0f, -1.0f,  0.0f,
+            -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,        0.0f, -1.0f,  0.0f,
 
-            -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-             0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-             0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-            -0.5f,  0.5f,  0.5f,  0.0f, 0.0f
+            -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,        0.0f,  1.0f,  0.0f,
+             0.5f,  0.5f, -0.5f,  1.0f, 1.0f,        0.0f,  1.0f,  0.0f,
+             0.5f,  0.5f,  0.5f,  1.0f, 0.0f,        0.0f,  1.0f,  0.0f,
+             0.5f,  0.5f,  0.5f,  1.0f, 0.0f,        0.0f,  1.0f,  0.0f,
+            -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,        0.0f,  1.0f,  0.0f,
+            -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,        0.0f,  1.0f,  0.0f
         };
 
-		vertexBufferCube = Ayo::VertexBuffer::Create(vertices, sizeof(vertices));
+		vertexBufferCube = Ayo::VertexBuffer::Create(&vertices[0], sizeof(vertices));
 
 		/* Layout */
 		Ayo::BufferLayout layout = {
 			{ Ayo::ShaderDataType::Float3, "a_Position"},
-            { Ayo::ShaderDataType::Float2, "a_TexCoord"}
+            { Ayo::ShaderDataType::Float2, "a_TexCoord"},
+            { Ayo::ShaderDataType::Float3, "a_Normal"}
 		};
 
 		vertexBufferCube->SetLayout(layout);
 
 		/* Indices */
-		unsigned int indices[] = {  0,  1,      2,      2,      3,      0,
-                                    4,  4 + 1,  4 + 2,  4 + 2,  4 + 3,  4,
-                                    8,  8 + 1,  8 + 2,  8 + 2,  8 + 3,  8,
-                                    12, 12 + 1, 12 + 2, 12 + 2, 12 + 3, 12,
-                                    16, 16 + 1, 16 + 2, 16 + 2, 16 + 3, 16,
-                                    20, 20 + 1, 20 + 2, 20 + 2, 20 + 3, 20,
-        };
+		unsigned int indices[] = {  
+                                    0,  1,  2,  3,  4,  5,
+                                    6,  7,  8,  9,  10, 11,
+                                    12, 13, 14, 15, 16, 17, 
+                                    18, 19, 20, 21, 22, 23, 
+                                    24, 25, 26, 27, 28, 29, 
+                                    30, 31, 32, 33, 34, 35 
+                                 };
 		indexBufferCube = Ayo::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
 
 		/* Final Binding to VertexArray */
@@ -92,9 +105,8 @@ public:
 
 		/* Shaders */
 		// todo: remember to add in model matrix
-		std::string vertexSourcePath = AppSettings::DEBUG_ROOT_PATH + "/posTex.vs";
-
-		std::string fragmentSourcePath = AppSettings::DEBUG_ROOT_PATH + "/2textures.fs";
+		std::string vertexSourcePath = AppSettings::DEBUG_ROOT_PATH + "/posTexphong.vs";
+		std::string fragmentSourcePath = AppSettings::DEBUG_ROOT_PATH + "/texMapsPhong.fs";
 
 		// shader
 		m_Shader = Ayo::Shader::CreateFromPath(vertexSourcePath, fragmentSourcePath);
@@ -106,9 +118,34 @@ public:
         m_Texture = Ayo::Texture::Create(texturePath);
         m_Texture1 = Ayo::Texture::Create(texture1Path);
 
-		m_Camera->SetPosition(glm::vec3(0.0f, 0.0f, 3.0f));
+		m_Camera->SetLocalLocation(Ayo::Vector3(0.0f, 0.0f, 3.0f));
 
-        modelTransform = glm::mat4(1.0f);
+        vertexSourcePath = AppSettings::DEBUG_ROOT_PATH + "/lightPosOnly.vs";
+        fragmentSourcePath = AppSettings::DEBUG_ROOT_PATH + "/lightColor.fs";
+
+        m_PointLightShader = Ayo::Shader::CreateFromPath(vertexSourcePath, fragmentSourcePath);
+
+        //m_Camera->SetLocalRotation({0.0f, 45.0f, 0.0f});
+
+        // setup StandardMaterial
+        std::string diffuseMapPath = AppSettings::DEBUG_ROOT_PATH + "/container2.png";
+        std::string specularMapPath = AppSettings::DEBUG_ROOT_PATH + "/container2_specular.png";
+
+        Ayo::Vector3 baseColor(1.0f, 1.0f, 1.0f);
+        std::shared_ptr<Ayo::Texture> diffuseMapTexture = Ayo::Texture::Create(diffuseMapPath);
+        std::shared_ptr<Ayo::Texture> specularMapTexture = Ayo::Texture::Create(specularMapPath);
+
+        m_StandardMat = Ayo::StandardMaterial::Create(baseColor, diffuseMapTexture, specularMapTexture, 64);
+
+        // Setup Lights
+        m_PointLight = std::make_shared<Ayo::PointLightSource>(glm::vec3{ .3f, 1.0f, .4f }, glm::vec3{ .3f, 1.0f, .4f }, glm::vec3{ .3f, 1.0f, .4f }, 0.5f);
+
+        m_PointLight->SetLocalLocation({ 0.0f, 0.3f, 1.0f });
+        m_PointLight->SetLocalRotation({ 0.0f, 0.0f, 0.0f });
+        m_PointLight->SetLocalScale({ 0.2f, 0.2f, 0.2f });
+
+        m_DirLight = std::make_shared<Ayo::DirectionalLightSource>(glm::vec3{ 1.0f, 1.0f, 1.0f }, glm::vec3{ 1.0f, 1.0f, 1.0f }, glm::vec3{ 1.0f, 1.0f, 1.0f }, 1.0f);
+        m_DirLight->SetLocalRotation(Ayo::Rotator::FromDegrees({45.0f, 45.0f, 0.0f}));
 	}
 
 	void OnUpdate() override
@@ -118,102 +155,164 @@ public:
         //AYO_INFO("FPS: {0}", 1.0f/Ayo::Time::GetDeltaTime());
 		//AYO_INFO("ExampleLayer::Update");
 
+        /* ----------- Camera Controls ----------- */
+
         // horizontal movement of camera
 		if (Ayo::Input::IsKeyPressed(AYO_KEY_LEFT)) {
-			m_Camera->SetPosition(glm::vec3(m_Camera->GetPosition().x - speed, m_Camera->GetPosition().y, m_Camera->GetPosition().z));
+            m_Camera->AddLocalOffset(Ayo::Vector3(-speed, 0.0f, 0.0f));
 		}
 		else if (Ayo::Input::IsKeyPressed(AYO_KEY_RIGHT)) {
-			m_Camera->SetPosition(glm::vec3(m_Camera->GetPosition().x + speed, m_Camera->GetPosition().y, m_Camera->GetPosition().z));
-		}
+            m_Camera->AddLocalOffset(Ayo::Vector3(speed, 0.0f, 0.0f));
+        }
 
         // in/out movement of camera
         if (Ayo::Input::IsKeyPressed(AYO_KEY_UP)) {
-            m_Camera->SetPosition(glm::vec3(m_Camera->GetPosition().x, m_Camera->GetPosition().y, m_Camera->GetPosition().z - speed));
+            m_Camera->AddLocalOffset(Ayo::Vector3(0.0f, 0.0f, -speed));
         }
         else if (Ayo::Input::IsKeyPressed(AYO_KEY_DOWN)) {
-            m_Camera->SetPosition(glm::vec3(m_Camera->GetPosition().x, m_Camera->GetPosition().y, m_Camera->GetPosition().z + speed));
+            m_Camera->AddLocalOffset(Ayo::Vector3(0.0f, 0.0f, speed));
         }
 
         // vertical movement of camera
         if (Ayo::Input::IsKeyPressed(AYO_KEY_SPACE)) {
-            m_Camera->SetPosition(glm::vec3(m_Camera->GetPosition().x, m_Camera->GetPosition().y + speed, m_Camera->GetPosition().z));
+            m_Camera->AddLocalOffset(Ayo::Vector3(0.0f, speed, 0.0f));
         }
         else if (Ayo::Input::IsKeyPressed(AYO_KEY_LEFT_CONTROL)) {
-            m_Camera->SetPosition(glm::vec3(m_Camera->GetPosition().x, m_Camera->GetPosition().y - speed, m_Camera->GetPosition().z));
+            m_Camera->AddLocalOffset(Ayo::Vector3(0.0f, -speed, 0.0f));
         }
 
         // yaw modification of camera
         if (Ayo::Input::IsKeyPressed(AYO_KEY_Z)) {
-            m_Camera->Rotate(rotSpeed * 0.1, glm::vec3(0.0f, 1.0f, 0.0f));
+            m_Camera->AddLocalRotation({ 0.0f, rotSpeed, 0.0f });
+            AYO_INFO("Camera Rotation // Pitch: {0}, Yaw: {1}, Roll: {2}", m_Camera->GetLocalRotation().Pitch, m_Camera->GetLocalRotation().Yaw, m_Camera->GetLocalRotation().Roll);
         }
         else if (Ayo::Input::IsKeyPressed(AYO_KEY_C)) {
-            m_Camera->Rotate(-rotSpeed * 0.1, glm::vec3(0.0f, 1.0f, 0.0f));
+            m_Camera->AddLocalRotation({ 0.0f, -rotSpeed, 0.0f });
+            AYO_INFO("Camera Rotation // Pitch: {0}, Yaw: {1}, Roll: {2}", m_Camera->GetLocalRotation().Pitch, m_Camera->GetLocalRotation().Yaw, m_Camera->GetLocalRotation().Roll);
         }
 
         // pitch modification of camera
         if (Ayo::Input::IsKeyPressed(AYO_KEY_EQUAL)) {
-            m_Camera->Rotate(rotSpeed * 0.1, glm::vec3(1.0f, 0.0f, 0.0f));
+            m_Camera->AddLocalRotation({ rotSpeed, 0.0f, 0.0f });
         }
         else if (Ayo::Input::IsKeyPressed(AYO_KEY_MINUS)) {
-            m_Camera->Rotate(-rotSpeed * 0.1, glm::vec3(1.0f, 0.0f, 0.0f));
+            m_Camera->AddLocalRotation({ -rotSpeed, 0.0f, 0.0f });
         }
+
+        /* -------------------------------------------- */
+
 
         if (Ayo::Input::IsKeyPressed(AYO_KEY_1)) {
             m_WireframeMode = !m_WireframeMode;
             Ayo::RenderCommand::SetWireframeMode(m_WireframeMode);
         }
 
+        /* ----------- Light source Controls ----------- */
+
         // Vertical movement of cube
         if (Ayo::Input::IsKeyPressed(AYO_KEY_W)) {
-            modelTransform = glm::translate(modelTransform, glm::vec3(0.0f, speed, 0.0f));
-        } else if (Ayo::Input::IsKeyPressed(AYO_KEY_S))
-        {
-            modelTransform = glm::translate(modelTransform, glm::vec3(0.0f, -speed, 0.0f));
+            m_PointLight->AddLocalOffset({ 0.0f, speed, 0.0f });
+        }
+        else if (Ayo::Input::IsKeyPressed(AYO_KEY_S)) {
+            m_PointLight->AddLocalOffset({ 0.0f, -speed, 0.0f });
         }
 
         // horizontal movement of cube
         if (Ayo::Input::IsKeyPressed(AYO_KEY_A)) {
-            modelTransform = glm::translate(modelTransform, glm::vec3(speed, 0.0f, 0.0f));
+            m_PointLight->AddLocalOffset({ speed, 0.0f, 0.0f });
         }
         else if (Ayo::Input::IsKeyPressed(AYO_KEY_D)) {
-            modelTransform = glm::translate(modelTransform, glm::vec3(-speed, 0.0f, 0.0f));
+            m_PointLight->AddLocalOffset({ -speed, 0.0f, 0.0f });
+        }
+
+        // depth movement of cube
+        if (Ayo::Input::IsKeyPressed(AYO_KEY_V)) {
+            m_PointLight->AddLocalOffset({ 0.0f, 0.0f, -speed });
+        }
+        else if (Ayo::Input::IsKeyPressed(AYO_KEY_B)) {
+            m_PointLight->AddLocalOffset({ 0.0f, 0.0f, speed });
         }
 
         // Changing the object's yaw
-		if (Ayo::Input::IsKeyPressed(AYO_KEY_Q)) {
-			//m_Camera->Rotate(rotSpeed, m_Camera->GetForwardVector());
-            modelTransform = glm::rotate(modelTransform, glm::radians(-rotSpeed), glm::vec3(0.0f, 1.0f, 0.0f));
-		}
-		else if (Ayo::Input::IsKeyPressed(AYO_KEY_E)) {
-			//m_Camera->Rotate(-rotSpeed, m_Camera->GetForwardVector());
-            modelTransform = glm::rotate(modelTransform, glm::radians(rotSpeed), glm::vec3(0.0f, 1.0f, 0.0f));
-		}
+        if (Ayo::Input::IsKeyPressed(AYO_KEY_Q)) {
+            m_PointLight->AddLocalRotation({ 0.0f, rotSpeed, 0.0f });
+        }
+        else if (Ayo::Input::IsKeyPressed(AYO_KEY_E)) {
+            m_PointLight->AddLocalRotation({ 0.0f, -rotSpeed, 0.0f });
+        }
 
         // Changing the object's pitch
         if (Ayo::Input::IsKeyPressed(AYO_KEY_R)) {
-            //m_Camera->Rotate(rotSpeed, m_Camera->GetForwardVector());
-            modelTransform = glm::rotate(modelTransform, glm::radians(rotSpeed), glm::vec3(1.0f, 0.0f, 0.0f));
+            m_PointLight->AddLocalRotation({ rotSpeed, 0.0f, 0.0f });
         }
         else if (Ayo::Input::IsKeyPressed(AYO_KEY_F)) {
-            //m_Camera->Rotate(-rotSpeed, m_Camera->GetForwardVector());
-            modelTransform = glm::rotate(modelTransform, glm::radians(-rotSpeed), glm::vec3(1.0f, 0.0f, 0.0f));
+            m_PointLight->AddLocalRotation({ -rotSpeed, 0.0f, 0.0f });
         }
 
-		Ayo::RenderCommand::SetClearColor({ 0.95f, 0.0625f, 0.93f, 1.0f });
+        // Dir Light rotation
+
+        // pitch
+        if (Ayo::Input::IsKeyPressed(AYO_KEY_Y)) {
+            m_DirLight->AddLocalRotation({ -rotSpeed, 0.0f, 0.0f });
+        }
+        else if (Ayo::Input::IsKeyPressed(AYO_KEY_U)) {
+            m_DirLight->AddLocalRotation({ rotSpeed, 0.0f, 0.0f });
+        }
+
+        // yaw
+        if (Ayo::Input::IsKeyPressed(AYO_KEY_H)) {
+            m_DirLight->AddLocalRotation({ 0.0f, -rotSpeed, 0.0f });
+        }
+        else if (Ayo::Input::IsKeyPressed(AYO_KEY_J)) {
+            m_DirLight->AddLocalRotation({ 0.0f, rotSpeed, 0.0f });
+        }
+
+        // roll
+        if (Ayo::Input::IsKeyPressed(AYO_KEY_N)) {
+            m_DirLight->AddLocalRotation({ 0.0f, 0.0f, -rotSpeed });
+        }
+        else if (Ayo::Input::IsKeyPressed(AYO_KEY_M)) {
+            m_DirLight->AddLocalRotation({ 0.0f, 0.0f, rotSpeed });
+        }
+        /* -------------------------------------------- */
+
+
+
+        m_Camera->RecalculateViewProjectionMatrix();
+
+        //Ayo::RenderCommand::SetClearColor({ 0.95f, 0.0625f, 0.93f, 1.0f });
+        Ayo::RenderCommand::SetClearColor({ 0.0f, 0.0f, 0.0f, 1.0f });
 		Ayo::RenderCommand::Clear();
 
 		Ayo::Renderer::BeginScene();
 
+        glm::mat4 normalMatrix;
+
+        // Standard material
 		m_Shader->Bind();
-		std::dynamic_pointer_cast<Ayo::OpenGLShader>(m_Shader)->UpdateMat4Uniform("u_ViewProjectionMatrix", m_Camera->GetViewProjectionMatrix() * modelTransform);
-        // texture
-        std::dynamic_pointer_cast<Ayo::OpenGLShader>(m_Shader)->UpdateIntUniform("u_Texture", 0);
-        m_Texture->Bind(0);
-        std::dynamic_pointer_cast<Ayo::OpenGLShader>(m_Shader)->UpdateIntUniform("u_Texture1", 1);
-        m_Texture1->Bind(1);
+        m_Shader->UpdateFloat3Constant("u_ViewPosition", m_Camera->GetLocalLocation().Get());
+
+        m_Shader->UpdateMat4Constant("u_ViewProjectionMatrix", m_Camera->GetViewProjectionMatrix());
+        m_Shader->UpdateMat4Constant("u_ModelMatrix", modelTransform);
+
+        normalMatrix = glm::transpose(glm::inverse(modelTransform));
+        m_Shader->UpdateMat4Constant("u_NormalMatrix", normalMatrix);
+
+        m_StandardMat->SetupShader(m_Shader);
+        // lighting
+        m_PointLight->SetupShader(m_Shader);
+        m_DirLight->SetupShader(m_Shader);
 
 		m_VertexArrayCube->Bind();
 		Ayo::Renderer::Submit(m_VertexArrayCube);
+
+        m_PointLightShader->Bind();
+
+        m_PointLightShader->UpdateMat4Constant("u_ViewProjectionMatrix", m_Camera->GetViewProjectionMatrix() );
+        m_PointLightShader->UpdateMat4Constant("u_ModelMatrix", m_PointLight->GetRelativeTransform());
+        m_PointLightShader->UpdateFloat3Constant("u_Color", m_PointLight->GetBaseColor().Get());
+        m_PointLight->SetupShader(m_PointLightShader);
+        m_PointLight->Draw();
 
 		Ayo::Renderer::EndScene();
 	}
@@ -234,16 +333,23 @@ private:
 
 	// buffers
 	std::shared_ptr<Ayo::VertexArray> m_VertexArrayCube;
-
-	// temporary, as example.
+    
     glm::mat4 modelTransform;
 
-	std::shared_ptr<Ayo::Shader> m_Shader;
+    std::shared_ptr<Ayo::Shader> m_Shader;
+    std::shared_ptr<Ayo::StandardMaterial> m_StandardMat;
+
+    std::shared_ptr<Ayo::Shader> m_PointLightShader;
 
     std::shared_ptr<Ayo::Texture> m_Texture;
     std::shared_ptr<Ayo::Texture> m_Texture1;
 
 	std::shared_ptr<Ayo::Camera> m_Camera;
+
+    std::shared_ptr<Ayo::DirectionalLightSource> m_DirLight;
+    std::shared_ptr<Ayo::PointLightSource> m_PointLight;
+
+    glm::vec3 m_SpecularColor = { 0.5f, 0.5f, 0.5f };
 
 	float speed = 0.01f;
 	float rotSpeed = 0.1f;

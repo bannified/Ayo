@@ -10,3 +10,6 @@
 [submodule "Ayo/vendor/glm"]
 	path = Ayo/vendor/glm
 	url = https://github.com/g-truc/glm
+[submodule "Ayo/vendor/assimp"]
+	path = Ayo/vendor/assimp
+	url = https://github.com/bannified/assimp

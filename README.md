@@ -1,2 +1,3 @@
-# Alice-and-Jean
-A 3D Game Engine with an awful name.
+# Ayo3DM
+
+Ayo3DM, a 3D movie maker.

@@ -5,11 +5,15 @@
 
 #include "glm/gtc/type_ptr.hpp"
 
+#include "Ayo/Renderer/Texture.h"
+
 namespace Ayo
 {
 
 	OpenGLShader::OpenGLShader(const std::string vertexSource, const std::string fragmentSource)
 	{
+        m_NextTextureIndex = 0;
+
 		// Create an empty vertex shader handle
 		GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
 
@@ -122,6 +126,7 @@ namespace Ayo
 	void OpenGLShader::Bind() const
 	{
 		glUseProgram(m_RendererId);
+        m_NextTextureIndex = 0; // reset next texture index.
 	}
 
 	void OpenGLShader::Unbind() const
@@ -201,6 +206,53 @@ namespace Ayo
         }
 
         return std::make_shared<OpenGLShader>(vertexCode, fragmentCode);
+    }
+
+    void OpenGLShader::UpdateIntConstant(const std::string& constantName, int value)
+    {
+        UpdateIntUniform(constantName, value);
+    }
+
+    void OpenGLShader::UpdateFloatConstant(const std::string& constantName, float value)
+    {
+        UpdateFloatUniform(constantName, value);
+    }
+
+    void OpenGLShader::UpdateFloat2Constant(const std::string& constantName, const glm::vec2& value)
+    {
+        UpdateFloat2Uniform(constantName, value);
+    }
+
+    void OpenGLShader::UpdateFloat3Constant(const std::string& constantName, const glm::vec3& value)
+    {
+        UpdateFloat3Uniform(constantName, value);
+    }
+
+    void OpenGLShader::UpdateFloat4Constant(const std::string& constantName, const glm::vec4& value)
+    {
+        UpdateFloat4Uniform(constantName, value);
+    }
+
+    void OpenGLShader::UpdateMat3Constant(const std::string& constantName, const glm::mat3& value)
+    {
+        UpdateMat3Uniform(constantName, value);
+    }
+
+    void OpenGLShader::UpdateMat4Constant(const std::string& constantName, const glm::mat4& value)
+    {
+        UpdateMat4Uniform(constantName, value);
+    }
+
+    void OpenGLShader::AddTexture(const std::string& constantName, const std::shared_ptr<Texture>& texture)
+    {
+        if (texture == nullptr) {
+            return;
+        }
+
+        UpdateIntConstant(constantName, m_NextTextureIndex);
+        texture->Bind(m_NextTextureIndex);
+
+        m_NextTextureIndex++;
     }
 
 }

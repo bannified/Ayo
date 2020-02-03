@@ -7,5 +7,5 @@
 //////////////////////////////////////////////////////////////////////////
 namespace AppSettings
 {
-    const std::string DEBUG_ROOT_PATH = "E:/AyoTest";
+    const std::string DEBUG_ROOT_PATH = ".\../../../debug-assets";
 };

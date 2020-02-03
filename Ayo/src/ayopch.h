@@ -21,6 +21,7 @@
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
+#include <map>
 
 #include <algorithm>
 
@@ -30,3 +31,8 @@
 // Self
 #include "Ayo/Core.h"
 #include "Ayo/Log.h"
+
+// 3D math essentials
+#include "Ayo/Math/Vector3.h"
+#include "Ayo/Math/Rotator.h"
+#include "Ayo/Math/Quaternion.h"
