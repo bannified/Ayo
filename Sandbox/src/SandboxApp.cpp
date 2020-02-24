@@ -7,31 +7,34 @@
 class ExampleLayer : public Ayo::Layer
 {
 public:
-	ExampleLayer()
-		: Layer("Example")
-	{
-		SetupExampleScene();
+    ExampleLayer()
+        : Layer("Example")
+    {
+        SetupExampleScene();
         Ayo::Time::Initialize();
-	}
+    }
 
-	void SetupExampleScene()
-	{
-		// example: setting up drawing a triangle and a square
+    void SetupExampleScene()
+    {
 
-		// Setup Camera
-		m_Camera = std::make_shared<Ayo::Camera>();
-		m_Camera->SetProjectionMatrix(glm::perspective(glm::radians(45.0f), 16.0f / 9.0f, 0.1f, 100.0f));
-		//m_Camera->SetViewMatrix(glm::identity<glm::mat4>());
+        // Setup a mesh
+        m_NanosuitModel = std::make_shared<Ayo::Model>(AppSettings::DEBUG_ROOT_PATH + "/meshes/nanosuit/nanosuit.obj");
+
+        // Setup Camera
+        m_Camera = std::make_shared<Ayo::Camera>();
+        m_Camera->SetProjectionMatrix(glm::perspective(glm::radians(45.0f), 16.0f / 9.0f, 0.1f, 100.0f));
+        //m_Camera->SetViewMatrix(glm::identity<glm::mat4>());
 
         modelTransform = glm::mat4(1.0f);
+        modelTransform = glm::scale(modelTransform, glm::vec3(0.1f, 0.1f, 0.1f));
 
-		// Setup buffers
-		std::shared_ptr<Ayo::VertexBuffer> vertexBufferCube;
-		std::shared_ptr<Ayo::IndexBuffer> indexBufferCube;
+        // Setup buffers
+        std::shared_ptr<Ayo::VertexBuffer> vertexBufferCube;
+        std::shared_ptr<Ayo::IndexBuffer> indexBufferCube;
 
-		m_VertexArrayCube = Ayo::VertexArray::Create();
+        m_VertexArrayCube = Ayo::VertexArray::Create();
 
-		/* Vertices */
+        /* Vertices */
         float vertices[] = {
             // Vertices           // Tex coords     // Normals
             -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,        0.0f,  0.0f, -1.0f,
@@ -77,39 +80,42 @@ public:
             -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,        0.0f,  1.0f,  0.0f
         };
 
-		vertexBufferCube = Ayo::VertexBuffer::Create(&vertices[0], sizeof(vertices));
+        vertexBufferCube = Ayo::VertexBuffer::Create(&vertices[0], sizeof(vertices));
 
-		/* Layout */
-		Ayo::BufferLayout layout = {
-			{ Ayo::ShaderDataType::Float3, "a_Position"},
+        /* Layout */
+        Ayo::BufferLayout layout = {
+            { Ayo::ShaderDataType::Float3, "a_Position"},
             { Ayo::ShaderDataType::Float2, "a_TexCoord"},
             { Ayo::ShaderDataType::Float3, "a_Normal"}
-		};
+        };
 
-		vertexBufferCube->SetLayout(layout);
+        vertexBufferCube->SetLayout(layout);
 
-		/* Indices */
-		unsigned int indices[] = {  
+        /* Indices */
+        unsigned int indices[] = {
                                     0,  1,  2,  3,  4,  5,
                                     6,  7,  8,  9,  10, 11,
-                                    12, 13, 14, 15, 16, 17, 
-                                    18, 19, 20, 21, 22, 23, 
-                                    24, 25, 26, 27, 28, 29, 
-                                    30, 31, 32, 33, 34, 35 
-                                 };
-		indexBufferCube = Ayo::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
+                                    12, 13, 14, 15, 16, 17,
+                                    18, 19, 20, 21, 22, 23,
+                                    24, 25, 26, 27, 28, 29,
+                                    30, 31, 32, 33, 34, 35
+        };
+        indexBufferCube = Ayo::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
 
-		/* Final Binding to VertexArray */
-		m_VertexArrayCube->AddVertexBuffer(vertexBufferCube);
-		m_VertexArrayCube->SetIndexBuffer(indexBufferCube);
+        /* Final Binding to VertexArray */
+        m_VertexArrayCube->AddVertexBuffer(vertexBufferCube);
+        m_VertexArrayCube->SetIndexBuffer(indexBufferCube);
 
-		/* Shaders */
-		// todo: remember to add in model matrix
-		std::string vertexSourcePath = AppSettings::DEBUG_ROOT_PATH + "/posTexphong.vs";
-		std::string fragmentSourcePath = AppSettings::DEBUG_ROOT_PATH + "/texMapsPhong.fs";
+        /* Shaders */
+        // todo: remember to add in model matrix
+        std::string vertexSourcePath = AppSettings::DEBUG_ROOT_PATH + "/posTexphong.vs";
+        std::string fragmentSourcePath = AppSettings::DEBUG_ROOT_PATH + "/texMapsPhong.fs";
 
-		// shader
-		m_Shader = Ayo::Shader::CreateFromPath(vertexSourcePath, fragmentSourcePath);
+        // shader
+        m_Shader = Ayo::Shader::CreateFromPath(vertexSourcePath, fragmentSourcePath);
+
+        fragmentSourcePath = AppSettings::DEBUG_ROOT_PATH + "/nanosuit.fs";
+        m_NanosuitShader = Ayo::Shader::CreateFromPath(vertexSourcePath, fragmentSourcePath);
 
         // Textures
         std::string texturePath = AppSettings::DEBUG_ROOT_PATH + "/container.jpg";
@@ -118,7 +124,7 @@ public:
         m_Texture = Ayo::Texture::Create(texturePath);
         m_Texture1 = Ayo::Texture::Create(texture1Path);
 
-		m_Camera->SetLocalLocation(Ayo::Vector3(0.0f, 0.0f, 3.0f));
+        m_Camera->SetLocalLocation(Ayo::Vector3(0.0f, 0.0f, 3.0f));
 
         vertexSourcePath = AppSettings::DEBUG_ROOT_PATH + "/lightPosOnly.vs";
         fragmentSourcePath = AppSettings::DEBUG_ROOT_PATH + "/lightColor.fs";
@@ -145,23 +151,23 @@ public:
         m_PointLight->SetLocalScale({ 0.2f, 0.2f, 0.2f });
 
         m_DirLight = std::make_shared<Ayo::DirectionalLightSource>(glm::vec3{ 1.0f, 1.0f, 1.0f }, glm::vec3{ 1.0f, 1.0f, 1.0f }, glm::vec3{ 1.0f, 1.0f, 1.0f }, 1.0f);
-        m_DirLight->SetLocalRotation(Ayo::Rotator::FromDegrees({45.0f, 45.0f, 0.0f}));
-	}
+        m_DirLight->SetLocalRotation(Ayo::Rotator::FromDegrees({ 45.0f, 45.0f, 0.0f }));
+    }
 
-	void OnUpdate() override
-	{
+    void OnUpdate() override
+    {
         Ayo::Time::Update();
         //AYO_INFO("Time::GetDeltaTime(): {0}", Ayo::Time::GetDeltaTime());
         //AYO_INFO("FPS: {0}", 1.0f/Ayo::Time::GetDeltaTime());
-		//AYO_INFO("ExampleLayer::Update");
+        //AYO_INFO("ExampleLayer::Update");
 
         /* ----------- Camera Controls ----------- */
 
         // horizontal movement of camera
-		if (Ayo::Input::IsKeyPressed(AYO_KEY_LEFT)) {
+        if (Ayo::Input::IsKeyPressed(AYO_KEY_LEFT)) {
             m_Camera->AddLocalOffset(Ayo::Vector3(-speed, 0.0f, 0.0f));
-		}
-		else if (Ayo::Input::IsKeyPressed(AYO_KEY_RIGHT)) {
+        }
+        else if (Ayo::Input::IsKeyPressed(AYO_KEY_RIGHT)) {
             m_Camera->AddLocalOffset(Ayo::Vector3(speed, 0.0f, 0.0f));
         }
 
@@ -281,15 +287,15 @@ public:
         m_Camera->RecalculateViewProjectionMatrix();
 
         //Ayo::RenderCommand::SetClearColor({ 0.95f, 0.0625f, 0.93f, 1.0f });
-        Ayo::RenderCommand::SetClearColor({ 0.0f, 0.0f, 0.0f, 1.0f });
-		Ayo::RenderCommand::Clear();
+        Ayo::RenderCommand::SetClearColor({ 0.5f, 0.5f, 0.5f, 1.0f });
+        Ayo::RenderCommand::Clear();
 
-		Ayo::Renderer::BeginScene();
+        Ayo::Renderer::BeginScene();
 
         glm::mat4 normalMatrix;
 
         // Standard material
-		m_Shader->Bind();
+        m_Shader->Bind();
         m_Shader->UpdateFloat3Constant("u_ViewPosition", m_Camera->GetLocalLocation().Get());
 
         m_Shader->UpdateMat4Constant("u_ViewProjectionMatrix", m_Camera->GetViewProjectionMatrix());
@@ -303,37 +309,62 @@ public:
         m_PointLight->SetupShader(m_Shader);
         m_DirLight->SetupShader(m_Shader);
 
-		m_VertexArrayCube->Bind();
-		Ayo::Renderer::Submit(m_VertexArrayCube);
+        m_VertexArrayCube->Bind();
+        //Ayo::Renderer::Submit(m_VertexArrayCube);
+
+        /* nanosuit */
+        m_NanosuitShader->Bind();
+
+        m_NanosuitShader->UpdateFloat3Constant("u_ViewPosition", m_Camera->GetLocalLocation().Get());
+
+        m_NanosuitShader->UpdateMat4Constant("u_ViewProjectionMatrix", m_Camera->GetViewProjectionMatrix());
+        
+        m_NanosuitShader->UpdateMat4Constant("u_ModelMatrix", modelTransform);
+
+        normalMatrix = glm::transpose(glm::inverse(modelTransform));
+        m_NanosuitShader->UpdateMat4Constant("u_NormalMatrix", normalMatrix);
+
+        //m_StandardMat->SetupShader(m_NanosuitShader);
+        // lighting
+        //m_PointLight->SetupShader(m_NanosuitShader);
+        //m_DirLight->SetupShader(m_NanosuitShader);
+
+        m_NanosuitModel->Draw(m_NanosuitShader);
+
+        /* Nanosuit End */
 
         m_PointLightShader->Bind();
 
-        m_PointLightShader->UpdateMat4Constant("u_ViewProjectionMatrix", m_Camera->GetViewProjectionMatrix() );
+        m_PointLightShader->UpdateMat4Constant("u_ViewProjectionMatrix", m_Camera->GetViewProjectionMatrix());
         m_PointLightShader->UpdateMat4Constant("u_ModelMatrix", m_PointLight->GetRelativeTransform());
         m_PointLightShader->UpdateFloat3Constant("u_Color", m_PointLight->GetBaseColor().Get());
         m_PointLight->SetupShader(m_PointLightShader);
         m_PointLight->Draw();
 
-		Ayo::Renderer::EndScene();
-	}
+        Ayo::Renderer::EndScene();
+    }
 
-	void OnEvent(Ayo::Event& e) override
-	{
-		//AYO_TRACE("{0}", e);
-	}
+    void OnEvent(Ayo::Event& e) override
+    {
+        //AYO_TRACE("{0}", e);
+    }
 
-	virtual void OnImGuiDraw() override
-	{
-		ImGui::Begin("Test");
-		ImGui::Text("Hello world");
-		ImGui::End();
-	}
+    virtual void OnImGuiDraw() override
+    {
+        ImGui::Begin("Test");
+        ImGui::Text("Hello world");
+        ImGui::End();
+    }
 
 private:
 
-	// buffers
-	std::shared_ptr<Ayo::VertexArray> m_VertexArrayCube;
-    
+    // test
+    std::shared_ptr<Ayo::Model> m_NanosuitModel;
+    std::shared_ptr<Ayo::Shader> m_NanosuitShader;
+
+    // buffers
+    std::shared_ptr<Ayo::VertexArray> m_VertexArrayCube;
+
     glm::mat4 modelTransform;
 
     std::shared_ptr<Ayo::Shader> m_Shader;
@@ -344,34 +375,34 @@ private:
     std::shared_ptr<Ayo::Texture> m_Texture;
     std::shared_ptr<Ayo::Texture> m_Texture1;
 
-	std::shared_ptr<Ayo::Camera> m_Camera;
+    std::shared_ptr<Ayo::Camera> m_Camera;
 
     std::shared_ptr<Ayo::DirectionalLightSource> m_DirLight;
     std::shared_ptr<Ayo::PointLightSource> m_PointLight;
 
     glm::vec3 m_SpecularColor = { 0.5f, 0.5f, 0.5f };
 
-	float speed = 0.01f;
-	float rotSpeed = 0.1f;
+    float speed = 0.01f;
+    float rotSpeed = 0.1f;
 
     bool m_WireframeMode = false;
 };
 
 class Sandbox : public Ayo::Application
 {
-	public:
-		Sandbox()
-		{
-			PushLayer(new ExampleLayer());
-		}
+public:
+    Sandbox()
+    {
+        PushLayer(new ExampleLayer());
+    }
 
-		~Sandbox()
-		{
+    ~Sandbox()
+    {
 
-		}
+    }
 };
 
 Ayo::Application* Ayo::CreateApplication()
 {
-	return new Sandbox();
+    return new Sandbox();
 }

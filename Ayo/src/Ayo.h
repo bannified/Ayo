@@ -36,9 +36,6 @@
 #include "Ayo/Renderer/Material.h"
 #include "Ayo/Renderer/Materials/StandardMaterial.h"
 
-#include "Ayo/RenderObjects/Mesh.h"
-#include "Ayo/RenderObjects/Vertex.h"
-
 // ----------------
 
 // --- Math ---
@@ -55,6 +52,10 @@
 #include "Ayo/Lighting/LightSource.h"
 #include "Ayo/Lighting/DirectionalLightSource.h"
 #include "Ayo/Lighting/PointLightSource.h"
+
+#include "Ayo/RenderObjects/Mesh.h"
+#include "Ayo/RenderObjects/Vertex.h"
+#include "Ayo/RenderObjects/Model.h"
 
 //
 

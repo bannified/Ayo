@@ -14,10 +14,7 @@ Ayo::SceneComponent::SceneComponent()
     m_LocalScale = Vector3(1.0f);
 }
 
-Ayo::SceneComponent::~SceneComponent()
-{
-
-}
+Ayo::SceneComponent::~SceneComponent() = default;
 
 void Ayo::SceneComponent::SetLocalLocation(Vector3 NewLocation)
 {

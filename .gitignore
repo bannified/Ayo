@@ -1,4 +1,5 @@
 # Directories
+!Ayo/externallibs/*
 .vs/
 bin/
 bin-int/

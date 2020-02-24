@@ -13,12 +13,11 @@ namespace Ayo
     class Mesh
     {
     public:
-        Mesh();
         ~Mesh();
 
-        Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices, const std::vector<std::shared_ptr<Texture>> textures);
+        Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices, std::vector<std::shared_ptr<Texture>> textures);
 
-        void Draw(const Shader& shader);
+        void Draw(const std::shared_ptr<Shader>& shader);
 
         inline void SetMaterialIndex(unsigned int index) { m_MaterialIndex = index; }
 

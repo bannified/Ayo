@@ -72,6 +72,10 @@ project "Ayo"
 		"ImGui"
 	}
 
+	libdirs { 
+		"%{prj.name}/externallibs",
+	}
+
 	filter "system:windows" -- everything under this filter only apply to windows
 		cppdialect "C++17"
 		systemversion "latest"
@@ -142,7 +146,12 @@ project "Sandbox"
 
 	links 
 	{
-		"Ayo"	
+		"Ayo",
+		"assimp-vc141-mtd.lib"	
+	}
+
+	libdirs { 
+		"Ayo/externallibs",
 	}
 
 	filter "system:windows" -- everything under this filter only apply to windows

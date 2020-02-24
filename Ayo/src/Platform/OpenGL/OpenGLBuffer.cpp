@@ -13,7 +13,7 @@ namespace Ayo {
 	{
 		glCreateBuffers(1, &m_Buffer);
 		glNamedBufferStorage(m_Buffer, size, vertices, 0);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
 	}
 
 	OpenGLVertexBuffer::~OpenGLVertexBuffer()
