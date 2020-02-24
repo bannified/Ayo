@@ -28,7 +28,7 @@ void Ayo::Mesh::Draw(const std::shared_ptr<Shader>& shader)
         shader->AddTexture("u_StandardMaterial." + tex->GetTextureName(), tex);
     }
 
-    Renderer::Submit(m_VertexArray);
+    Renderer::Submit(shader, m_VertexArray);
     m_VertexArray->Unbind();
 }
 

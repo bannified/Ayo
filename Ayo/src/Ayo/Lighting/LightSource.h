@@ -16,7 +16,7 @@ namespace Ayo
 
         virtual void SetupShader(const std::shared_ptr<Shader>& shader) = 0;
 
-        virtual void Draw() = 0;
+        virtual void Draw(const std::shared_ptr<Shader>& shader) = 0;
 
         inline Vector3 GetBaseColor() { return p_Color; }
 

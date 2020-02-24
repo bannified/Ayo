@@ -81,6 +81,8 @@ Ayo::PointLightSource::~PointLightSource()
 
 void Ayo::PointLightSource::SetupShader(const std::shared_ptr<Shader>& shader)
 {
+    shader->Bind();
+
     shader->UpdateFloat3Constant("u_PointLight.position", GetLocalLocation().Get());
 
     shader->UpdateFloat3Constant("u_PointLight.ambient", p_Color.Get() * p_Intensity);
@@ -94,8 +96,13 @@ void Ayo::PointLightSource::SetupShader(const std::shared_ptr<Shader>& shader)
     shader->UpdateFloatConstant("u_PointLight.quadratic", p_QuadraticAttenuation);
 }
 
-void Ayo::PointLightSource::Draw()
+void Ayo::PointLightSource::Draw(const std::shared_ptr<Shader>& shader)
 {
+    shader->Bind();
+
+    shader->UpdateMat4Constant("u_ModelMatrix", GetRelativeTransform());
+    shader->UpdateFloat3Constant("u_Color", GetBaseColor().Get());
+
     m_VertexArray->Bind();
-    Renderer::Submit(m_VertexArray);
+    Renderer::Submit(shader, m_VertexArray);
 }

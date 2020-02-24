@@ -25,7 +25,7 @@ void Ayo::DirectionalLightSource::SetupShader(const std::shared_ptr<Shader>& sha
     shader->UpdateFloatConstant("u_GlobalDirLight.intensity", p_Intensity);
 }
 
-void Ayo::DirectionalLightSource::Draw()
+void Ayo::DirectionalLightSource::Draw(const std::shared_ptr<Shader>& shader)
 {
     // no draw. since position does not matter.
 }

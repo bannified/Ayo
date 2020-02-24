@@ -3,6 +3,7 @@
 #include "LightSource.h"
 
 #include "Ayo/Renderer/Buffer.h"
+#include "Ayo/Renderer/Shader.h"
 #include "Ayo/Renderer/VertexArray.h"
 
 namespace Ayo
@@ -17,7 +18,7 @@ namespace Ayo
 
         virtual void SetupShader(const std::shared_ptr<Shader>& shader) override;
 
-        virtual void Draw() override;
+        virtual void Draw(const std::shared_ptr<Shader>& shader) override;
 
     protected:
         float p_ConstantAttenuation;

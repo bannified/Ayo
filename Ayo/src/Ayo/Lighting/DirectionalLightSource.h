@@ -18,7 +18,7 @@ namespace Ayo
 
         virtual void SetupShader(const std::shared_ptr<Shader>& shader) override;
 
-        virtual void Draw() override;
+        virtual void Draw(const std::shared_ptr<Shader>& shader) override;
 
     };
 }

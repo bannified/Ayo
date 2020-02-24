@@ -291,15 +291,13 @@ public:
         Ayo::RenderCommand::SetClearColor({ 0.0F, 0.0F, 0.0F, 1.0f });
         Ayo::RenderCommand::Clear();
 
-        Ayo::Renderer::BeginScene();
+        Ayo::Renderer::BeginScene(m_Camera);
 
         glm::mat4 normalMatrix;
 
         // Standard material
         m_Shader->Bind();
-        m_Shader->UpdateFloat3Constant("u_ViewPosition", m_Camera->GetLocalLocation().Get());
 
-        m_Shader->UpdateMat4Constant("u_ViewProjectionMatrix", m_Camera->GetViewProjectionMatrix());
         m_Shader->UpdateMat4Constant("u_ModelMatrix", modelTransform);
 
         normalMatrix = glm::transpose(glm::inverse(modelTransform));
@@ -311,7 +309,7 @@ public:
         m_DirLight->SetupShader(m_Shader);
 
         m_VertexArrayCube->Bind();
-        Ayo::Renderer::Submit(m_VertexArrayCube);
+        Ayo::Renderer::Submit(m_Shader, m_VertexArrayCube);
 
         /* nanosuit */
         m_NanosuitShader->Bind();
@@ -335,12 +333,8 @@ public:
         /* Nanosuit End */
 
         m_PointLightShader->Bind();
-
-        m_PointLightShader->UpdateMat4Constant("u_ViewProjectionMatrix", m_Camera->GetViewProjectionMatrix());
-        m_PointLightShader->UpdateMat4Constant("u_ModelMatrix", m_PointLight->GetRelativeTransform());
-        m_PointLightShader->UpdateFloat3Constant("u_Color", m_PointLight->GetBaseColor().Get());
         m_PointLight->SetupShader(m_PointLightShader);
-        m_PointLight->Draw();
+        m_PointLight->Draw(m_PointLightShader);
 
         Ayo::Renderer::EndScene();
     }
