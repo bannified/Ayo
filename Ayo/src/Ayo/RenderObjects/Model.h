@@ -17,6 +17,8 @@ namespace Ayo
 
         void Draw(const std::shared_ptr<Shader>& shader);
 
+        inline std::vector<std::shared_ptr<Mesh>> GetMeshes() const { return m_Meshes; }
+
     private:
 
         /* Model Data */

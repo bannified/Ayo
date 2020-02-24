@@ -21,6 +21,7 @@ namespace Ayo
 
         inline void SetMaterial(const std::shared_ptr<Material>& material) { this->m_Material = material; }
 
+        inline std::shared_ptr<Material> GetMaterial() const { return m_Material; }
     private:
 
         std::shared_ptr<VertexArray> m_VertexArray;

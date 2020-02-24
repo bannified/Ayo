@@ -1299,7 +1299,7 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
-    <ClInclude Include="MeshComponent.h">
+    <ClInclude Include="src\Ayo\Components\MeshComponent.h">
       <Filter>src\Ayo\Components</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1412,7 +1412,7 @@
     <ClCompile Include="src\ayopch.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="MeshComponent.cpp">
+    <ClCompile Include="src\Ayo\Components\MeshComponent.cpp">
       <Filter>src\Ayo\Components</Filter>
     </ClCompile>
   </ItemGroup>

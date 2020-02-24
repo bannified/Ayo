@@ -18,6 +18,11 @@ public:
     {
 
         // Setup a mesh
+        m_Nanosuit = std::make_shared<Ayo::MeshComponent>(AppSettings::DEBUG_ROOT_PATH + "/meshes/nanosuit/nanosuit.obj");
+
+        m_Nanosuit->SetLocalLocation(Ayo::Vector3(0.0f, -1.5f, .5f));
+        m_Nanosuit->SetLocalScale(Ayo::Vector3(0.2f, 0.2f, 0.2f));
+
         m_NanosuitModel = std::make_shared<Ayo::Model>(AppSettings::DEBUG_ROOT_PATH + "/meshes/nanosuit/nanosuit.obj");
 
         // Setup Camera
@@ -313,17 +318,11 @@ public:
 
         /* nanosuit */
         m_NanosuitShader->Bind();
-        
-        m_NanosuitShader->UpdateMat4Constant("u_ModelMatrix", modelTransform);
-        normalMatrix = glm::transpose(glm::inverse(modelTransform));
-        m_NanosuitShader->UpdateMat4Constant("u_NormalMatrix", normalMatrix);
 
-        //m_StandardMat->SetupShader(m_NanosuitShader);
         // lighting
         m_PointLight->SetupShader(m_NanosuitShader);
         m_DirLight->SetupShader(m_NanosuitShader);
-
-        m_NanosuitModel->Draw(m_NanosuitShader);
+        m_Nanosuit->Draw(m_NanosuitShader);
 
         /* Nanosuit End */
 
@@ -349,6 +348,8 @@ public:
 private:
 
     // test
+    std::shared_ptr<Ayo::MeshComponent> m_Nanosuit;
+
     std::shared_ptr<Ayo::Model> m_NanosuitModel;
     std::shared_ptr<Ayo::Shader> m_NanosuitShader;
 

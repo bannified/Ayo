@@ -143,9 +143,9 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="MeshComponent.h" />
     <ClInclude Include="src\Ayo.h" />
     <ClInclude Include="src\Ayo\Application.h" />
+    <ClInclude Include="src\Ayo\Components\MeshComponent.h" />
     <ClInclude Include="src\Ayo\Components\SceneComponent.h" />
     <ClInclude Include="src\Ayo\Core.h" />
     <ClInclude Include="src\Ayo\EntryPoint.h" />
@@ -557,8 +557,8 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MeshComponent.cpp" />
     <ClCompile Include="src\Ayo\Application.cpp" />
+    <ClCompile Include="src\Ayo\Components\MeshComponent.cpp" />
     <ClCompile Include="src\Ayo\Components\SceneComponent.cpp" />
     <ClCompile Include="src\Ayo\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Ayo\ImGui\ImGuiLayer.cpp" />
