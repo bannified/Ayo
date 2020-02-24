@@ -3,6 +3,7 @@
 #include "Ayo/Renderer/Material.h"
 #include "Ayo/Math/Vector3.h"
 #include "Ayo/Renderer/Texture.h"
+#include "Ayo/Renderer/Shader.h"
 
 namespace Ayo
 {
@@ -37,5 +38,8 @@ namespace Ayo
 
         /* Specular exponent */
         float p_Shininess;
+
+        virtual void SetShaderProperties(const std::shared_ptr<Shader>& shader) override;
+
     };
 }

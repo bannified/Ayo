@@ -313,13 +313,8 @@ public:
 
         /* nanosuit */
         m_NanosuitShader->Bind();
-
-        m_NanosuitShader->UpdateFloat3Constant("u_ViewPosition", m_Camera->GetLocalLocation().Get());
-
-        m_NanosuitShader->UpdateMat4Constant("u_ViewProjectionMatrix", m_Camera->GetViewProjectionMatrix());
         
         m_NanosuitShader->UpdateMat4Constant("u_ModelMatrix", modelTransform);
-
         normalMatrix = glm::transpose(glm::inverse(modelTransform));
         m_NanosuitShader->UpdateMat4Constant("u_NormalMatrix", normalMatrix);
 

@@ -1,8 +1,6 @@
 #include "ayopch.h"
 #include "StandardMaterial.h"
 
-#include "Platform/OpenGL/Materials/OpenGLStandardMaterial.h"
-
 #include "Ayo/Renderer/RendererAPI.h"
 
 Ayo::StandardMaterial::StandardMaterial(const Vector3& baseColor, 
@@ -21,15 +19,16 @@ std::shared_ptr<Ayo::StandardMaterial> Ayo::StandardMaterial::Create(const Vecto
                                                                      const std::shared_ptr<Texture>& specularMap,
                                                                      const float shininess)
 {
-    switch (RendererAPI::GetCurrentAPI()) {
-        case RendererAPI::API::OpenGL:
-            return std::make_shared<OpenGLStandardMaterial>(baseColor, diffuseMap, specularMap, shininess);
-        case RendererAPI::API::NONE:
-            AYO_CORE_ASSERT(false, "No RendererAPI selected in Renderer.h!");
-            return nullptr;
-    }
+    return std::make_shared<Ayo::StandardMaterial>(baseColor, diffuseMap, specularMap, shininess);
+}
 
-    AYO_CORE_ASSERT(false, "No RendererAPI selected in Renderer.h!");
-    return nullptr;
+void Ayo::StandardMaterial::SetShaderProperties(const std::shared_ptr<Shader>& shader)
+{
+    shader->UpdateFloat3Constant("u_StandardMaterial.color", p_BaseColor.Get());
+
+    shader->AddTexture("u_StandardMaterial.diffuse", p_DiffuseMap);
+    shader->AddTexture("u_StandardMaterial.specular", p_SpecularMap);
+
+    shader->UpdateFloatConstant("u_StandardMaterial.shininess", p_Shininess);
 }
 

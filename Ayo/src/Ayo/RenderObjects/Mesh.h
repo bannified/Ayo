@@ -15,23 +15,19 @@ namespace Ayo
     public:
         ~Mesh();
 
-        Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices, std::vector<std::shared_ptr<Texture>> textures);
+        Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices, const std::shared_ptr<Material>& material);
 
         void Draw(const std::shared_ptr<Shader>& shader);
 
-        inline void SetMaterialIndex(unsigned int index) { m_MaterialIndex = index; }
+        inline void SetMaterial(const std::shared_ptr<Material>& material) { this->m_Material = material; }
 
     private:
 
         std::shared_ptr<VertexArray> m_VertexArray;
-
         std::vector<Vertex> m_Vertices;
         std::vector<unsigned int> m_Indices;
-        std::vector<std::shared_ptr<Texture>> m_Textures;
 
-        std::vector<Material> m_MaterialSlots;
-
-        unsigned int m_MaterialIndex;
+        std::shared_ptr<Material> m_Material;
 
         void SetupMesh();
     };

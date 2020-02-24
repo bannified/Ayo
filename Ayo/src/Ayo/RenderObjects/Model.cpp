@@ -1,9 +1,10 @@
 #include "ayopch.h"
 #include "Model.h"
+
 #include "Ayo/Renderer/Texture.h"
+#include "Ayo/Renderer/Materials/StandardMaterial.h"
 
 #include "glm/glm.hpp"
-
 
 #include "assimp/Importer.hpp"
 #include "assimp/postprocess.h"
@@ -93,14 +94,23 @@ std::shared_ptr<Ayo::Mesh> Ayo::Model::ProcessMesh(aiMesh* mesh, const aiScene* 
     //unsigned int materialIndex = 0;
     std::vector<std::shared_ptr<Texture>> textures;
     
+
+    std::shared_ptr<Texture> diffuse, specular;
+
     if (mesh->mMaterialIndex >= 0) {
         aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
 
         //materialIndex = mesh->mMaterialIndex;
         std::vector<std::shared_ptr<Texture>> diffuseMaps = LoadMaterialTextures(material, aiTextureType_DIFFUSE);
+        if (diffuseMaps.size() > 0) {
+            diffuse = diffuseMaps[0];
+        }
         textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-        
+
         std::vector<std::shared_ptr<Texture>> specularMaps = LoadMaterialTextures(material, aiTextureType_SPECULAR);
+        if (specularMaps.size() > 0) {
+            specular = specularMaps[0];
+        }
         textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
 
         std::vector<std::shared_ptr<Texture>> normalMaps = LoadMaterialTextures(material, aiTextureType_HEIGHT);
@@ -108,10 +118,11 @@ std::shared_ptr<Ayo::Mesh> Ayo::Model::ProcessMesh(aiMesh* mesh, const aiScene* 
 
         std::vector<std::shared_ptr<Texture>> heightMaps = LoadMaterialTextures(material, aiTextureType_AMBIENT);
         textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
-
     }
 
-    std::shared_ptr<Ayo::Mesh> ayoMesh = std::make_shared<Ayo::Mesh>(vertices, indices, textures);
+    std::shared_ptr<Ayo::StandardMaterial> mat = Ayo::StandardMaterial::Create(Vector3(1.0f), diffuse, specular, 0.032f);
+
+    std::shared_ptr<Ayo::Mesh> ayoMesh = std::make_shared<Ayo::Mesh>(vertices, indices, mat);
 
     return ayoMesh;
 }

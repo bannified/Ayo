@@ -40,9 +40,6 @@
     <Filter Include="src\Platform\OpenGL">
       <UniqueIdentifier>{35A49437-A105-7245-2A73-B8F796D3A804}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Platform\OpenGL\Materials">
-      <UniqueIdentifier>{462D7AE2-B245-610C-7BF2-F0A5E7C9F5A5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Platform\Windows">
       <UniqueIdentifier>{5B054582-4794-CE4B-F0B2-E246DC20DFF1}</UniqueIdentifier>
     </Filter>
@@ -182,9 +179,6 @@
     </ClInclude>
     <ClInclude Include="src\Ayo\Window.h">
       <Filter>src\Ayo</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Platform\OpenGL\Materials\OpenGLStandardMaterial.h">
-      <Filter>src\Platform\OpenGL\Materials</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h">
       <Filter>src\Platform\OpenGL</Filter>
@@ -1305,6 +1299,9 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
+    <ClInclude Include="MeshComponent.h">
+      <Filter>src\Ayo\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Ayo\Application.cpp">
@@ -1388,9 +1385,6 @@
     <ClCompile Include="src\Ayo\Time.cpp">
       <Filter>src\Ayo</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\OpenGL\Materials\OpenGLStandardMaterial.cpp">
-      <Filter>src\Platform\OpenGL\Materials</Filter>
-    </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
@@ -1417,6 +1411,9 @@
     </ClCompile>
     <ClCompile Include="src\ayopch.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshComponent.cpp">
+      <Filter>src\Ayo\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

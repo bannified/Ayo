@@ -11,8 +11,8 @@ Ayo::Mesh::~Mesh()
 
 }
 
-Ayo::Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices, std::vector<std::shared_ptr<Texture>> textures)
-    : m_Vertices(vertices), m_Indices(indices), m_Textures(textures) 
+Ayo::Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices, const std::shared_ptr<Material>& material)
+    : m_Vertices(vertices), m_Indices(indices), m_Material(material) 
 {
     m_VertexArray = Ayo::VertexArray::Create();
     SetupMesh();
@@ -22,11 +22,7 @@ void Ayo::Mesh::Draw(const std::shared_ptr<Shader>& shader)
 {
     m_VertexArray->Bind();
 
-    for (unsigned int i = 0; i < m_Textures.size(); i++) {
-        const std::shared_ptr<Texture>& tex = m_Textures[i];
-        std::string texName = tex->GetTextureName();
-        shader->AddTexture("u_StandardMaterial." + tex->GetTextureName(), tex);
-    }
+    m_Material->SetupShader(shader);
 
     Renderer::Submit(shader, m_VertexArray);
     m_VertexArray->Unbind();
