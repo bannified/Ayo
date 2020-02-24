@@ -16,6 +16,8 @@ namespace Ayo {
 
         void Draw(const std::shared_ptr<Shader>& shader);
 
+        inline std::vector<std::shared_ptr<Material>> GetAllMaterials() { return m_AllMaterials; }
+
     private:
         std::shared_ptr<Model> m_Model;
 

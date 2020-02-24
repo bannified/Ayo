@@ -23,6 +23,9 @@ namespace Ayo
                                                         const std::shared_ptr<Texture>& specularMap,
                                                         const float shininess);
 
+
+        virtual void SetBaseColor(Vector3 color) override;
+
     protected:
         /* Base Color, ambient color */
         Vector3 p_BaseColor;

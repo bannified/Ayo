@@ -22,9 +22,14 @@ std::shared_ptr<Ayo::StandardMaterial> Ayo::StandardMaterial::Create(const Vecto
     return std::make_shared<Ayo::StandardMaterial>(baseColor, diffuseMap, specularMap, shininess);
 }
 
+void Ayo::StandardMaterial::SetBaseColor(Vector3 color)
+{
+    p_BaseColor = color;
+}
+
 void Ayo::StandardMaterial::SetShaderProperties(const std::shared_ptr<Shader>& shader)
 {
-    shader->UpdateFloat3Constant("u_StandardMaterial.color", p_BaseColor.Get());
+    shader->UpdateFloat3Constant("u_StandardMaterial.baseColor", p_BaseColor.Get());
 
     shader->AddTexture("u_StandardMaterial.diffuse", p_DiffuseMap);
     shader->AddTexture("u_StandardMaterial.specular", p_SpecularMap);

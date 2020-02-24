@@ -6,6 +6,7 @@
 
 class ExampleLayer : public Ayo::Layer
 {
+    
 public:
     ExampleLayer()
         : Layer("Example")
@@ -16,6 +17,14 @@ public:
 
     void SetupExampleScene()
     {
+        m_Plane = std::make_shared<Ayo::MeshComponent>(AppSettings::DEBUG_ROOT_PATH + "/staticmeshes/Plane.FBX");
+        m_Plane->SetLocalRotation(Ayo::Rotator(glm::radians(-90.0f), 0.0f, 0.0f));
+        m_Plane->SetLocalLocation(Ayo::Vector3(0.0f, -1.0f, 0.0f));
+        m_Plane->SetLocalScale(Ayo::Vector3(0.2f, 0.2f, 10.0f));
+
+        for (auto mat : m_Plane->GetAllMaterials()) {
+            mat->SetBaseColor({ 0.7f, 0.7f, 0.7f });
+        }
 
         // Setup a mesh
         m_Nanosuit = std::make_shared<Ayo::MeshComponent>(AppSettings::DEBUG_ROOT_PATH + "/meshes/nanosuit/nanosuit.obj");
@@ -23,12 +32,9 @@ public:
         m_Nanosuit->SetLocalLocation(Ayo::Vector3(0.0f, -1.5f, .5f));
         m_Nanosuit->SetLocalScale(Ayo::Vector3(0.2f, 0.2f, 0.2f));
 
-        m_NanosuitModel = std::make_shared<Ayo::Model>(AppSettings::DEBUG_ROOT_PATH + "/meshes/nanosuit/nanosuit.obj");
-
         // Setup Camera
         m_Camera = std::make_shared<Ayo::Camera>();
         m_Camera->SetProjectionMatrix(glm::perspective(glm::radians(45.0f), 16.0f / 9.0f, 0.1f, 100.0f));
-        //m_Camera->SetViewMatrix(glm::identity<glm::mat4>());
 
         modelTransform = glm::mat4(1.0f);
         modelTransform = glm::translate(modelTransform, glm::vec3(0.0f, -1.0f, .5f));
@@ -122,6 +128,8 @@ public:
 
         fragmentSourcePath = AppSettings::DEBUG_ROOT_PATH + "/nanosuit.fs";
         m_NanosuitShader = Ayo::Shader::CreateFromPath(vertexSourcePath, fragmentSourcePath);
+
+        m_FlatLitShader = Ayo::Shader::CreateFromPath(vertexSourcePath, AppSettings::DEBUG_ROOT_PATH + "/flatcolor-lit.fs");
 
         // Textures
         std::string texturePath = AppSettings::DEBUG_ROOT_PATH + "/container.jpg";
@@ -316,6 +324,10 @@ public:
         m_VertexArrayCube->Bind();
         Ayo::Renderer::Submit(m_Shader, m_VertexArrayCube);
 
+        m_PointLight->SetupShader(m_FlatLitShader);
+        m_DirLight->SetupShader(m_FlatLitShader);
+        m_Plane->Draw(m_FlatLitShader);
+
         /* nanosuit */
         m_NanosuitShader->Bind();
 
@@ -346,6 +358,11 @@ public:
     }
 
 private:
+
+    /* Common primitive shapes */
+    std::shared_ptr<Ayo::Shader> m_FlatLitShader;
+
+    std::shared_ptr<Ayo::MeshComponent> m_Plane;
 
     // test
     std::shared_ptr<Ayo::MeshComponent> m_Nanosuit;
