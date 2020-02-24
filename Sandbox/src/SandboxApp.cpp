@@ -26,7 +26,8 @@ public:
         //m_Camera->SetViewMatrix(glm::identity<glm::mat4>());
 
         modelTransform = glm::mat4(1.0f);
-        modelTransform = glm::scale(modelTransform, glm::vec3(0.1f, 0.1f, 0.1f));
+        modelTransform = glm::translate(modelTransform, glm::vec3(0.0f, -1.0f, .5f));
+        modelTransform = glm::scale(modelTransform, glm::vec3(0.5f, 0.5f, 0.5f));
 
         // Setup buffers
         std::shared_ptr<Ayo::VertexBuffer> vertexBufferCube;
@@ -36,48 +37,48 @@ public:
 
         /* Vertices */
         float vertices[] = {
-            // Vertices           // Tex coords     // Normals
-            -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,        0.0f,  0.0f, -1.0f,
-             0.5f, -0.5f, -0.5f,  1.0f, 0.0f,        0.0f,  0.0f, -1.0f,
-             0.5f,  0.5f, -0.5f,  1.0f, 1.0f,        0.0f,  0.0f, -1.0f,
-             0.5f,  0.5f, -0.5f,  1.0f, 1.0f,        0.0f,  0.0f, -1.0f,
-            -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,        0.0f,  0.0f, -1.0f,
-            -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,        0.0f,  0.0f, -1.0f,
+            // Vertices          // Normals             // Tex coords     
+            -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,   0.0f, 0.0f,
+             0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,   1.0f, 0.0f,
+             0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,   1.0f, 1.0f,
+             0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,   1.0f, 1.0f,
+            -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,   0.0f, 1.0f,
+            -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,   0.0f, 0.0f,
 
-            -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,        0.0f,  0.0f, 1.0f,
-             0.5f, -0.5f,  0.5f,  1.0f, 0.0f,        0.0f,  0.0f, 1.0f,
-             0.5f,  0.5f,  0.5f,  1.0f, 1.0f,        0.0f,  0.0f, 1.0f,
-             0.5f,  0.5f,  0.5f,  1.0f, 1.0f,        0.0f,  0.0f, 1.0f,
-            -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,        0.0f,  0.0f, 1.0f,
-            -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,        0.0f,  0.0f, 1.0f,
+            -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,    0.0f, 0.0f,
+             0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,    1.0f, 0.0f,
+             0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,    1.0f, 1.0f,
+             0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,    1.0f, 1.0f,
+            -0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,    0.0f, 1.0f,
+            -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,    0.0f, 0.0f,
 
-            -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,       -1.0f,  0.0f,  0.0f,
-            -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,       -1.0f,  0.0f,  0.0f,
-            -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,       -1.0f,  0.0f,  0.0f,
-            -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,       -1.0f,  0.0f,  0.0f,
-            -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,       -1.0f,  0.0f,  0.0f,
-            -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,       -1.0f,  0.0f,  0.0f,
+            -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,   1.0f, 0.0f,
+            -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,   1.0f, 1.0f,
+            -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,   0.0f, 1.0f,
+            -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,   0.0f, 1.0f,
+            -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,   0.0f, 0.0f,
+            -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,   1.0f, 0.0f,
 
-             0.5f,  0.5f,  0.5f,  1.0f, 0.0f,        1.0f,  0.0f,  0.0f,
-             0.5f,  0.5f, -0.5f,  1.0f, 1.0f,        1.0f,  0.0f,  0.0f,
-             0.5f, -0.5f, -0.5f,  0.0f, 1.0f,        1.0f,  0.0f,  0.0f,
-             0.5f, -0.5f, -0.5f,  0.0f, 1.0f,        1.0f,  0.0f,  0.0f,
-             0.5f, -0.5f,  0.5f,  0.0f, 0.0f,        1.0f,  0.0f,  0.0f,
-             0.5f,  0.5f,  0.5f,  1.0f, 0.0f,        1.0f,  0.0f,  0.0f,
+             0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,   1.0f, 0.0f,
+             0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,   1.0f, 1.0f,
+             0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,   0.0f, 1.0f,
+             0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,   0.0f, 1.0f,
+             0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,   0.0f, 0.0f,
+             0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,   1.0f, 0.0f,
 
-            -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,        0.0f, -1.0f,  0.0f,
-             0.5f, -0.5f, -0.5f,  1.0f, 1.0f,        0.0f, -1.0f,  0.0f,
-             0.5f, -0.5f,  0.5f,  1.0f, 0.0f,        0.0f, -1.0f,  0.0f,
-             0.5f, -0.5f,  0.5f,  1.0f, 0.0f,        0.0f, -1.0f,  0.0f,
-            -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,        0.0f, -1.0f,  0.0f,
-            -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,        0.0f, -1.0f,  0.0f,
+            -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,   0.0f, 1.0f,
+             0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,   1.0f, 1.0f,
+             0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,   1.0f, 0.0f,
+             0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,   1.0f, 0.0f,
+            -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,   0.0f, 0.0f,
+            -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,   0.0f, 1.0f,
 
-            -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,        0.0f,  1.0f,  0.0f,
-             0.5f,  0.5f, -0.5f,  1.0f, 1.0f,        0.0f,  1.0f,  0.0f,
-             0.5f,  0.5f,  0.5f,  1.0f, 0.0f,        0.0f,  1.0f,  0.0f,
-             0.5f,  0.5f,  0.5f,  1.0f, 0.0f,        0.0f,  1.0f,  0.0f,
-            -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,        0.0f,  1.0f,  0.0f,
-            -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,        0.0f,  1.0f,  0.0f
+            -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,   0.0f, 1.0f,
+             0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,   1.0f, 1.0f,
+             0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,   1.0f, 0.0f,
+             0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,   1.0f, 0.0f,
+            -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,   0.0f, 0.0f,
+            -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,   0.0f, 1.0f,
         };
 
         vertexBufferCube = Ayo::VertexBuffer::Create(&vertices[0], sizeof(vertices));
@@ -85,8 +86,8 @@ public:
         /* Layout */
         Ayo::BufferLayout layout = {
             { Ayo::ShaderDataType::Float3, "a_Position"},
-            { Ayo::ShaderDataType::Float2, "a_TexCoord"},
-            { Ayo::ShaderDataType::Float3, "a_Normal"}
+            { Ayo::ShaderDataType::Float3, "a_Normal"},
+            { Ayo::ShaderDataType::Float2, "a_TexCoord"}
         };
 
         vertexBufferCube->SetLayout(layout);
@@ -144,13 +145,13 @@ public:
         m_StandardMat = Ayo::StandardMaterial::Create(baseColor, diffuseMapTexture, specularMapTexture, 64);
 
         // Setup Lights
-        m_PointLight = std::make_shared<Ayo::PointLightSource>(glm::vec3{ .3f, 1.0f, .4f }, glm::vec3{ .3f, 1.0f, .4f }, glm::vec3{ .3f, 1.0f, .4f }, 0.5f);
+        m_PointLight = std::make_shared<Ayo::PointLightSource>(glm::vec3{ 1.0f }, glm::vec3{ 1.0f }, glm::vec3{ 1.0f }, 1.0f );
 
         m_PointLight->SetLocalLocation({ 0.0f, 0.3f, 1.0f });
         m_PointLight->SetLocalRotation({ 0.0f, 0.0f, 0.0f });
         m_PointLight->SetLocalScale({ 0.2f, 0.2f, 0.2f });
 
-        m_DirLight = std::make_shared<Ayo::DirectionalLightSource>(glm::vec3{ 1.0f, 1.0f, 1.0f }, glm::vec3{ 1.0f, 1.0f, 1.0f }, glm::vec3{ 1.0f, 1.0f, 1.0f }, 1.0f);
+        m_DirLight = std::make_shared<Ayo::DirectionalLightSource>(glm::vec3{ 1.0f, 1.0f, 1.0f }, glm::vec3{ 1.0f, 1.0f, 1.0f }, glm::vec3{ 1.0f, 1.0f, 1.0f }, 0.2f);
         m_DirLight->SetLocalRotation(Ayo::Rotator::FromDegrees({ 45.0f, 45.0f, 0.0f }));
     }
 
@@ -287,7 +288,7 @@ public:
         m_Camera->RecalculateViewProjectionMatrix();
 
         //Ayo::RenderCommand::SetClearColor({ 0.95f, 0.0625f, 0.93f, 1.0f });
-        Ayo::RenderCommand::SetClearColor({ 0.5f, 0.5f, 0.5f, 1.0f });
+        Ayo::RenderCommand::SetClearColor({ 0.0F, 0.0F, 0.0F, 1.0f });
         Ayo::RenderCommand::Clear();
 
         Ayo::Renderer::BeginScene();
@@ -310,7 +311,7 @@ public:
         m_DirLight->SetupShader(m_Shader);
 
         m_VertexArrayCube->Bind();
-        //Ayo::Renderer::Submit(m_VertexArrayCube);
+        Ayo::Renderer::Submit(m_VertexArrayCube);
 
         /* nanosuit */
         m_NanosuitShader->Bind();
@@ -326,8 +327,8 @@ public:
 
         //m_StandardMat->SetupShader(m_NanosuitShader);
         // lighting
-        //m_PointLight->SetupShader(m_NanosuitShader);
-        //m_DirLight->SetupShader(m_NanosuitShader);
+        m_PointLight->SetupShader(m_NanosuitShader);
+        m_DirLight->SetupShader(m_NanosuitShader);
 
         m_NanosuitModel->Draw(m_NanosuitShader);
 

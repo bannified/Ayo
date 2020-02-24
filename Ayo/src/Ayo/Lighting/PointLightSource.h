@@ -11,7 +11,7 @@ namespace Ayo
     {
     public:
         PointLightSource(const Vector3 ambient, const Vector3 diffuse, const Vector3 specular, const float intensity,
-                         const float constantAttenuation = 1.0f, const float linearAttentuation = 0.09f, const float quadraticAttenuation = 0.032f);
+                         const float constantAttenuation = 1.0f, const float linearAttentuation = 0.09f, const float quadraticAttenuation = 1.0f);
 
         ~PointLightSource();
 

@@ -24,11 +24,8 @@ void Ayo::Mesh::Draw(const std::shared_ptr<Shader>& shader)
 
     for (unsigned int i = 0; i < m_Textures.size(); i++) {
         const std::shared_ptr<Texture>& tex = m_Textures[i];
-        if (tex->type == TextureType::DiffuseTexture) {
-            std::string texName = tex->GetTextureName();
-            shader->AddTexture("u_StandardMaterial." + tex->GetTextureName(), tex);
-            break;
-        }
+        std::string texName = tex->GetTextureName();
+        shader->AddTexture("u_StandardMaterial." + tex->GetTextureName(), tex);
     }
 
     Renderer::Submit(m_VertexArray);

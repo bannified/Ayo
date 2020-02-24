@@ -18,7 +18,7 @@ out vec3 v_Normal;
 out vec2 v_TexCoord;
 
 void main() {
-	v_Position = vec3(u_ViewProjectionMatrix * u_ModelMatrix * vec4(a_Position, 1.0));
+	v_Position = vec3(u_ModelMatrix * vec4(a_Position, 1.0));
 	v_TexCoord = a_TexCoord;
 	v_Normal = mat3(u_NormalMatrix) * a_Normal;
 
