@@ -30,7 +30,7 @@ void Ayo::Model::LoadModelByPath(const std::string& path)
 {
     Assimp::Importer importer;
 
-    const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+    const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate);
 
     // error if there's no scene, it is incomplete, or it doesn't have a root node.
     if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) 

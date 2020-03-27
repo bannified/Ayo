@@ -18,9 +18,17 @@ public:
     void SetupExampleScene()
     {
         m_Plane = std::make_shared<Ayo::MeshComponent>(AppSettings::DEBUG_ROOT_PATH + "/staticmeshes/Plane.FBX");
-        m_Plane->SetLocalRotation(Ayo::Rotator(glm::radians(-90.0f), 0.0f, 0.0f));
+        m_Plane->SetLocalRotation(Ayo::Rotator(glm::radians(90.0f), 0.0f, 0.0f));
         m_Plane->SetLocalLocation(Ayo::Vector3(0.0f, -1.0f, 0.0f));
         m_Plane->SetLocalScale(Ayo::Vector3(0.2f, 0.2f, 10.0f));
+
+        for (auto mat : m_Plane->GetAllMaterials()) {
+            mat->SetBaseColor({ 0.7f, 0.7f, 0.7f });
+        }
+
+        m_Sphere = std::make_shared<Ayo::MeshComponent>(AppSettings::DEBUG_ROOT_PATH + "/staticmeshes/Sphere.FBX");
+        m_Sphere->SetLocalLocation(Ayo::Vector3(1.0f, 0.5f, 0.0f));
+        m_Sphere->SetLocalScale(Ayo::Vector3(0.005f));
 
         for (auto mat : m_Plane->GetAllMaterials()) {
             mat->SetBaseColor({ 0.7f, 0.7f, 0.7f });
@@ -296,8 +304,6 @@ public:
         }
         /* -------------------------------------------- */
 
-
-
         m_Camera->RecalculateViewProjectionMatrix();
 
         //Ayo::RenderCommand::SetClearColor({ 0.95f, 0.0625f, 0.93f, 1.0f });
@@ -327,6 +333,7 @@ public:
         m_PointLight->SetupShader(m_FlatLitShader);
         m_DirLight->SetupShader(m_FlatLitShader);
         m_Plane->Draw(m_FlatLitShader);
+        m_Sphere->Draw(m_FlatLitShader);
 
         /* nanosuit */
         m_NanosuitShader->Bind();
@@ -363,6 +370,7 @@ private:
     std::shared_ptr<Ayo::Shader> m_FlatLitShader;
 
     std::shared_ptr<Ayo::MeshComponent> m_Plane;
+    std::shared_ptr<Ayo::MeshComponent> m_Sphere;
 
     // test
     std::shared_ptr<Ayo::MeshComponent> m_Nanosuit;
